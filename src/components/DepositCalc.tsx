@@ -25,15 +25,16 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 
 
+
 //main
 const DepositCalc = () => {
-    
-  //переключатель валюты
-  const [currency, setCurrency] = useState<string | null>('ruble');
+  type Nullable<T> = T | undefined | null;
 
+  //переключатель валюты
+  const [currency, setCurrency] = useState<string | null | undefined>('ruble');
   const handleCurrency = (
     event: React.MouseEvent<HTMLElement>,
-    newCurrency: string | null,
+    newCurrency: string | null | undefined,
   ) => {
     setCurrency(newCurrency);
     console.log(newCurrency)
@@ -73,6 +74,27 @@ const DepositCalc = () => {
     {
       value: 100000000,
       label: `∞ ${(currency === 'ruble'? '₽' : '$')}`,
+    },
+  ];
+
+
+  //выбор срока депозита
+  const [depositTerm, setdepositTerm] = useState<number | string | Array<number | string | null | undefined>>(
+    1,
+  );
+
+  const handleSliderDepositTerm = (event: Event, newValue: number | number[]) => {
+    setValue(newValue);
+  };
+  
+  const marksSliderDepositTerm = [
+    {
+      value: 1,
+      label: '1 день',
+    },
+    {
+      value: 1095,
+      label: '3 года',
     },
   ];
 
@@ -135,13 +157,27 @@ const DepositCalc = () => {
               valueLabelFormat={numberWithSpaces(value) + (currency === 'ruble'? ' ₽' : ' $')}
               valueLabelDisplay="auto"
               marks={marksSliderDeposit}    
-              name = 'test' 
-
+ 
             />
           </Box>
 
-        <br></br><br></br><br></br>
-        срок<br></br>
+          <Box>
+            <Typography variant='caption'>Срок</Typography>   
+            <Slider
+              value={typeof depositTerm === 'number' ? value : 1}
+              //value={1}
+              onChange={handleSliderDepositTerm}
+              aria-labelledby="DepositTermSlider"
+              min={1}
+              max = {1095}
+              step={1}
+              //valueLabelFormat={numberWithSpaces(value) + (currency === 'ruble'? ' ₽' : ' $')}
+              valueLabelDisplay="auto"
+              marks={marksSliderDepositTerm} 
+            />
+          </Box>
+        
+        <br></br>
         выплата процентов<br></br>
         опции<br></br>
         сохранить расчет

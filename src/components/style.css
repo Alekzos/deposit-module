@@ -53,18 +53,14 @@
   
 }
 
-.MuiFormGroup-root .MuiSvgIcon-root{
-    float: left;
-    position: relative;
-    display: block;
-    flex:none;
+.MuiFormGroup-root .MuiSvgIcon-root[data-testid="HelpOutlineIcon"]{
+    position: absolute;
+    left: 480px;
+    margin-top: 52px;
 }
 
 
 .MuiFormControlLabel-root {
     height: 45px;
-    
-    /*  для теста чтобы знак вопроса поместился */
-    width: 500px;
 }
 

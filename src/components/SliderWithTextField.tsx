@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useState } from 'react';
-import './style.css';
+
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { Tooltip } from '@mui/material';
 import HelpOutline from '@mui/icons-material/HelpOutline';
+
 import {numberWithSpaces} from './utils';
 
 

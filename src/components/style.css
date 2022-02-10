@@ -6,7 +6,7 @@
 
 
 .MuiTypography-h1 {
- font-size: 56px;
+ font-size: 46px;
  margin-bottom: 20px;
 }
 
@@ -16,6 +16,7 @@
 }
 
 .MuiBox-root, .MuiToggleButtonGroup-fullWidth {margin-right: 50px;}
+.MuiToggleButtonGroup-fullWidth {margin-top: 5px;}
 
 .MuiToggleButton-root {
     background-color:rgba(0, 0, 0, 0.08);
@@ -48,5 +49,22 @@
 
 
 .MuiInputBase-root .MuiSvgIcon-root {
-    padding-left:10px
+    padding-left:10px;  
+  
 }
+
+.MuiFormGroup-root .MuiSvgIcon-root{
+    float: left;
+    position: relative;
+    display: block;
+    flex:none;
+}
+
+
+.MuiFormControlLabel-root {
+    height: 45px;
+    
+    /*  для теста чтобы знак вопроса поместился */
+    width: 500px;
+}
+

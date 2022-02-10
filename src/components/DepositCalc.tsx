@@ -11,16 +11,27 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import Box from '@mui/material/Box'
 
+
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import { Tooltip } from '@mui/material';
+import HelpOutline from '@mui/icons-material/HelpOutline';
+
 import {numberWithoutSpaces} from './utils';
 
 import SliderWithTextField from './SliderWithTextField'
 
-
+import IconButton from '@mui/material/IconButton';
+import Icon, { IconProps } from '@mui/material/Icon';
+import Composition from './test'
 
 
 //main
 const DepositCalc = () => {
-
+  
   enum Currency { 
     rub = "rub", 
     usd = "usd",
@@ -80,6 +91,27 @@ const DepositCalc = () => {
   };
 
 
+  //чекбоксы
+  // const [checked, setChecked] = React.useState<boolean>(false,);
+  
+
+  const [depositOptions, setDepositOptions] = useState({
+    checkEarlyTermination: false,
+    checkWithdrawals: false,
+  });
+
+
+  const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDepositOptions({
+      ...depositOptions,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const { checkEarlyTermination, checkWithdrawals } = depositOptions;
+
+
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     
   const days: boolean = true;
 
@@ -131,25 +163,60 @@ const DepositCalc = () => {
 
           <Box>
           <Typography variant='caption'>Выплата процентов</Typography>  
-          <ToggleButtonGroup
-            value={paymentPeriod}
-            exclusive
-            onChange={handlePaymentPeriod }
-            aria-label="period-payment"
-            color="primary"
-            fullWidth
-          >
-            <ToggleButton  value="startOfTerm">В начале срока</ToggleButton>     
-            <ToggleButton  value="monthly">Ежемесячно</ToggleButton>
-            <ToggleButton  value="endOfTerm">В конце срока</ToggleButton>
-          </ToggleButtonGroup>
+            <ToggleButtonGroup
+              value={paymentPeriod}
+              exclusive
+              onChange={handlePaymentPeriod }
+              aria-label="period-payment"
+              color="primary"
+              fullWidth
+            >
+              <ToggleButton  value="startOfTerm">В начале срока</ToggleButton>     
+              <ToggleButton  value="monthly">Ежемесячно</ToggleButton>
+              <ToggleButton  value="endOfTerm">В конце срока</ToggleButton>
+            </ToggleButtonGroup>
           </Box>
         
-        
-        <br></br>
-        
-        опции<br></br>
-        сохранить расчет
+          <Box> 
+          
+          <FormGroup>
+            <FormControlLabel 
+              control={ 
+                <Checkbox  
+                  checked={checkEarlyTermination} 
+                  onChange={handleChangeCheckBox} 
+                  name="checkEarlyTermination" 
+                  icon={<ToggleOffIcon fontSize="large"/>} 
+                  checkedIcon={<ToggleOnIcon fontSize="large"/>} 
+                  sx={{ '& .MuiSvgIcon-root': { fontSize: 60 } }}
+                />} 
+                label="Досрочное расторжение" 
+            />
+              
+            <FormControlLabel 
+              control={ 
+                <Checkbox 
+                  checked={checkWithdrawals} 
+                  onChange={handleChangeCheckBox} 
+                  icon={<ToggleOffIcon />} 
+                  checkedIcon={<ToggleOnIcon />} 
+                  name="checkWithdrawals"
+                  sx={{ '& .MuiSvgIcon-root': { fontSize: 60 } }}                  
+                />} 
+              label="Частичное снятие и пополнение"  
+              />
+              <Tooltip title="Информация о сроках" >
+                  <HelpOutline />
+              </Tooltip>
+
+    
+          </FormGroup>
+
+          
+  
+
+        </Box> 
+        здесь будет кнопка сохранить расчет
         </Grid>
            
         <Grid item xs={6}>

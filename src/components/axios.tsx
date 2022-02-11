@@ -1,43 +1,34 @@
-import axios from "axios";
+
 import React from "react";
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
-
-interface Post {
+interface JsonDatainterface {
+    userId: number, 
     id: number, 
     title: string, 
     body: string
 }
 
-
 const baseURL = "https://jsonplaceholder.typicode.com/posts";
 
-export default function App() {
-  const [post, setPost] = React.useState<Post[]>([]);
 
-  React.useEffect(() => {
-    axios.get<Post[]>(`${baseURL}/1`).then((response) => {
-      setPost(response.data);
+export default function GetJsonData() {
+
+  const [jsonData, setjsonData] = useState<JsonDatainterface>();
+
+  useEffect(() => {
+    axios.get<JsonDatainterface>(`${baseURL}/1`).then((response) => {
+      setjsonData(response.data);
     });
   }, []);
-
-  function createPost() {
-    axios
-      .post(baseURL, {
-        title: "Hello World!",
-        body: "This is a new post."
-      })
-      .then((response) => {
-        setPost(response.data);
-      });
-  }
-
-  if (!post) return "No post!"
-
+  
   return (
     <div>
-      <h1>{post.title}</h1>
-      <p>{post.body}</p>
-      <button onClick={createPost}>Create Post</button>
+      <p>тест</p>
+      <ul>
+        {jsonData.map(item => (<li key={item.id}>{item.title}</li>))}
+      </ul>
     </div>
   );
 }

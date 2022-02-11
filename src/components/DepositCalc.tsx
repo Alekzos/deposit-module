@@ -22,20 +22,14 @@ import HelpOutline from '@mui/icons-material/HelpOutline';
 
 import {numberWithoutSpaces} from './utils';
 
+import GetJsonData from './axios';
+
 import SliderWithTextField from './SliderWithTextField'
 
 
 //main
 const DepositCalc = () => {
-  
-  const [post, setPost] = useState(null);
-  const baseURL = "https://jsonplaceholder.typicode.com/posts";
-  useEffect(() => {
-    axios.get(`${baseURL}/1`).then((response) => {
-      setPost(response.data);
-    });
-  }, []);
-  
+
 
 
   // const depositsDataUrl = "http://localhost:8000/deposits";
@@ -135,6 +129,13 @@ const DepositCalc = () => {
     <StyledEngineProvider injectFirst>
       <Typography variant="h1">Депозитный калькулятор</Typography>
       <Typography paragraph>Введите параметры и подберите подходящий продукт</Typography>
+     
+      {GetJsonData()}
+
+      
+      
+      
+      
       <Grid container>
         <Grid item xs={6}> 
           <Box>
@@ -251,17 +252,12 @@ const DepositCalc = () => {
   
 
         </Box> 
-        здесь будет кнопка сохранить расчет
         </Grid>
            
         <Grid item xs={6}>
           <Box>
           {/* if (!deposits) return null; */}
-          <div>
-      <h1>{post.title}</h1>
-      <p>{post.body}</p>
-      <button onClick={createPost}>Create Post</button>
-    </div>
+
 
     {/* <div>
       <h1>{deposits.title}</h1>

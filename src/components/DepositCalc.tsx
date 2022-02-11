@@ -22,7 +22,8 @@ import HelpOutline from '@mui/icons-material/HelpOutline';
 
 import {numberWithoutSpaces} from './utils';
 
-import GetJsonData from './axios';
+import DepositsList from './DepositsList';
+import {IDeposit} from '../../data/types';
 
 import SliderWithTextField from './SliderWithTextField'
 
@@ -32,17 +33,23 @@ const DepositCalc = () => {
 
 
 
-  // const depositsDataUrl = "http://localhost:8000/deposits";
-  // const [deposits, setDeposits] = useState(null);
+  const [deposits, setDeposits] = useState<IDeposit[]>();
+  const baseURL = "";
 
-  // useEffect(() => {
-  //   axios.get(depositsDataUrl).then((response) => {
-  //     setDeposits(response.data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetchDeposits()
+}, [])
+
 
   
-
+  async function fetchDeposits() {
+    try {
+        const response = await axios.get<IDeposit[]>('http://localhost:8000/deposits')
+        setDeposits(response.data)
+    } catch (e) {
+        alert(e)
+    }
+}
 
 
 
@@ -130,7 +137,7 @@ const DepositCalc = () => {
       <Typography variant="h1">Депозитный калькулятор</Typography>
       <Typography paragraph>Введите параметры и подберите подходящий продукт</Typography>
      
-      {GetJsonData()}
+      <DepositList props={deposits} />
 
       
       

@@ -9,10 +9,11 @@
         "maxSum": "0", 
         "minTerm": "14",  
         "maxTerm": "365", 
+        "termDescription":"",
         "currency":"rub",
         "paymentPeriods":"startOfTerm", 
-        "Withdrawals": 0,
-        "EarlyTermination":0 
+        "withdrawals": 0,
+        "earlyTermination":0 
     },
     { 
         "id": 2, 
@@ -38,11 +39,11 @@
       "maxSum": "0", 
       "minTerm": "2",  
       "maxTerm": "1095", 
+      "termDescription":"",
       "currency":"usd",
       "paymentPeriods":"monthly", 
-      "Withdrawals": 0,
-      "EarlyTermination":1, 
-      "interestСapitalization": 1 
+      "withdrawals": 0,
+      "earlyTermination":1 
     },
 
       { 
@@ -55,11 +56,11 @@
         "sumDescription":"До 450 млн ₽",
         "minTerm": "60",  
         "maxTerm": "360",
-        "TermDescription": "60, 90, 120, 180, 270 или 360 дней",
+        "termDescription": "60, 90, 120, 180, 270 или 360 дней",
         "currency":"rub",
         "paymentPeriods":"endOfTerm",
-        "Withdrawals": 0,
-        "EarlyTermination":1
+        "withdrawals": 0,
+        "earlyTermination":1
     },
 
 
@@ -73,7 +74,7 @@
       "sumDescription":"От 500 тыс до 15 млн $",
       "minTerm": "60",  
       "maxTerm": "360",
-      "TermDescription": "60, 90, 120, 180, 270 или 360 дней",
+      "termDescription": "60, 90, 120, 180, 270 или 360 дней",
       "currency":"usd",
       "paymentPeriods":"endOfTerm",
       "Withdrawals": 0,
@@ -90,11 +91,11 @@
       "sumDescription":"От 2 млн ₽",
       "minTerm": "61",  
       "maxTerm": "365",
-      "TermDescription": "От 61 до 365 дней",
+      "termDescription": "От 61 до 365 дней",
       "currency":"rub",
       "paymentPeriods":"endOfTerm",
-      "Withdrawals": 1,
-      "EarlyTermination":1
+      "withdrawals": 1,
+      "earlyTermination":1
     },
 
 
@@ -108,11 +109,11 @@
       "sumDescription":"От 200 тыс. $",
       "minTerm": "61",  
       "maxTerm": "365",
-      "TermDescription": "От 61 до 365 дней",
+      "termDescription": "От 61 до 365 дней",
       "currency":"usd",
       "paymentPeriods":"endOfTerm",
-      "Withdrawals": 1,
-      "EarlyTermination":1
+      "withdrawals": 1,
+      "earlyTermination":1
     },
 
 
@@ -126,11 +127,11 @@
       "sumDescription":"От 1 млн ₽",
       "minTerm": "1",  
       "maxTerm": "1",
-      "TermDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
+      "termDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
       "currency":"rub",
       "paymentPeriods":"endOfTerm",
-      "Withdrawals": 0,
-      "EarlyTermination":0
+      "withdrawals": 0,
+      "earlyTermination":0
     },
 
     { 
@@ -143,11 +144,11 @@
       "sumDescription":"От 1 млн ₽",
       "minTerm": "1",  
       "maxTerm": "1",
-      "TermDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
+      "termDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
       "currency":"usd",
       "paymentPeriods":"endOfTerm",
-      "Withdrawals": 0,
-      "EarlyTermination":0
+      "withdrawals": 0,
+      "earlyTermination":0
     }
       ]
 }

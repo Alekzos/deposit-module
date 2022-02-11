@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import axios from "axios";
 
 import './style.css';
 
@@ -10,8 +12,6 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import Box from '@mui/material/Box'
-
-
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -24,15 +24,35 @@ import {numberWithoutSpaces} from './utils';
 
 import SliderWithTextField from './SliderWithTextField'
 
-import IconButton from '@mui/material/IconButton';
-import Icon, { IconProps } from '@mui/material/Icon';
-import Composition from './test'
-
 
 //main
 const DepositCalc = () => {
   
-  enum Currency { 
+  const [post, setPost] = useState(null);
+  const baseURL = "https://jsonplaceholder.typicode.com/posts";
+  useEffect(() => {
+    axios.get(`${baseURL}/1`).then((response) => {
+      setPost(response.data);
+    });
+  }, []);
+  
+
+
+  // const depositsDataUrl = "http://localhost:8000/deposits";
+  // const [deposits, setDeposits] = useState(null);
+
+  // useEffect(() => {
+  //   axios.get(depositsDataUrl).then((response) => {
+  //     setDeposits(response.data);
+  //   });
+  // }, []);
+
+  
+
+
+
+
+  enum Currencies  { 
     rub = "rub", 
     usd = "usd",
   };
@@ -45,7 +65,7 @@ const DepositCalc = () => {
   
 
   //переключатель валюты
-  const [currency, setCurrency] = useState<string>(Currency.rub);
+  const [currency, setCurrency] = useState<string>(Currencies.rub);
 
   const handleCurrency = (
     event: React.MouseEvent<HTMLElement>,
@@ -55,7 +75,7 @@ const DepositCalc = () => {
   };
 
   //выбор периода платежей
-  const [paymentPeriod, setPaymentPeriod] = useState<string>(paymentPeriods.startOfTerm);;
+  const [paymentPeriod, setPaymentPeriod] = useState<string>(paymentPeriods.startOfTerm);
 
   const handlePaymentPeriod = (
     event: React.MouseEvent<HTMLElement>,
@@ -91,13 +111,11 @@ const DepositCalc = () => {
   };
 
 
-  //чекбоксы
-  // const [checked, setChecked] = React.useState<boolean>(false,);
-  
-
+  //опции депозита (чекбоксы)
   const [depositOptions, setDepositOptions] = useState({
     checkEarlyTermination: false,
     checkWithdrawals: false,
+    interestСapitalization: false,
   });
 
 
@@ -106,14 +124,11 @@ const DepositCalc = () => {
       ...depositOptions,
       [event.target.name]: event.target.checked,
     });
+    console.log(depositOptions)
   };
 
-  const { checkEarlyTermination, checkWithdrawals } = depositOptions;
-
-
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  const { checkEarlyTermination, checkWithdrawals, interestСapitalization } = depositOptions;
     
-  const days: boolean = true;
 
     return (
     <>
@@ -138,7 +153,7 @@ const DepositCalc = () => {
 
           <SliderWithTextField 
             caption={'Сумма'}
-            Currency={Currency}
+            Currencies={Currencies}
             currency={currency} 
             step={500}
             min= {0}
@@ -152,7 +167,7 @@ const DepositCalc = () => {
           <SliderWithTextField 
             caption={'Срок'}
             days
-            Currency={Currency}
+            Currencies={Currencies}
             step={1}
             min= {1}
             max = {1095}
@@ -205,11 +220,31 @@ const DepositCalc = () => {
                 />} 
               label="Частичное снятие и пополнение"  
               />
-              <Tooltip title="Информация о сроках" >
+              <Tooltip title="Информация об условиях частичного снятия" className="checkWithdrawalsHelp">
                   <HelpOutline />
               </Tooltip>
+              
 
-    
+              {/* увидел в задании, что после пункта досрочного расторжения
+               идет капитализации - и добавил ее,
+               как потом понял, что я уже ее сделал выше. Пока не удалил, можно добавить доп. опцию, 
+               например "специальные вклады" (пенсионные / инвестиционные / страховые / детские и т.п)
+              */}
+              {/* <FormControlLabel 
+              control={ 
+                <Checkbox 
+                  checked={interestСapitalization} 
+                  onChange={handleChangeCheckBox} 
+                  icon={<ToggleOffIcon />} 
+                  checkedIcon={<ToggleOnIcon />} 
+                  name="interestСapitalization"
+                  sx={{ '& .MuiSvgIcon-root': { fontSize: 60 } }}                  
+                />} 
+              label="Капитализации процентов"  
+              />
+              <Tooltip title="Информация про капитализацию процентов" className="interestСapitalizationHelp" >
+                  <HelpOutline />
+              </Tooltip>     */}
           </FormGroup>
 
           
@@ -221,11 +256,17 @@ const DepositCalc = () => {
            
         <Grid item xs={6}>
           <Box>
-            Варианты вкладов<br></br>
-            авансовый<br></br>
-            универсальный<br></br>
-            фиксированный<br></br>
-            гибкий
+          {/* if (!deposits) return null; */}
+          <div>
+      <h1>{post.title}</h1>
+      <p>{post.body}</p>
+      <button onClick={createPost}>Create Post</button>
+    </div>
+
+    {/* <div>
+      <h1>{deposits.title}</h1>
+      <p>{deposits.description}</p>
+    </div> */}
             </Box>
         </Grid>
       </Grid>

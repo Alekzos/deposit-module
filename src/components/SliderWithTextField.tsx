@@ -14,7 +14,7 @@ import {numberWithSpaces} from './utils';
 
 
 interface SliderWithTextFieldProps {
-    Currency?: any,
+    Currencies?: any,
     currency?:string,
     days?:boolean,
     step: number,
@@ -27,7 +27,7 @@ interface SliderWithTextFieldProps {
 }
 
 const SliderWithTextField: React.FC<SliderWithTextFieldProps> = (
-    {caption, Currency, currency, days, step, min, max, value, handleInputChange, handleSliderChange}) => {
+    {caption, Currencies, currency, days, step, min, max, value, handleInputChange, handleSliderChange}) => {
                
 
         //метки для бегунка с датами
@@ -66,11 +66,11 @@ const SliderWithTextField: React.FC<SliderWithTextFieldProps> = (
         const marksSliderDeposit = [
             {
                 value: 0,
-                label: `0 ${(currency === Currency.rub? '₽' : '$')}`,
+                label: `0 ${(currency === Currencies.rub? '₽' : '$')}`,
             },
             {
                 value: 100000000,
-                label: `∞ ${(currency === Currency.rub? '₽' : '$')}`,
+                label: `∞ ${(currency === Currencies.rub? '₽' : '$')}`,
             },
             ];
         
@@ -100,7 +100,7 @@ const SliderWithTextField: React.FC<SliderWithTextFieldProps> = (
               InputProps={{
                 endAdornment: 
                 <InputAdornment position="end">
-                    {(days)? "дней"  : (currency === Currency.rub? '₽' : '$')} 
+                    {(days)? "дней"  : (currency === Currencies.rub? '₽' : '$')} 
 
                     {(days)? 
                     <Tooltip title="Информация о сроках">
@@ -123,7 +123,7 @@ const SliderWithTextField: React.FC<SliderWithTextFieldProps> = (
               step= {step}
               valueLabelFormat={
               (days)? value + ' дней' : 
-              numberWithSpaces(value) + (currency === Currency.rub? ' ₽' : ' $')
+              numberWithSpaces(value) + (currency === Currencies.rub? ' ₽' : ' $')
               } 
               valueLabelDisplay="auto"
               marks={

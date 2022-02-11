@@ -2,6 +2,7 @@
     padding-left: 100px;
     padding-right: 100px;
     padding-top: 50px;
+    padding-bottom: 100px;
 }
 
 
@@ -53,14 +54,15 @@
   
 }
 
-.MuiFormGroup-root .MuiSvgIcon-root[data-testid="HelpOutlineIcon"]{
-    position: absolute;
-    left: 480px;
-    margin-top: 52px;
-}
-
-
 .MuiFormControlLabel-root {
     height: 45px;
 }
 
+
+
+.checkWithdrawalsHelp, .interestСapitalizationHelp {
+    position: absolute;
+    left: 500px;
+}
+.checkWithdrawalsHelp {margin-top: 52px;}
+.interestСapitalizationHelp {margin-top: 95px;}

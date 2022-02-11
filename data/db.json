@@ -1,0 +1,153 @@
+{
+  "deposits": [
+    { 
+        "id": 1, 
+        "title": "Авансовый", 
+        "description": "Выплата процентов авансом за весь срок", 
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": "0", 
+        "maxSum": "0", 
+        "minTerm": "14",  
+        "maxTerm": "365", 
+        "currency":"rub",
+        "paymentPeriods":"startOfTerm", 
+        "Withdrawals": 0,
+        "EarlyTermination":0 
+    },
+    { 
+        "id": 2, 
+        "title": "Универсальный", 
+        "description": "Со сроком привлечения до года / свыше года", 
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": "0", 
+        "maxSum": "0", 
+        "minTerm": "2",  
+        "maxTerm": "1095", 
+        "currency":"rub",
+        "paymentPeriods":"monthly", 
+        "Withdrawals": 0,
+        "EarlyTermination":1
+    },
+
+    { 
+      "id": 3, 
+      "title": "Универсальный", 
+      "description": "Со сроком привлечения до года / свыше года", 
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": "0", 
+      "maxSum": "0", 
+      "minTerm": "2",  
+      "maxTerm": "1095", 
+      "currency":"usd",
+      "paymentPeriods":"monthly", 
+      "Withdrawals": 0,
+      "EarlyTermination":1, 
+      "interestСapitalization": 1 
+    },
+
+      { 
+        "id": 4, 
+        "title": "Фиксированный", 
+        "description": "С возможностью досрочного расторжения", 
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": "0", 
+        "maxSum": "450000000",
+        "sumDescription":"До 450 млн ₽",
+        "minTerm": "60",  
+        "maxTerm": "360",
+        "TermDescription": "60, 90, 120, 180, 270 или 360 дней",
+        "currency":"rub",
+        "paymentPeriods":"endOfTerm",
+        "Withdrawals": 0,
+        "EarlyTermination":1
+    },
+
+
+    { 
+      "id": 5, 
+      "title": "Фиксированный", 
+      "description": "С возможностью досрочного расторжения", 
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": "500000", 
+      "maxSum": "15000000",
+      "sumDescription":"От 500 тыс до 15 млн $",
+      "minTerm": "60",  
+      "maxTerm": "360",
+      "TermDescription": "60, 90, 120, 180, 270 или 360 дней",
+      "currency":"usd",
+      "paymentPeriods":"endOfTerm",
+      "Withdrawals": 0,
+      "EarlyTermination":1
+    },
+
+    { 
+      "id": 5, 
+      "title": "Гибкий", 
+      "description": "С возможностью пополнения и частичного снятия", 
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": "2000000", 
+      "maxSum": "0",
+      "sumDescription":"От 2 млн ₽",
+      "minTerm": "61",  
+      "maxTerm": "365",
+      "TermDescription": "От 61 до 365 дней",
+      "currency":"rub",
+      "paymentPeriods":"endOfTerm",
+      "Withdrawals": 1,
+      "EarlyTermination":1
+    },
+
+
+    { 
+      "id": 6, 
+      "title": "Гибкий", 
+      "description": "С возможностью пополнения и частичного снятия", 
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": "200000", 
+      "maxSum": "0",
+      "sumDescription":"От 200 тыс. $",
+      "minTerm": "61",  
+      "maxTerm": "365",
+      "TermDescription": "От 61 до 365 дней",
+      "currency":"usd",
+      "paymentPeriods":"endOfTerm",
+      "Withdrawals": 1,
+      "EarlyTermination":1
+    },
+
+
+    { 
+      "id": 7, 
+      "title": "Овернайт", 
+      "description": "Размещение на 1 рабочий день", 
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": "1000000", 
+      "maxSum": "0",
+      "sumDescription":"От 1 млн ₽",
+      "minTerm": "1",  
+      "maxTerm": "1",
+      "TermDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
+      "currency":"rub",
+      "paymentPeriods":"endOfTerm",
+      "Withdrawals": 0,
+      "EarlyTermination":0
+    },
+
+    { 
+      "id": 8, 
+      "title": "Овернайт", 
+      "description": "Размещение на 1 рабочий день", 
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": "15000", 
+      "maxSum": "0",
+      "sumDescription":"От 1 млн ₽",
+      "minTerm": "1",  
+      "maxTerm": "1",
+      "TermDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
+      "currency":"usd",
+      "paymentPeriods":"endOfTerm",
+      "Withdrawals": 0,
+      "EarlyTermination":0
+    }
+      ]
+}

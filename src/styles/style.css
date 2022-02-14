@@ -60,9 +60,11 @@
 
 
 
-.checkWithdrawalsHelp, .interestСapitalizationHelp {
-    position: absolute;
-    left: 500px;
-}
-.checkWithdrawalsHelp {margin-top: 52px;}
+
+.checkWithdrawalsHelp {margin-left: 10px; position: absolute;}
+
 .interestСapitalizationHelp {margin-top: 95px;}
+.MuiTypography-caption {font-size: 0.9rem;}
+
+
+.MuiSlider-markLabel[data-index="0"] {margin-left: 16px;}

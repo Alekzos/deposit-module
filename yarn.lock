@@ -7163,6 +7163,11 @@
   "resolved" "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz"
   "version" "2.1.0"
 
+"petrovich@^0.2.1":
+  "integrity" "sha1-Nz7FW4lnS6NMpyITn3Ryqh+e6lw="
+  "resolved" "https://registry.npmjs.org/petrovich/-/petrovich-0.2.1.tgz"
+  "version" "0.2.1"
+
 "picocolors@^0.2.1":
   "integrity" "sha512-cMlDqaLEqfSaW8Z7N5Jw+lyIW869EzT73/F5lhtY9cLGoVxSXznfgfXMO0Z5K0o0Q2TkTXq+0KFsdnSe3jDViA=="
   "resolved" "https://registry.npmjs.org/picocolors/-/picocolors-0.2.1.tgz"

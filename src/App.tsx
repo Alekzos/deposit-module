@@ -1,10 +1,13 @@
-import React from 'react';
-import DepositCalc from './components/DepositCalc';
+import React from "react";
+import DepositCalc from "./pages/DepositCalc";
+import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 
 function App() {
   return (
     <div className="App">
-      <DepositCalc />
+      <StyledEngineProvider injectFirst>
+        <DepositCalc />
+      </StyledEngineProvider>
     </div>
   );
 }

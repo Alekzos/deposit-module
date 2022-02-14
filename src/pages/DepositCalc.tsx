@@ -33,10 +33,15 @@ import { getDataWithAxios } from "../utils/getDataWithAxios";
 //main
 const DepositCalc = () => {
   const [deposits, setDeposits] = useState<IDeposit[]>([]);
+
   useEffect(() => {
-    const rez = getDataWithAxios(depositsDataURL);
-    console.log(rez);
-    //setDeposits(response.data)
+    const fetchData = async (depositsDataURL: string) => {
+      let response = await getDataWithAxios(depositsDataURL);
+      console.log(response);
+      setDeposits(response);
+    };
+
+    fetchData(depositsDataURL);
   }, []);
 
   //переключатель валюты

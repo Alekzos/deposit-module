@@ -2,9 +2,14 @@ import React from "react";
 
 import { useState, useEffect } from "react";
 
-import { Currencies, paymentPeriods, depositsDataURL } from "../data/consts";
-
-import axios from "axios";
+import {
+  Currencies,
+  paymentPeriods,
+  depositsDataURL,
+  maxInputSum,
+  maxInputTerm,
+  stepInputSum,
+} from "../data/consts";
 
 import "../styles/style.css";
 
@@ -32,12 +37,11 @@ import { getDataWithAxios } from "../utils/getDataWithAxios";
 
 //main
 const DepositCalc = () => {
-  const [deposits, setDeposits] = useState<IDeposit[]>([]);
+  const [deposits, setDeposits] = useState<void | IDeposit[]>([]);
 
   useEffect(() => {
     const fetchData = async (depositsDataURL: string) => {
       let response = await getDataWithAxios(depositsDataURL);
-      console.log(response);
       setDeposits(response);
     };
 
@@ -77,7 +81,7 @@ const DepositCalc = () => {
     setValue(
       event.target.value === ""
         ? ""
-        : numberWithoutSpaces(event.target.value, 100000000)
+        : numberWithoutSpaces(event.target.value, maxInputSum)
     );
   };
 
@@ -90,7 +94,7 @@ const DepositCalc = () => {
     setdepositTerm(
       event.target.value === ""
         ? ""
-        : numberWithoutSpaces(event.target.value, 1095)
+        : numberWithoutSpaces(event.target.value, maxInputTerm)
     );
   };
 
@@ -113,12 +117,9 @@ const DepositCalc = () => {
       ...depositOptions,
       [event.target.name]: event.target.checked,
     });
-    console.log(depositOptions);
   };
 
   const { checkEarlyTermination, checkWithdrawals } = depositOptions;
-
-  console.log(deposits);
   return (
     <>
       <Typography variant="h1">Депозитный калькулятор</Typography>
@@ -144,9 +145,9 @@ const DepositCalc = () => {
           <SliderWithTextField
             caption={"Сумма"}
             currency={currency}
-            step={500}
+            step={stepInputSum}
             min={0}
-            max={100000000}
+            max={maxInputSum}
             value={value}
             handleInputChange={handleInputChange}
             handleSliderChange={handleSliderChange}
@@ -158,7 +159,7 @@ const DepositCalc = () => {
             Currencies={Currencies}
             step={1}
             min={1}
-            max={1095}
+            max={maxInputTerm}
             value={depositTerm}
             handleInputChange={handleInputDepositTerm}
             handleSliderChange={handleSliderDepositTerm}
@@ -225,7 +226,18 @@ const DepositCalc = () => {
 
         <Grid item xs={6}>
           <Box>
-            <DepositList deposits={deposits} />
+            {typeof deposits != undefined ? (
+              <DepositList
+                deposits={deposits}
+                currency={currency}
+                paymentPeriod={paymentPeriod}
+                depositTerm={depositTerm}
+                depositOptions={depositOptions}
+                value={value}
+              />
+            ) : (
+              0
+            )}
           </Box>
         </Grid>
       </Grid>

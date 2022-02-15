@@ -44,4 +44,8 @@ export const marksSliderDepositTerm = [
   },
 ];
 
+export const maxInputSum = 1000000000;
+export const stepInputSum = maxInputSum / 200;
+export const maxInputTerm = 1095;
+
 export const declensionsDays = ["день", "дня", "дней"];

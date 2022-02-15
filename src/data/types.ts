@@ -7,6 +7,7 @@ export interface IDeposit {
   maxSum: number;
   minTerm: number;
   maxTerm: number;
+  sumDescription: string;
   termDescription: string;
   currency: string;
   paymentPeriods: string;

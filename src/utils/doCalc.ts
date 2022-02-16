@@ -13,7 +13,7 @@ export const doCalc = (
 
   //штраф за активацию опций досрочного вывода / частичного снятия
   const depositEarlyTerminationRatio = 0.9;
-  const withdrawalsRatio = 100000;
+  const withdrawalsRatio = 0.8;
 
   //console.log(paymentPeriods);
   console.log(earlyTermination);
@@ -23,27 +23,25 @@ export const doCalc = (
 
   switch (currency) {
     case "rub":
-      if (withdrawals) {
-        if (earlyTermination != 1) {
-          let interestRate = (
-            KeyRateRub *
-            withdrawalsRatio *
-            depositEarlyTerminationRatio
-          ).toFixed(2);
-          return 1 + "  " + interestRate;
-        } else {
-          let interestRate = (KeyRateRub * withdrawalsRatio).toFixed(2);
-          return 2 + "  " + interestRate;
-        }
-      } else if (earlyTermination) {
+      if (withdrawals && earlyTermination) {
+        let interestRate = (
+          KeyRateRub *
+          depositEarlyTerminationRatio *
+          withdrawalsRatio
+        ).toFixed(2);
+        return interestRate;
+      } else if (withdrawals && !earlyTermination) {
+        let interestRate = (KeyRateRub * withdrawalsRatio).toFixed(2);
+        return interestRate;
+      } else if (!withdrawals && earlyTermination) {
         let interestRate = (KeyRateRub * depositEarlyTerminationRatio).toFixed(
           2
         );
-        return 3 + "  " + interestRate;
-      } else {
+        return interestRate;
+      } else if (!withdrawals && !earlyTermination) {
         let interestRate = KeyRateRub.toFixed(2);
-        return 4 + "  " + interestRate;
-      }
+        return interestRate;
+      } else return 0;
 
     case "usd":
       return currency;

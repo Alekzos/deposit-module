@@ -30,17 +30,16 @@ const DepositList: React.FC<DepositListProps> = ({
     >
       {(deposits || [])
         .filter(
-          (deposit) =>
-            deposit.currency === currency &&
-            deposit.paymentPeriods === paymentPeriod &&
-            (depositTerm <= deposit.maxTerm || deposit.maxTerm === 0) &&
-            depositTerm <= deposit.maxTerm &&
-            depositTerm >= deposit.minTerm &&
-            (value <= deposit.maxSum || deposit.maxSum === 0) &&
-            value >= deposit.minSum &&
-            deposit.withdrawals === Number(depositOptions.checkWithdrawals) &&
-            deposit.earlyTermination ===
-              Number(depositOptions.checkEarlyTermination)
+          (deposit) => deposit.currency === currency //&&
+          // deposit.paymentPeriods === paymentPeriod &&
+          // (depositTerm <= deposit.maxTerm || deposit.maxTerm === 0) &&
+          // depositTerm <= deposit.maxTerm &&
+          // depositTerm >= deposit.minTerm &&
+          // (value <= deposit.maxSum || deposit.maxSum === 0) &&
+          // value >= deposit.minSum &&
+          // deposit.withdrawals === Number(depositOptions.checkWithdrawals) &&
+          // deposit.earlyTermination ===
+          //   Number(depositOptions.checkEarlyTermination)
         )
         .map((filteredDeposit) => {
           // console.log(Number(depositOptions.checkWithdrawals));

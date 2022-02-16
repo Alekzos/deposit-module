@@ -16,7 +16,7 @@ export const doCalc = (
   const withdrawalsRatio = 0.8;
 
   //console.log(paymentPeriods);
-  console.log(earlyTermination);
+  //console.log(earlyTermination);
   //   paymentPeriods.startOfTerm
   //   paymentPeriods.monthly
   //   paymentPeriods.endOfTerm

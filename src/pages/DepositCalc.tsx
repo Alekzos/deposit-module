@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import {
   Currencies,
@@ -12,6 +12,8 @@ import {
 } from "../data/consts";
 
 import "../styles/style.css";
+
+import debounce from "lodash.debounce";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -77,13 +79,24 @@ const DepositCalc = () => {
     setValue(+newValue);
   };
 
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setValue(
+  //     event.target.value === ""
+  //       ? ""
+  //       : numberWithoutSpaces(event.target.value, maxInputSum)
+  //   );
+  //   console.log("handleInputChange");
+  // };
+
+  //test
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(
-      event.target.value === ""
-        ? ""
-        : numberWithoutSpaces(event.target.value, maxInputSum)
-    );
+    setValue(+event.target.value);
   };
+
+  const debouncedInputChange = useMemo(
+    () => debounce(handleInputChange, 300),
+    []
+  );
 
   //выбор срока депозита
   const [depositTerm, setdepositTerm] = useState<number>(1);
@@ -149,7 +162,7 @@ const DepositCalc = () => {
             min={0}
             max={maxInputSum}
             value={value}
-            handleInputChange={handleInputChange}
+            handleInputChange={debouncedInputChange}
             handleSliderChange={handleSliderChange}
           />
 

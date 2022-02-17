@@ -1,12 +1,12 @@
 import React from "react";
-import DepositCalc from "./pages/DepositCalc";
+import { ProductSelection } from "./pages/ProductSelection/ProductSelectionPage";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 
 function App() {
   return (
     <div className="App">
       <StyledEngineProvider injectFirst>
-        <DepositCalc />
+        <ProductSelection />
       </StyledEngineProvider>
     </div>
   );

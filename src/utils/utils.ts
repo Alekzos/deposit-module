@@ -6,11 +6,12 @@ export function numberWithSpaces(val: any) {
 }
 
 //преобразование отформатированного числа с пробелами в число без пробелов
+// при превышении лимита установить макс значение
 export function numberWithoutSpaces(val: any, maxVal?: any) {
   val = Number(val.toLocaleString().replace(/\D/g, ""));
   if (val >= maxVal) {
     val = maxVal;
-  } // пре превышении лимита установить макс значение
+  }
   return val;
 }
 
@@ -23,16 +24,17 @@ export function declOfNum(number: number, words: string[]) {
   ];
 }
 
-//функция для перевода имени поля в человеко-понятный текст
-export const switchPaymentPeriods = (paymentPeriods: string) => {
-  switch (paymentPeriods) {
-    case "startOfTerm":
-      return <strong>в начале срока</strong>;
-    case "monthly":
-      return <strong>ежемесячно</strong>;
-    case "endOfTerm":
-      return <strong>в конце срока</strong>;
-    default:
-      return <strong>paymentPeriods</strong>;
-  }
-};
+//вероятно уже не надо и надо удалить будет
+// //функция для перевода имени поля в человеко-понятный текст
+// export const switchPaymentPeriods = (paymentPeriods: string) => {
+//   switch (paymentPeriods) {
+//     case "startOfTerm":
+//       return <strong>в начале срока</strong>;
+//     case "monthly":
+//       return <strong>ежемесячно</strong>;
+//     case "endOfTerm":
+//       return <strong>в конце срока</strong>;
+//     default:
+//       return <strong>paymentPeriods</strong>;
+//   }
+// };

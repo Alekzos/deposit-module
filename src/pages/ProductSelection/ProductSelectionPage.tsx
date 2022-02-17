@@ -4,16 +4,19 @@ import { useState, useEffect, useMemo } from "react";
 
 import {
   Currencies,
-  paymentPeriods,
-  depositsDataURL,
+  productsDataURL,
   maxInputSum,
   maxInputTerm,
   stepInputSum,
-} from "../data/consts";
+} from "../../data/consts";
 
-import "../styles/style.css";
+import { IProduct } from "../../data/types";
 
-import debounce from "lodash.debounce";
+import { numberWithoutSpaces } from "../../utils/utils";
+
+import "../../styles/style.css";
+
+import { debounce } from "lodash";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -28,31 +31,37 @@ import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 import { Tooltip } from "@mui/material";
 import HelpOutline from "@mui/icons-material/HelpOutline";
 
-import { numberWithoutSpaces } from "../utils/utils";
-
-import DepositList from "../components/DepositList";
-import { IDeposit } from "../data/types";
-
-import SliderWithTextField from "../components/SliderWithTextField";
-
-import { getDataWithAxios } from "../utils/getDataWithAxios";
+import ProductList from "./components/ProductList";
+import SliderWithTextField from "./components/SliderWithTextField";
+import { getProducts } from "./components/getProducts";
 
 //main
-const DepositCalc = () => {
-  const [deposits, setDeposits] = useState<void | IDeposit[]>([]);
+const ProductSelection = () => {
+  const [products, setProducts] = useState<void | IProduct[]>([]);
+  const [currency, setCurrency] = useState<string>(Currencies.rub);
+  const [value, setValue] = useState<number>(0);
+  const [depositTerm, setdepositTerm] = useState<number>(1);
+  const [depositOptions, setDepositOptions] = useState({
+    earlyTermination: false,
+    withdrawals: false,
+    interestСapitalization: false,
+  });
 
   useEffect(() => {
-    const fetchData = async (depositsDataURL: string) => {
-      let response = await getDataWithAxios(depositsDataURL);
-      setDeposits(response);
+    const fetchData = async (productsDataURL: string) => {
+      let response = await getProducts(
+        productsDataURL,
+        currency,
+        depositTerm,
+        depositOptions,
+        value
+      );
+      setProducts(response);
     };
-
-    fetchData(depositsDataURL);
-  }, []);
+    fetchData(productsDataURL);
+  }, [currency, depositTerm, depositOptions, value]);
 
   //переключатель валюты
-  const [currency, setCurrency] = useState<string>(Currencies.rub);
-
   const handleCurrency = (
     event: React.MouseEvent<HTMLElement>,
     newCurrency: string
@@ -60,79 +69,40 @@ const DepositCalc = () => {
     setCurrency(newCurrency);
   };
 
-  //выбор периода платежей
-  const [paymentPeriod, setPaymentPeriod] = useState<string>(
-    paymentPeriods.startOfTerm
-  );
-
-  const handlePaymentPeriod = (
-    event: React.MouseEvent<HTMLElement>,
-    newPeriod: string
+  //обработчик слайдера суммы депозита и срока вклада
+  const handleSliderChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    newValue: number | number[]
   ) => {
-    setPaymentPeriod(newPeriod);
+    if (e.target.name === "depositSlider") {
+      setValue(+newValue);
+    }
+    if (e.target.name === "termSlider") {
+      setdepositTerm(+newValue);
+    }
+    if (e.target.name === "depositInput") {
+      setValue(numberWithoutSpaces(e.target.value, maxInputSum));
+    }
+    if (e.target.name === "termInput") {
+      setdepositTerm(numberWithoutSpaces(e.target.value, maxInputTerm));
+    }
   };
 
-  // выбор суммы вклада
-  const [value, setValue] = useState<number>(0);
-
-  const handleSliderChange = (event: Event, newValue: number | number[]) => {
-    setValue(+newValue);
-  };
-
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setValue(
-  //     event.target.value === ""
-  //       ? ""
-  //       : numberWithoutSpaces(event.target.value, maxInputSum)
-  //   );
-  //   console.log("handleInputChange");
-  // };
-
-  //test
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(+event.target.value);
-  };
-
-  const debouncedInputChange = useMemo(
-    () => debounce(handleInputChange, 300),
+  const debouncedhandleSliderChange = useMemo(
+    () => debounce(handleSliderChange, 30),
     []
   );
 
-  //выбор срока депозита
-  const [depositTerm, setdepositTerm] = useState<number>(1);
-
-  const handleInputDepositTerm = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setdepositTerm(
-      event.target.value === ""
-        ? ""
-        : numberWithoutSpaces(event.target.value, maxInputTerm)
-    );
-  };
-
-  const handleSliderDepositTerm = (
-    event: Event,
-    newValue: number | number[]
-  ) => {
-    setdepositTerm(+newValue);
-  };
-
   //опции депозита (чекбоксы)
-  const [depositOptions, setDepositOptions] = useState({
-    checkEarlyTermination: false,
-    checkWithdrawals: false,
-    interestСapitalization: false,
-  });
-
   const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDepositOptions({
       ...depositOptions,
       [event.target.name]: event.target.checked,
     });
   };
+  const { earlyTermination, withdrawals, interestСapitalization } =
+    depositOptions;
 
-  const { checkEarlyTermination, checkWithdrawals } = depositOptions;
   return (
     <>
       <Typography variant="h1">Депозитный калькулятор</Typography>
@@ -162,7 +132,7 @@ const DepositCalc = () => {
             min={0}
             max={maxInputSum}
             value={value}
-            handleInputChange={debouncedInputChange}
+            // handleInputChange={handleInputChange}
             handleSliderChange={handleSliderChange}
           />
 
@@ -174,34 +144,17 @@ const DepositCalc = () => {
             min={1}
             max={maxInputTerm}
             value={depositTerm}
-            handleInputChange={handleInputDepositTerm}
-            handleSliderChange={handleSliderDepositTerm}
+            handleSliderChange={handleSliderChange}
           />
-
-          <Box>
-            <Typography variant="caption">Выплата процентов</Typography>
-            <ToggleButtonGroup
-              value={paymentPeriod}
-              exclusive
-              onChange={handlePaymentPeriod}
-              aria-label="period-payment"
-              color="primary"
-              fullWidth
-            >
-              <ToggleButton value="startOfTerm">В начале срока</ToggleButton>
-              <ToggleButton value="monthly">Ежемесячно</ToggleButton>
-              <ToggleButton value="endOfTerm">В конце срока</ToggleButton>
-            </ToggleButtonGroup>
-          </Box>
 
           <Box>
             <FormGroup>
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={checkEarlyTermination}
+                    checked={earlyTermination}
                     onChange={handleChangeCheckBox}
-                    name="checkEarlyTermination"
+                    name="earlyTermination"
                     icon={<ToggleOffIcon fontSize="large" />}
                     checkedIcon={<ToggleOnIcon fontSize="large" />}
                     sx={{ "& .MuiSvgIcon-root": { fontSize: 60 } }}
@@ -213,11 +166,11 @@ const DepositCalc = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={checkWithdrawals}
+                    checked={withdrawals}
                     onChange={handleChangeCheckBox}
                     icon={<ToggleOffIcon />}
                     checkedIcon={<ToggleOnIcon />}
-                    name="checkWithdrawals"
+                    name="withdrawals"
                     sx={{ "& .MuiSvgIcon-root": { fontSize: 60 } }}
                   />
                 }
@@ -233,24 +186,33 @@ const DepositCalc = () => {
                   </>
                 }
               />
+
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={interestСapitalization}
+                    onChange={handleChangeCheckBox}
+                    name="interestСapitalization"
+                    icon={<ToggleOffIcon fontSize="large" />}
+                    checkedIcon={<ToggleOnIcon fontSize="large" />}
+                    sx={{ "& .MuiSvgIcon-root": { fontSize: 60 } }}
+                  />
+                }
+                label="Капитализация процентов"
+              />
             </FormGroup>
           </Box>
         </Grid>
 
         <Grid item xs={6}>
           <Box>
-            {typeof deposits != undefined ? (
-              <DepositList
-                deposits={deposits}
-                currency={currency}
-                paymentPeriod={paymentPeriod}
-                depositTerm={depositTerm}
-                depositOptions={depositOptions}
-                value={value}
-              />
-            ) : (
-              0
-            )}
+            <ProductList
+              products={products}
+              currency={currency}
+              depositTerm={depositTerm}
+              depositOptions={depositOptions}
+              value={value}
+            />
           </Box>
         </Grid>
       </Grid>
@@ -258,4 +220,4 @@ const DepositCalc = () => {
   );
 };
 
-export default DepositCalc;
+export { ProductSelection };

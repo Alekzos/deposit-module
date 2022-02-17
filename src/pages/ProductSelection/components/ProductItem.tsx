@@ -1,8 +1,8 @@
 import React from "react";
 
-import { IDeposit } from "../data/types";
-import { switchPaymentPeriods, declOfNum } from "../utils/utils";
-import { doCalc } from "../utils/doCalc";
+import { IProduct } from "../../../data/types";
+import { declOfNum } from "../../../utils/utils";
+import { doCalc } from "../../../utils/doCalc";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -11,13 +11,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 interface DepositItemProps {
-  deposit: IDeposit;
+  deposit: IProduct;
   depositTerm: number;
   value: number;
 }
 
 //компонент для вывода самой карточки
-const DepositItem: React.FC<DepositItemProps> = ({
+const ProductItem: React.FC<DepositItemProps> = ({
   deposit,
   depositTerm,
   value,
@@ -38,7 +38,6 @@ const DepositItem: React.FC<DepositItemProps> = ({
               {doCalc(
                 deposit.earlyTermination,
                 deposit.withdrawals,
-                deposit.paymentPeriods,
                 deposit.currency,
                 value,
                 depositTerm
@@ -55,10 +54,8 @@ const DepositItem: React.FC<DepositItemProps> = ({
             Сумма: {deposit.minSum} - {deposit.maxSum ? 1 : "∞"}
             <br /> */}
             {/* Срок: {deposit.minTerm} - {deposit.maxTerm} 
-            {declOfNum(deposit.maxTerm, ["день", "дня", "дней"])}
-            <br /> */}
-            Выплата процентов: 
-            {switchPaymentPeriods(deposit.paymentPeriods)}
+              {declOfNum(deposit.maxTerm, ["день", "дня", "дней"])}
+              <br /> */}
             <br />
             Частичное снятие и пополнение: 
             <strong>{deposit.withdrawals ? "да" : "нет"}</strong>
@@ -76,4 +73,4 @@ const DepositItem: React.FC<DepositItemProps> = ({
   );
 };
 
-export default DepositItem;
+export default ProductItem;

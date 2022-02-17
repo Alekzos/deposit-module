@@ -1,7 +1,5 @@
 import React from "react";
 
-import { useState } from "react";
-
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
@@ -10,13 +8,13 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { Tooltip } from "@mui/material";
 import HelpOutline from "@mui/icons-material/HelpOutline";
 
-import { numberWithSpaces, declOfNum } from "../utils/utils";
+import { numberWithSpaces, declOfNum } from "../../../utils/utils";
 import {
   marksSliderDepositTerm,
   Currencies,
   declensionsDays,
-} from "../data/consts";
-import { ISliderWithTextFieldProps } from "../data/types";
+} from "../../../data/consts";
+import { ISliderWithTextFieldProps } from "../../../data/types";
 
 const SliderWithTextField: React.FC<ISliderWithTextFieldProps> = ({
   caption,
@@ -26,7 +24,7 @@ const SliderWithTextField: React.FC<ISliderWithTextFieldProps> = ({
   min,
   max,
   value,
-  handleInputChange,
+  // handleInputChange,
   handleSliderChange,
 }) => {
   //метки для бегунка с валютой
@@ -46,6 +44,7 @@ const SliderWithTextField: React.FC<ISliderWithTextFieldProps> = ({
       <Typography variant="caption">{caption}</Typography>
 
       <TextField
+        name={days ? "termInput" : "depositInput"}
         hiddenLabel
         id="outlined-number"
         defaultValue="0"
@@ -56,7 +55,7 @@ const SliderWithTextField: React.FC<ISliderWithTextFieldProps> = ({
         }}
         fullWidth
         value={numberWithSpaces(value)}
-        onChange={handleInputChange}
+        onChange={handleSliderChange}
         inputProps={{
           step: { step },
           min: { min },
@@ -84,6 +83,7 @@ const SliderWithTextField: React.FC<ISliderWithTextFieldProps> = ({
 
       {/* бегунок */}
       <Slider
+        name={days ? "termSlider" : "depositSlider"}
         value={value}
         onChange={handleSliderChange}
         aria-labelledby="input-slider"

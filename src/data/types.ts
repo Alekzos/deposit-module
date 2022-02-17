@@ -1,4 +1,4 @@
-export interface IDeposit {
+export interface IProduct {
   id: number;
   title: string;
   description: string;
@@ -13,6 +13,7 @@ export interface IDeposit {
   paymentPeriods: string;
   withdrawals: number;
   earlyTermination: number;
+  depositRate: number;
 }
 
 export interface ISliderWithTextFieldProps {

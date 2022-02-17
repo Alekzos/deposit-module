@@ -1,22 +1,20 @@
 import React from "react";
-import DepositItem from "./DepositItem";
-import { IDeposit } from "../data/types";
+import ProductItem from "./ProductItem";
+import { IProduct } from "../../../data/types";
 
 import Stack from "@mui/material/Stack";
-interface DepositListProps {
-  deposits: void | IDeposit[];
+interface ProductListProps {
+  products: void | IProduct[];
   currency: string;
-  paymentPeriod: string;
   depositTerm: number;
   depositOptions: any;
   value: number;
 }
 
 //компонент для вывода списка депозитов
-const DepositList: React.FC<DepositListProps> = ({
-  deposits,
+const ProductList: React.FC<ProductListProps> = ({
+  products,
   currency,
-  paymentPeriod,
   depositTerm,
   depositOptions,
   value,
@@ -28,10 +26,9 @@ const DepositList: React.FC<DepositListProps> = ({
       alignItems="stretch"
       spacing={2}
     >
-      {(deposits || [])
+      {(products || [])
         .filter(
-          (deposit) => deposit.currency === currency //&&
-          // deposit.paymentPeriods === paymentPeriod &&
+          (product) => product.currency === currency //&&
           // (depositTerm <= deposit.maxTerm || deposit.maxTerm === 0) &&
           // depositTerm <= deposit.maxTerm &&
           // depositTerm >= deposit.minTerm &&
@@ -41,23 +38,23 @@ const DepositList: React.FC<DepositListProps> = ({
           // deposit.earlyTermination ===
           //   Number(depositOptions.checkEarlyTermination)
         )
-        .map((filteredDeposit) => {
+        .map((filteredProducts) => {
           // console.log(Number(depositOptions.checkWithdrawals));
           // console.log(filteredDeposit.withdrawals);
           return (
-            <DepositItem
-              key={filteredDeposit.id}
-              deposit={filteredDeposit}
+            <ProductItem
+              key={filteredProducts.id}
+              deposit={filteredProducts}
               value={value}
               depositTerm={depositTerm}
             />
           );
         })}
       {/* // .map((filteredDeposit) => (
-        //   <DepositItem key={filteredDeposit.id} deposit={filteredDeposit} />
+        //   <ProductItem key={filteredDeposit.id} deposit={filteredDeposit} />
         // ))} */}
     </Stack>
   );
 };
 
-export default DepositList;
+export default ProductList;

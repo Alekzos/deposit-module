@@ -2,7 +2,6 @@
 export const doCalc = (
   earlyTermination: Number,
   withdrawals: number,
-  paymentPeriods: String,
   currency: String,
   value: Number,
   depositTerm: Number
@@ -17,9 +16,6 @@ export const doCalc = (
 
   //console.log(paymentPeriods);
   //console.log(earlyTermination);
-  //   paymentPeriods.startOfTerm
-  //   paymentPeriods.monthly
-  //   paymentPeriods.endOfTerm
 
   switch (currency) {
     case "rub":

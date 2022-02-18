@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 
 import {
   Currencies,
@@ -48,18 +48,26 @@ const ProductSelection = () => {
   });
 
   useEffect(() => {
-    const fetchData = async (productsDataURL: string) => {
-      let response = await getProducts(
-        productsDataURL,
-        currency,
-        depositTerm,
-        depositOptions,
-        value
-      );
-      setProducts(response);
-    };
-    fetchData(productsDataURL);
+    getProductsWithDebounce();
   }, [currency, depositTerm, depositOptions, value]);
+
+  //задержка для ввода, чтобы запрос не сразу отправлялся при изменении данных
+  const getProductsWithDebounce = useCallback(
+    debounce(() => {
+      const fetchData = async (productsDataURL: string) => {
+        let response = await getProducts(
+          productsDataURL,
+          currency,
+          depositTerm,
+          depositOptions,
+          value
+        );
+        setProducts(response);
+      };
+      fetchData(productsDataURL);
+    }, 200),
+    []
+  );
 
   //переключатель валюты
   const handleCurrency = (

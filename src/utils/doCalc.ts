@@ -1,10 +1,10 @@
 //рассчет процентов по депозиту
 export const doCalc = (
-  earlyTermination: Number,
+  earlyTermination: number,
   withdrawals: number,
-  currency: String,
-  value: Number,
-  depositTerm: Number
+  currency: string,
+  value: number,
+  depositTerm: number
 ) => {
   //ключевые ставки ЦБ / ФРС
   const KeyRateRub = 9.5;

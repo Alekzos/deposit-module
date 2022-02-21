@@ -96,17 +96,13 @@ const ProductSelection = () => {
     }
   };
 
-  const debouncedhandleSliderChange = useMemo(
-    () => debounce(handleSliderChange, 30),
-    []
-  );
-
   //опции депозита (чекбоксы)
   const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDepositOptions({
       ...depositOptions,
       [event.target.name]: event.target.checked,
     });
+    console.log(depositOptions);
   };
   const { earlyTermination, withdrawals, interestСapitalization } =
     depositOptions;
@@ -206,7 +202,17 @@ const ProductSelection = () => {
                     sx={{ "& .MuiSvgIcon-root": { fontSize: 60 } }}
                   />
                 }
-                label="Капитализация процентов"
+                label={
+                  <>
+                    Капитализация процентов
+                    <Tooltip
+                      title="ежемесячная"
+                      className="checkWithdrawalsHelp"
+                    >
+                      <HelpOutline />
+                    </Tooltip>
+                  </>
+                }
               />
             </FormGroup>
           </Box>

@@ -1,7 +1,10 @@
 //рассчет процентов по депозиту
+import { calcWithInterestСapitalization } from "./utils";
+
 export const doCalc = (
   earlyTermination: number,
   withdrawals: number,
+  interestСapitalization: boolean,
   currency: string,
   value: number,
   depositTerm: number
@@ -15,7 +18,9 @@ export const doCalc = (
   const withdrawalsRatio = 0.8;
 
   //console.log(paymentPeriods);
-  //console.log(earlyTermination);
+  // console.log(interestСapitalization);
+
+  interestСapitalization = true;
 
   switch (currency) {
     case "rub":
@@ -25,18 +30,38 @@ export const doCalc = (
           depositEarlyTerminationRatio *
           withdrawalsRatio
         ).toFixed(2);
-        return interestRate;
+        return calcWithInterestСapitalization(
+          value,
+          depositTerm,
+          interestRate,
+          interestСapitalization
+        );
       } else if (withdrawals && !earlyTermination) {
         let interestRate = (KeyRateRub * withdrawalsRatio).toFixed(2);
-        return interestRate;
+        return calcWithInterestСapitalization(
+          value,
+          depositTerm,
+          interestRate,
+          interestСapitalization
+        );
       } else if (!withdrawals && earlyTermination) {
         let interestRate = (KeyRateRub * depositEarlyTerminationRatio).toFixed(
           2
         );
-        return interestRate;
+        return calcWithInterestСapitalization(
+          value,
+          depositTerm,
+          interestRate,
+          interestСapitalization
+        );
       } else if (!withdrawals && !earlyTermination) {
         let interestRate = KeyRateRub.toFixed(2);
-        return interestRate;
+        return calcWithInterestСapitalization(
+          value,
+          depositTerm,
+          interestRate,
+          interestСapitalization
+        );
       } else return 0;
 
     case "usd":

@@ -38,6 +38,7 @@ const ProductItem: React.FC<DepositItemProps> = ({
               {doCalc(
                 deposit.earlyTermination,
                 deposit.withdrawals,
+                deposit.interestСapitalization,
                 deposit.currency,
                 value,
                 depositTerm

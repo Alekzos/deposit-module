@@ -19,6 +19,9 @@ export const getProducts = async (
       console.log(error);
     });
 
+  console.log("всегда выводит false:");
+  console.log(depositOptions);
+
   //фильтрация
   let filteredProducts = (products || []).filter(
     (product) => product.currency === currency //&&
@@ -41,6 +44,7 @@ export const getProducts = async (
       doCalc(
         depositOptions.earlyTermination,
         depositOptions.withdrawals,
+        depositOptions.interestСapitalization,
         currency,
         value,
         depositTerm

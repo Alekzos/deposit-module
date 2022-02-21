@@ -14,6 +14,7 @@ export interface IProduct {
   withdrawals: number;
   earlyTermination: number;
   depositRate: number;
+  interestСapitalization: boolean;
 }
 
 export interface ISliderWithTextFieldProps {

@@ -24,6 +24,31 @@ export function declOfNum(number: number, words: string[]) {
   ];
 }
 
+export const calcWithInterestСapitalization = (
+  value: number,
+  depositTerm: number,
+  interestRate: string,
+  interestСapitalization: boolean
+) => {
+  if (interestСapitalization) {
+    console.log("Депозит");
+    console.log("До " + String(value));
+    let futureValue =
+      value * (1 + Number(interestRate) / 100 / 12) ** (depositTerm / 30);
+    console.log("После " + futureValue);
+    //
+    console.log("Ставка");
+    console.log("До " + String(interestRate));
+    let effective =
+      value * (1 + Number(interestRate) / 100 / 12) ** (depositTerm / 30);
+    console.log("После " + effective);
+  } else {
+    console.log("Не капитализируем " + interestRate);
+  }
+
+  return interestRate;
+};
+
 //вероятно уже не надо и надо удалить будет
 // //функция для перевода имени поля в человеко-понятный текст
 // export const switchPaymentPeriods = (paymentPeriods: string) => {

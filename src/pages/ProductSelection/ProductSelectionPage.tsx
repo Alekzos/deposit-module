@@ -44,7 +44,7 @@ const ProductSelection = () => {
   const [depositOptions, setDepositOptions] = useState({
     earlyTermination: false,
     withdrawals: false,
-    interestСapitalization: false,
+    interestCapitalization: false,
   });
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const ProductSelection = () => {
       };
       fetchData(productsDataURL);
     }, 200),
-    []
+    [depositOptions]
   );
 
   //переключатель валюты
@@ -102,9 +102,8 @@ const ProductSelection = () => {
       ...depositOptions,
       [event.target.name]: event.target.checked,
     });
-    console.log(depositOptions);
   };
-  const { earlyTermination, withdrawals, interestСapitalization } =
+  const { earlyTermination, withdrawals, interestCapitalization } =
     depositOptions;
 
   return (
@@ -194,9 +193,9 @@ const ProductSelection = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={interestСapitalization}
+                    checked={interestCapitalization}
                     onChange={handleChangeCheckBox}
-                    name="interestСapitalization"
+                    name="interestCapitalization"
                     icon={<ToggleOffIcon fontSize="large" />}
                     checkedIcon={<ToggleOnIcon fontSize="large" />}
                     sx={{ "& .MuiSvgIcon-root": { fontSize: 60 } }}

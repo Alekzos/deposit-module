@@ -19,9 +19,6 @@ export const getProducts = async (
       console.log(error);
     });
 
-  console.log("всегда выводит false:");
-  console.log(depositOptions);
-
   //фильтрация
   let filteredProducts = (products || []).filter(
     (product) => product.currency === currency //&&
@@ -38,19 +35,35 @@ export const getProducts = async (
 
   //расчет
 
+  // console.log("getProduct");
+  // console.log(depositOptions);
+
+  // const calculatedProducts = filteredProducts.map((product) => ({
+  //   ...product,
+  //   depositRate: Number(
+  //     doCalc(
+  //       depositOptions.earlyTermination,
+  //       depositOptions.withdrawals,
+  //       depositOptions.interestCapitalization,
+  //       currency,
+  //       value,
+  //       depositTerm
+  //     )
+  //   ),
+  // }));
+
   const calculatedProducts = filteredProducts.map((product) => ({
     ...product,
-    depositRate: Number(
-      doCalc(
-        depositOptions.earlyTermination,
-        depositOptions.withdrawals,
-        depositOptions.interestСapitalization,
-        currency,
-        value,
-        depositTerm
-      )
-    ),
+    futureValue: doCalc(
+      depositOptions.earlyTermination,
+      depositOptions.withdrawals,
+      depositOptions.interestCapitalization,
+      currency,
+      value,
+      depositTerm
+    )[1],
   }));
+  // [interestRate, futureValue, effectiveInterestRate]
 
   console.log(calculatedProducts);
   return calculatedProducts;

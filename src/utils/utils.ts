@@ -24,42 +24,32 @@ export function declOfNum(number: number, words: string[]) {
   ];
 }
 
-export const calcWithInterestСapitalization = (
+//рассчет эффективной процентной ставки, а так же суммы депозита на конец периода с и без капитализации
+export const calcWithinterestCapitalization = (
   value: number,
   depositTerm: number,
   interestRate: string,
-  interestСapitalization: boolean
+  interestCapitalization: number
 ) => {
-  if (interestСapitalization) {
-    console.log("Депозит");
-    console.log("До " + String(value));
-    let futureValue =
-      value * (1 + Number(interestRate) / 100 / 12) ** (depositTerm / 30);
-    console.log("После " + futureValue);
-    //
-    console.log("Ставка");
-    console.log("До " + String(interestRate));
-    let effective =
-      value * (1 + Number(interestRate) / 100 / 12) ** (depositTerm / 30);
-    console.log("После " + effective);
+  if (interestCapitalization) {
+    let futureValue = Number(
+      value * (1 + Number(interestRate) / 100 / 12) ** (depositTerm / 30)
+    ).toFixed(2);
+
+    let effectiveInterestRate = (
+      ((((1 + Number(interestRate) / 100 / 12) ** (depositTerm / 30) - 1) *
+        12) /
+        (depositTerm / 30)) *
+      100
+    ).toFixed(2);
+
+    return [interestRate, futureValue, effectiveInterestRate];
   } else {
-    console.log("Не капитализируем " + interestRate);
+    let futureValue = Number(
+      (value * Number(interestRate) * depositTerm) / 365 / 100
+    ).toFixed(2);
+
+    let effectiveInterestRate = 0;
+    return [interestRate, futureValue, effectiveInterestRate];
   }
-
-  return interestRate;
 };
-
-//вероятно уже не надо и надо удалить будет
-// //функция для перевода имени поля в человеко-понятный текст
-// export const switchPaymentPeriods = (paymentPeriods: string) => {
-//   switch (paymentPeriods) {
-//     case "startOfTerm":
-//       return <strong>в начале срока</strong>;
-//     case "monthly":
-//       return <strong>ежемесячно</strong>;
-//     case "endOfTerm":
-//       return <strong>в конце срока</strong>;
-//     default:
-//       return <strong>paymentPeriods</strong>;
-//   }
-// };

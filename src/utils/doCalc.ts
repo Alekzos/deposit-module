@@ -1,10 +1,10 @@
 //рассчет процентов по депозиту
-import { calcWithInterestСapitalization } from "./utils";
+import { calcWithinterestCapitalization } from "./utils";
 
 export const doCalc = (
   earlyTermination: number,
   withdrawals: number,
-  interestСapitalization: boolean,
+  interestCapitalization: number,
   currency: string,
   value: number,
   depositTerm: number
@@ -17,10 +17,10 @@ export const doCalc = (
   const depositEarlyTerminationRatio = 0.9;
   const withdrawalsRatio = 0.8;
 
-  //console.log(paymentPeriods);
-  // console.log(interestСapitalization);
-
-  interestСapitalization = true;
+  // console.log("doCalc");
+  // console.log(earlyTermination);
+  // console.log(withdrawals);
+  // console.log(interestCapitalization);
 
   switch (currency) {
     case "rub":
@@ -30,37 +30,37 @@ export const doCalc = (
           depositEarlyTerminationRatio *
           withdrawalsRatio
         ).toFixed(2);
-        return calcWithInterestСapitalization(
+        return calcWithinterestCapitalization(
           value,
           depositTerm,
           interestRate,
-          interestСapitalization
+          interestCapitalization
         );
       } else if (withdrawals && !earlyTermination) {
         let interestRate = (KeyRateRub * withdrawalsRatio).toFixed(2);
-        return calcWithInterestСapitalization(
+        return calcWithinterestCapitalization(
           value,
           depositTerm,
           interestRate,
-          interestСapitalization
+          interestCapitalization
         );
       } else if (!withdrawals && earlyTermination) {
         let interestRate = (KeyRateRub * depositEarlyTerminationRatio).toFixed(
           2
         );
-        return calcWithInterestСapitalization(
+        return calcWithinterestCapitalization(
           value,
           depositTerm,
           interestRate,
-          interestСapitalization
+          interestCapitalization
         );
       } else if (!withdrawals && !earlyTermination) {
         let interestRate = KeyRateRub.toFixed(2);
-        return calcWithInterestСapitalization(
+        return calcWithinterestCapitalization(
           value,
           depositTerm,
           interestRate,
-          interestСapitalization
+          interestCapitalization
         );
       } else return 0;
 

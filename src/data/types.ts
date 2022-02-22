@@ -13,8 +13,11 @@ export interface IProduct {
   paymentPeriods: string;
   withdrawals: number;
   earlyTermination: number;
-  depositRate: number;
-  interestСapitalization: boolean;
+  depositRate: any;
+  interestCapitalization: number;
+  futureValue?: any;
+  effectiveInterestRate?: any;
+  interestRate?: any;
 }
 
 export interface ISliderWithTextFieldProps {

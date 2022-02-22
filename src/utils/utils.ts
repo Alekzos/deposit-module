@@ -30,10 +30,12 @@ export const calcWithinterestCapitalization = (
   depositTerm: number,
   interestRate: string,
   interestCapitalization: number
-) => {
+): any => {
   if (interestCapitalization) {
-    let futureValue = Number(
-      value * (1 + Number(interestRate) / 100 / 12) ** (depositTerm / 30)
+    let futureValue = (
+      Number(
+        value * (1 + Number(interestRate) / 100 / 12) ** (depositTerm / 30)
+      ) - value
     ).toFixed(2);
 
     let effectiveInterestRate = (
@@ -42,7 +44,6 @@ export const calcWithinterestCapitalization = (
         (depositTerm / 30)) *
       100
     ).toFixed(2);
-
     return [interestRate, futureValue, effectiveInterestRate];
   } else {
     let futureValue = Number(
@@ -52,4 +53,8 @@ export const calcWithinterestCapitalization = (
     let effectiveInterestRate = 0;
     return [interestRate, futureValue, effectiveInterestRate];
   }
+};
+
+export const inRange = (val: number, min: number, max: number) => {
+  return val >= min && val <= max;
 };

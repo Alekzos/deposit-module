@@ -21,39 +21,28 @@ export const getProducts = async (
 
   //фильтрация
   let filteredProducts = (products || []).filter(
-    (product) => product.currency === currency //&&
-
-    //временно скрыто, чтобы не было пустого отфильтрованного списка
-    // (depositTerm <= product.maxTerm || product.maxTerm === 0) &&
-    // depositTerm <= product.maxTerm &&
-    // depositTerm >= product.minTerm &&
-    // (value <= product.maxSum || product.maxSum === 0) &&
-    // value >= product.minSum &&
-    // product.withdrawals === Number(depositOptions.withdrawals) &&
-    // product.earlyTermination === Number(depositOptions.earlyTermination)
+    (product) =>
+      product.currency === currency &&
+      (depositTerm <= product.maxTerm || product.maxTerm === 0) &&
+      depositTerm <= product.maxTerm &&
+      depositTerm >= product.minTerm &&
+      (value <= product.maxSum || product.maxSum === 0) &&
+      value >= product.minSum &&
+      product.withdrawals === Number(depositOptions.withdrawals) &&
+      product.earlyTermination === Number(depositOptions.earlyTermination)
   );
 
   //расчет
-
-  // console.log("getProduct");
-  // console.log(depositOptions);
-
-  // const calculatedProducts = filteredProducts.map((product) => ({
-  //   ...product,
-  //   depositRate: Number(
-  //     doCalc(
-  //       depositOptions.earlyTermination,
-  //       depositOptions.withdrawals,
-  //       depositOptions.interestCapitalization,
-  //       currency,
-  //       value,
-  //       depositTerm
-  //     )
-  //   ),
-  // }));
-
   const calculatedProducts = filteredProducts.map((product) => ({
     ...product,
+    interestRate: doCalc(
+      depositOptions.earlyTermination,
+      depositOptions.withdrawals,
+      depositOptions.interestCapitalization,
+      currency,
+      value,
+      depositTerm
+    )[0],
     futureValue: doCalc(
       depositOptions.earlyTermination,
       depositOptions.withdrawals,
@@ -62,9 +51,16 @@ export const getProducts = async (
       value,
       depositTerm
     )[1],
+    effectiveInterestRate: doCalc(
+      depositOptions.earlyTermination,
+      depositOptions.withdrawals,
+      depositOptions.interestCapitalization,
+      currency,
+      value,
+      depositTerm
+    )[2],
   }));
-  // [interestRate, futureValue, effectiveInterestRate]
 
-  console.log(calculatedProducts);
+  // console.log(calculatedProducts);
   return calculatedProducts;
 };

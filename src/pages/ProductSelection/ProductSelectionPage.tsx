@@ -40,6 +40,10 @@ const ProductSelection = () => {
   const [products, setProducts] = useState<void | IProduct[]>([]);
   const [currency, setCurrency] = useState<string>(Currencies.rub);
   const [value, setValue] = useState<number>(0);
+  const [messageProductNotFound, setMessageProductNotFound] =
+    useState<string>("");
+
+  useState<string>("");
   const [depositTerm, setdepositTerm] = useState<number>(1);
   const [depositOptions, setDepositOptions] = useState({
     earlyTermination: false,
@@ -63,10 +67,15 @@ const ProductSelection = () => {
           value
         );
         setProducts(response);
+        if (value > 0) {
+          setMessageProductNotFound(
+            "Продукты c заданными условиями не найдены"
+          );
+        } else setMessageProductNotFound("");
       };
       fetchData(productsDataURL);
     }, 200),
-    [depositOptions]
+    [currency, depositTerm, depositOptions, value]
   );
 
   //переключатель валюты
@@ -95,7 +104,6 @@ const ProductSelection = () => {
       setdepositTerm(numberWithoutSpaces(e.target.value, maxInputTerm));
     }
   };
-
   //опции депозита (чекбоксы)
   const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDepositOptions({
@@ -219,13 +227,15 @@ const ProductSelection = () => {
 
         <Grid item xs={6}>
           <Box>
-            <ProductList
-              products={products}
-              currency={currency}
-              depositTerm={depositTerm}
-              depositOptions={depositOptions}
-              value={value}
-            />
+            {products?.length ? (
+              <ProductList products={products} value={value} />
+            ) : (
+              <Typography variant="h6" component="div">
+                {messageProductNotFound
+                  ? messageProductNotFound
+                  : messageProductNotFound}
+              </Typography>
+            )}
           </Box>
         </Grid>
       </Grid>

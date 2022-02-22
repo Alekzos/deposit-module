@@ -1,8 +1,8 @@
 import React from "react";
 
 import { IProduct } from "../../../data/types";
-import { declOfNum } from "../../../utils/utils";
-import { doCalc } from "../../../utils/doCalc";
+import { numberWithSpaces } from "../../../utils/utils";
+import { Currencies } from "../../../data/consts";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,59 +10,53 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-interface DepositItemProps {
-  deposit: IProduct;
-  depositTerm: number;
+interface ProductItemProps {
+  product: IProduct;
   value: number;
 }
 
 //компонент для вывода самой карточки
-const ProductItem: React.FC<DepositItemProps> = ({
-  deposit,
-  depositTerm,
-  value,
-}) => {
+const ProductItem: React.FC<ProductItemProps> = ({ product, value }) => {
   return (
     <div>
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography variant="h6" component="div">
-            {deposit.title}
+            {product.title}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {deposit.description}
+            {product.description}
           </Typography>
           <Typography variant="body2">
-            Ставка:{" "}
+            {product.effectiveInterestRate ? (
+              <>
+                Эффективная ставка:{" "}
+                <strong>{product.effectiveInterestRate}%</strong>
+                <br />
+              </>
+            ) : (
+              <>
+                Cтавка:  <strong>{product.interestRate}%</strong>
+                <br />
+              </>
+            )}
+            Ваш доход: 
             <strong>
-              {doCalc(
-                deposit.earlyTermination,
-                deposit.withdrawals,
-                deposit.interestCapitalization,
-                deposit.currency,
-                value,
-                depositTerm
-              )}
+              {numberWithSpaces(product.futureValue)}{" "}
+              {product.currency === Currencies.rub ? "₽" : "$"}
             </strong>
             <br />
-            Срок: <strong>{deposit.termDescription}</strong>
+            <br />
+            Срок: <strong>{product.termDescription}</strong>
             <br />
             Сумма: 
-            <strong>{deposit.sumDescription}</strong>
-            <br />
-            {/* Валюта: {deposit.currency}
-            <br />
-            Сумма: {deposit.minSum} - {deposit.maxSum ? 1 : "∞"}
-            <br /> */}
-            {/* Срок: {deposit.minTerm} - {deposit.maxTerm} 
-              {declOfNum(deposit.maxTerm, ["день", "дня", "дней"])}
-              <br /> */}
+            <strong>{product.sumDescription}</strong>
             <br />
             Частичное снятие и пополнение: 
-            <strong>{deposit.withdrawals ? "да" : "нет"}</strong>
+            <strong>{product.withdrawals ? "да" : "нет"}</strong>
             <br />
             Досрочное расторжение: 
-            <strong>{deposit.earlyTermination ? "да" : "нет"}</strong>
+            <strong>{product.earlyTermination ? "да" : "нет"}</strong>
             <br />
           </Typography>
         </CardContent>

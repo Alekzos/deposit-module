@@ -1,6 +1,12 @@
 //рассчет процентов по депозиту
-import { calcWithinterestCapitalization } from "./utils";
-
+import { calcWithinterestCapitalization, inRange } from "./utils";
+import {
+  calcValueKf,
+  KeyRateRub,
+  KeyRateUsd,
+  depositEarlyTerminationRatio,
+  withdrawalsRatio,
+} from "../data/consts";
 export const doCalc = (
   earlyTermination: number,
   withdrawals: number,
@@ -9,18 +15,7 @@ export const doCalc = (
   value: number,
   depositTerm: number
 ) => {
-  //ключевые ставки ЦБ / ФРС
-  const KeyRateRub = 9.5;
-  const KeyRateUsd = 0.5;
-
-  //штраф за активацию опций досрочного вывода / частичного снятия
-  const depositEarlyTerminationRatio = 0.9;
-  const withdrawalsRatio = 0.8;
-
-  // console.log("doCalc");
-  // console.log(earlyTermination);
-  // console.log(withdrawals);
-  // console.log(interestCapitalization);
+  let valueKf = calcValueKf(value, currency);
 
   switch (currency) {
     case "rub":
@@ -28,6 +23,7 @@ export const doCalc = (
         let interestRate = (
           KeyRateRub *
           depositEarlyTerminationRatio *
+          valueKf *
           withdrawalsRatio
         ).toFixed(2);
         return calcWithinterestCapitalization(
@@ -37,7 +33,7 @@ export const doCalc = (
           interestCapitalization
         );
       } else if (withdrawals && !earlyTermination) {
-        let interestRate = (KeyRateRub * withdrawalsRatio).toFixed(2);
+        let interestRate = (KeyRateRub * valueKf * withdrawalsRatio).toFixed(2);
         return calcWithinterestCapitalization(
           value,
           depositTerm,
@@ -45,9 +41,11 @@ export const doCalc = (
           interestCapitalization
         );
       } else if (!withdrawals && earlyTermination) {
-        let interestRate = (KeyRateRub * depositEarlyTerminationRatio).toFixed(
-          2
-        );
+        let interestRate = (
+          KeyRateRub *
+          valueKf *
+          depositEarlyTerminationRatio
+        ).toFixed(2);
         return calcWithinterestCapitalization(
           value,
           depositTerm,
@@ -55,7 +53,7 @@ export const doCalc = (
           interestCapitalization
         );
       } else if (!withdrawals && !earlyTermination) {
-        let interestRate = KeyRateRub.toFixed(2);
+        let interestRate = (valueKf * KeyRateRub).toFixed(2);
         return calcWithinterestCapitalization(
           value,
           depositTerm,
@@ -65,8 +63,47 @@ export const doCalc = (
       } else return 0;
 
     case "usd":
-      return currency;
-    default:
-      return 0;
+      if (withdrawals && earlyTermination) {
+        let interestRate = (
+          KeyRateUsd *
+          depositEarlyTerminationRatio *
+          valueKf *
+          withdrawalsRatio
+        ).toFixed(2);
+        return calcWithinterestCapitalization(
+          value,
+          depositTerm,
+          interestRate,
+          interestCapitalization
+        );
+      } else if (withdrawals && !earlyTermination) {
+        let interestRate = (KeyRateUsd * valueKf * withdrawalsRatio).toFixed(2);
+        return calcWithinterestCapitalization(
+          value,
+          depositTerm,
+          interestRate,
+          interestCapitalization
+        );
+      } else if (!withdrawals && earlyTermination) {
+        let interestRate = (
+          KeyRateUsd *
+          valueKf *
+          depositEarlyTerminationRatio
+        ).toFixed(2);
+        return calcWithinterestCapitalization(
+          value,
+          depositTerm,
+          interestRate,
+          interestCapitalization
+        );
+      } else if (!withdrawals && !earlyTermination) {
+        let interestRate = (valueKf * KeyRateUsd).toFixed(2);
+        return calcWithinterestCapitalization(
+          value,
+          depositTerm,
+          interestRate,
+          interestCapitalization
+        );
+      } else return 0;
   }
 };

@@ -1,5 +1,5 @@
 //рассчет процентов по депозиту
-import { calcWithinterestCapitalization, inRange } from "./utils";
+import { calcWithinterestCapitalization } from "./utils";
 import {
   calcValueKf,
   KeyRateRub,

@@ -74,8 +74,8 @@ const ProductSelection = () => {
         } else setMessageProductNotFound("");
       };
       fetchData(productsDataURL);
-    }, 200),
-    [currency, depositTerm, depositOptions, value]
+    }, 500),
+    [products]
   );
 
   //переключатель валюты

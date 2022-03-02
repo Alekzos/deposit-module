@@ -153,5 +153,10 @@
         "withdrawals": 0,
         "earlyTermination":0
     }
-      ]
+      ],
+
+      "users": {
+          "login":"test",
+          "password": "test"
+      } 
 }

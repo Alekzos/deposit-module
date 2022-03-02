@@ -6,6 +6,8 @@ import { Application } from "./pages/Application/Application";
 import { ApplicationList } from "./pages/ApplicationList/ApplicationList";
 import { NotFound } from "./pages/NotFound/NotFound";
 
+import "./styles/App.css";
+
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

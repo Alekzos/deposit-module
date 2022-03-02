@@ -14,7 +14,7 @@ import { IProduct } from "../../data/types";
 
 import { numberWithoutSpaces } from "../../utils/utils";
 
-import "../../styles/style.css";
+import "../../styles/ProductSelectionPage.css";
 
 import { debounce } from "lodash";
 
@@ -115,7 +115,7 @@ const ProductSelection = () => {
     depositOptions;
 
   return (
-    <>
+    <div className="calcPage">
       <Typography variant="h1">Депозитный калькулятор</Typography>
       <Typography paragraph>
         Введите параметры и подберите подходящий продукт
@@ -239,7 +239,7 @@ const ProductSelection = () => {
           </Box>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };
 

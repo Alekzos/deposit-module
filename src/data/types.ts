@@ -32,3 +32,9 @@ export interface ISliderWithTextFieldProps {
   handleInputChange?: any;
   handleSliderChange?: any;
 }
+
+export interface IUser {
+  login: string;
+  password: string;
+  showPassword: boolean;
+}

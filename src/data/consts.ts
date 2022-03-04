@@ -13,6 +13,7 @@ export enum paymentPeriods {
 
 //json
 export const productsDataURL = "http://localhost:8000/products";
+export const userDataURL = "http://localhost:8000/users";
 
 //метки для бегунка с датами
 export const marksSliderDepositTerm = [

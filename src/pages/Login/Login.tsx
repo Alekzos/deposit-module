@@ -17,19 +17,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { IUser } from "../../data/types";
 
-import { productsDataURL } from "../../data/consts";
-
-const getUsers = (login: string, password: string) => {
-  //получение
-  let users = axios
-    .get<IUser[]>(productsDataURL)
-    .then(async function (response) {
-      return response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
+import { userDataURL } from "../../data/consts";
 
 export const LoginPage = () => {
   const [values, setValues] = useState<IUser>({
@@ -37,6 +25,25 @@ export const LoginPage = () => {
     password: "",
     showPassword: false,
   });
+
+  //получение списка пользователей
+  const getUsers = async (userDataURL: string) => {
+    let users = await axios
+      .get<IUser[]>(userDataURL)
+      .then(function (response) {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    //console.log(users);
+  };
+
+  const fetchData = async (userDataURL: string) => {
+    let response = await getUsers(userDataURL);
+    console.log(response);
+  };
 
   const handleChange =
     (prop: keyof IUser) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +57,7 @@ export const LoginPage = () => {
     });
   };
 
+  //не оч понятно за чем это надо, взял из шаблона.
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -107,9 +115,13 @@ export const LoginPage = () => {
           />
         </FormControl>
         <Button
-          onClick={getUsers(values.login, values.password)}
           variant="outlined"
           sx={{ m: 1 }}
+          // onClick={fetchData(us)}
+
+          onClick={(event: React.MouseEvent<HTMLElement>) => {
+            fetchData(userDataURL);
+          }}
         >
           Войти
         </Button>

@@ -156,7 +156,7 @@
       ],
 
       "users": {
-          "login":"test",
-          "password": "test"
-      } 
+        "login":"test",
+        "password": "test"
+    } 
 }

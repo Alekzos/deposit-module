@@ -155,8 +155,19 @@
     }
       ],
 
-      "users": {
+      "users": [{
+        "id": 1,
         "login":"test",
         "password": "test"
-    } 
+    },
+      {
+        "id": 2,
+        "login":"test2",
+        "password": "test2"
+    },
+      {
+        "id": 3,
+        "login":"test3",
+        "password": "test3"
+      }]
 }

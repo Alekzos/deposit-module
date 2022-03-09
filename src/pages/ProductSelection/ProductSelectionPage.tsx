@@ -20,8 +20,6 @@ import { debounce } from "lodash";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -30,6 +28,9 @@ import ToggleOffIcon from "@mui/icons-material/ToggleOff";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 import { Tooltip } from "@mui/material";
 import HelpOutline from "@mui/icons-material/HelpOutline";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControl from "@mui/material/FormControl";
 
 import ProductList from "./components/ProductList";
 import SliderWithTextField from "./components/SliderWithTextField";
@@ -43,7 +44,6 @@ const ProductSelection = () => {
   const [messageProductNotFound, setMessageProductNotFound] =
     useState<string>("");
 
-  useState<string>("");
   const [depositTerm, setdepositTerm] = useState<number>(1);
   const [depositOptions, setDepositOptions] = useState({
     earlyTermination: false,
@@ -75,12 +75,13 @@ const ProductSelection = () => {
       };
       fetchData(productsDataURL);
     }, 500),
-    [products]
+    //[products] // при таком варианте отображаются старые данные
+    [products, currency, depositTerm, value, depositOptions] //а при таком варианте задержки  нет
   );
 
   //переключатель валюты
   const handleCurrency = (
-    event: React.MouseEvent<HTMLElement>,
+    event: React.ChangeEvent<HTMLInputElement>,
     newCurrency: string
   ) => {
     setCurrency(newCurrency);
@@ -123,17 +124,26 @@ const ProductSelection = () => {
       <Grid container>
         <Grid item xs={6}>
           <Box>
-            <ToggleButtonGroup
-              value={currency}
-              exclusive
-              onChange={handleCurrency}
-              aria-label="currency"
-              color="primary"
-              fullWidth
-            >
-              <ToggleButton value="rub">Рубли</ToggleButton>
-              <ToggleButton value="usd">Доллары США</ToggleButton>
-            </ToggleButtonGroup>
+            <FormControl>
+              <RadioGroup
+                value={currency}
+                onChange={handleCurrency}
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="rub"
+                  control={<Radio />}
+                  label="Рубли"
+                />
+                <FormControlLabel
+                  value="usd"
+                  control={<Radio />}
+                  label="Доллары США"
+                />
+              </RadioGroup>
+            </FormControl>
           </Box>
 
           <SliderWithTextField

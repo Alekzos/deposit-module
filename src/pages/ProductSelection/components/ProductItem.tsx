@@ -2,13 +2,15 @@ import React from "react";
 
 import { IProduct } from "../../../data/types";
 import { numberWithSpaces } from "../../../utils/utils";
-import { Currencies } from "../../../data/consts";
+import { Currencies, pageURLs } from "../../../data/consts";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+
+import { Link } from "react-router-dom";
 
 interface ProductItemProps {
   product: IProduct;
@@ -61,7 +63,9 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, value }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Оформить</Button>
+          <Link to={pageURLs.applicationPage}>
+            <Button size="small">Оформить</Button>
+          </Link>
         </CardActions>
       </Card>
     </div>

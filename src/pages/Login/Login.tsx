@@ -2,6 +2,10 @@ import React from "react";
 import { useState } from "react";
 import "../../styles/Login.css";
 
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -13,36 +17,76 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
+import FormHelperText from "@mui/material/FormHelperText";
 
 import axios from "axios";
-import { IUser } from "../../data/types";
+import { IUser, IUserLogin } from "../../data/types";
 
-import { userDataURL } from "../../data/consts";
+import { userDataURL, loginErrMessages, pageURLs } from "../../data/consts";
+import { useInRouterContext } from "react-router-dom";
+import { isElement, values } from "lodash";
 
 export const LoginPage = () => {
-  const [values, setValues] = useState<IUser>({
+  const [values, setValues] = useState<IUserLogin>({
     login: "",
     password: "",
     showPassword: false,
   });
 
-  //получение списка пользователей
-  const getUsers = async (userDataURL: string) => {
+  const [loginErrMessage, setLoginErrMessage] = useState<string>("");
+  const [passwordErrMessage, setPasswordErrMessage] = useState<string>("");
+  let navigate = useNavigate();
+
+  //получение пользователей и фильтрация по выбранному
+  const getUser = async (userDataURL: string) => {
     let users = await axios
       .get<IUser[]>(userDataURL)
       .then(function (response) {
-        console.log(response.data);
         return response.data;
       })
       .catch(function (error) {
         console.log(error);
       });
-    //console.log(users);
+
+    let TheUserData: IUser[] = (users || []).filter(
+      (user) => user.login === values.login
+    );
+
+    checkUser(TheUserData);
   };
 
-  const fetchData = async (userDataURL: string) => {
-    let response = await getUsers(userDataURL);
-    console.log(response);
+  //проверка пароля и логина и вывод сообщения
+  const checkUser = (user: Array<IUser>) => {
+    //если логин не введен
+    if (!values.login) {
+      setLoginErrMessage(loginErrMessages.loginEmpty);
+    } else {
+      //если введен, но не найден
+      if (!user[0]) {
+        setLoginErrMessage(loginErrMessages.LoginNotFound);
+      } else {
+        //введен и найден
+        setLoginErrMessage("");
+      }
+    }
+
+    //если пароль не введен
+    if (!values.password) {
+      setPasswordErrMessage(loginErrMessages.PasswordEmpty);
+    } else {
+      if (user.length > 0) {
+        //если введен, но не совпадает
+        if (values.password !== user[0].password) {
+          setPasswordErrMessage(loginErrMessages.PasswordNotFound);
+        } else {
+          //все подошло
+          setPasswordErrMessage("");
+          navigate(pageURLs.productSelectionPage);
+        }
+      } else {
+        setPasswordErrMessage("");
+      }
+    }
   };
 
   const handleChange =
@@ -76,6 +120,7 @@ export const LoginPage = () => {
         }}
       >
         <TextField
+          helperText={loginErrMessage}
           label="Логин"
           required
           focused
@@ -113,14 +158,13 @@ export const LoginPage = () => {
             }
             label="Password"
           />
+          <FormHelperText error>{passwordErrMessage}</FormHelperText>
         </FormControl>
         <Button
           variant="outlined"
           sx={{ m: 1 }}
-          // onClick={fetchData(us)}
-
           onClick={(event: React.MouseEvent<HTMLElement>) => {
-            fetchData(userDataURL);
+            getUser(userDataURL);
           }}
         >
           Войти

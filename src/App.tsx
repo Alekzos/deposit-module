@@ -6,6 +6,8 @@ import { Application } from "./pages/Application/Application";
 import { ApplicationList } from "./pages/ApplicationList/ApplicationList";
 import { NotFound } from "./pages/NotFound/NotFound";
 
+import { pageURLs } from "./data/consts";
+
 import "./styles/App.css";
 
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
@@ -17,10 +19,16 @@ function App() {
       <StyledEngineProvider injectFirst>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/calc" element={<ProductSelection />} />
-            <Route path="/application" element={<Application />} />
-            <Route path="/applicationlist" element={<ApplicationList />} />
+            <Route path={pageURLs.homePage} element={<LoginPage />} />
+            <Route
+              path={pageURLs.productSelectionPage}
+              element={<ProductSelection />}
+            />
+            <Route path={pageURLs.applicationPage} element={<Application />} />
+            <Route
+              path={pageURLs.applicationList}
+              element={<ApplicationList />}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

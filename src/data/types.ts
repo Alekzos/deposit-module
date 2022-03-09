@@ -34,7 +34,13 @@ export interface ISliderWithTextFieldProps {
 }
 
 export interface IUser {
+  id: number;
   login: string;
   password: string;
-  showPassword?: boolean;
+}
+
+export interface IUserLogin {
+  login: string;
+  password: string;
+  showPassword: boolean;
 }

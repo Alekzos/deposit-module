@@ -1,5 +1,13 @@
-.loginPage {margin-top: 120px;}
-.loginPage .MuiBox-root {margin: 0 auto;max-width: 430px;}
+
+.loginPageTitle {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom:30px;
+}
+
+.loginPage .loginForm {margin: 0 auto;max-width: 430px;}
 .MuiFormHelperText-root{color:#d32f2f;}
 
 .MuiBox-root >div, .MuiBox-root >button {width: 100%;   }
+
+.MuiBox-root >button  {max-width: 200px; margin: 0 auto;}

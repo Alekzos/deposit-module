@@ -15,9 +15,9 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
 import FormHelperText from "@mui/material/FormHelperText";
+import Typography from "@mui/material/Typography";
 
 import axios from "axios";
 import { IUser, IUserLogin } from "../../data/types";
@@ -33,6 +33,7 @@ export const LoginPage = () => {
     showPassword: false,
   });
 
+  const [isLogged, setIsLogged] = useState<boolean>(false);
   const [loginErrMessage, setLoginErrMessage] = useState<string>("");
   const [passwordErrMessage, setPasswordErrMessage] = useState<string>("");
   let navigate = useNavigate();
@@ -81,6 +82,11 @@ export const LoginPage = () => {
         } else {
           //все подошло
           setPasswordErrMessage("");
+
+          setIsLogged(true);
+          sessionStorage.setItem("isLogged", JSON.stringify(isLogged));
+          // console.log(sessionStorage.getItem("isLogged"));
+          // console.log(isLogged);
           navigate(pageURLs.productSelectionPage);
         }
       } else {
@@ -110,7 +116,12 @@ export const LoginPage = () => {
 
   return (
     <div className="loginPage">
+      <Box className="loginPageTitle">
+        <Typography variant="h1">Авторизация</Typography>
+        <Typography paragraph>введите логин и пароль</Typography>
+      </Box>
       <Box
+        className="loginForm"
         sx={{
           display: "flex",
           flexWrap: "wrap",
@@ -128,13 +139,6 @@ export const LoginPage = () => {
           onChange={handleChange("login")}
           id="outlined-start-adornment"
           sx={{ m: 1, width: "35ch" }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AccountCircle />
-              </InputAdornment>
-            ),
-          }}
         />
 
         <FormControl required sx={{ m: 1 }} variant="outlined">

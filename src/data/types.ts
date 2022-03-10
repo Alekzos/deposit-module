@@ -37,6 +37,7 @@ export interface IUser {
   id: number;
   login: string;
   password: string;
+  isUserLogged: boolean;
 }
 
 export interface IUserLogin {
@@ -44,3 +45,30 @@ export interface IUserLogin {
   password: string;
   showPassword: boolean;
 }
+
+//типы для redux
+export interface userState {
+  user: any[];
+  loading: boolean;
+  isUserLogged: boolean;
+  error: null | string;
+}
+
+export enum userActionTypes {
+  LOGIN = "LOGIN",
+  LOGIN_SUCCESS = "LOGIN_SUCCESS",
+  LOGIN_ERROR = "LOGIN_ERROR",
+}
+interface userAction {
+  type: userActionTypes.LOGIN;
+}
+interface userSuccessAction {
+  type: userActionTypes.LOGIN_SUCCESS;
+  payload: any[];
+}
+interface userErrorAction {
+  type: userActionTypes.LOGIN_ERROR;
+  payload: string;
+}
+
+export type UserAction = userAction | userSuccessAction | userErrorAction;

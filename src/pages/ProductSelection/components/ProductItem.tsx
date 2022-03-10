@@ -12,6 +12,8 @@ import Typography from "@mui/material/Typography";
 
 import { Link } from "react-router-dom";
 
+//sessionStorage.setItem("currency", currency);
+
 interface ProductItemProps {
   product: IProduct;
   value: number;
@@ -64,7 +66,15 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, value }) => {
         </CardContent>
         <CardActions>
           <Link to={pageURLs.applicationPage}>
-            <Button size="small">Оформить</Button>
+            <Button
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                sessionStorage.setItem("value", JSON.stringify(value));
+                sessionStorage.setItem("product", JSON.stringify(product));
+              }}
+              size="small"
+            >
+              Оформить
+            </Button>
           </Link>
         </CardActions>
       </Card>

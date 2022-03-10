@@ -23,8 +23,6 @@ import axios from "axios";
 import { IUser, IUserLogin } from "../../data/types";
 
 import { userDataURL, loginErrMessages, pageURLs } from "../../data/consts";
-import { useInRouterContext } from "react-router-dom";
-import { isElement, values } from "lodash";
 
 export const LoginPage = () => {
   const [values, setValues] = useState<IUserLogin>({
@@ -84,7 +82,21 @@ export const LoginPage = () => {
           setPasswordErrMessage("");
 
           setIsLogged(true);
+          sessionStorage.setItem("login", user[0].login);
           sessionStorage.setItem("isLogged", JSON.stringify(isLogged));
+          sessionStorage.setItem(
+            "accountsRUB",
+            JSON.stringify(user[0].accounts.rub)
+          );
+          sessionStorage.setItem(
+            "accountsUSD",
+            JSON.stringify(user[0].accounts.usd)
+          );
+          sessionStorage.setItem(
+            "accountsEUR",
+            JSON.stringify(user[0].accounts.eur)
+          );
+
           // console.log(sessionStorage.getItem("isLogged"));
           // console.log(isLogged);
           navigate(pageURLs.productSelectionPage);

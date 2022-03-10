@@ -40,11 +40,14 @@ import { getProducts } from "./components/getProducts";
 const ProductSelection = () => {
   const [products, setProducts] = useState<void | IProduct[]>([]);
   const [currency, setCurrency] = useState<string>(Currencies.rub);
+
   const [value, setValue] = useState<number>(0);
   const [messageProductNotFound, setMessageProductNotFound] =
     useState<string>("");
 
   const [depositTerm, setdepositTerm] = useState<number>(1);
+  sessionStorage.setItem("depositTerm", JSON.stringify(depositTerm));
+
   const [depositOptions, setDepositOptions] = useState({
     earlyTermination: false,
     withdrawals: false,
@@ -76,7 +79,7 @@ const ProductSelection = () => {
       fetchData(productsDataURL);
     }, 500),
     //[products] // при таком варианте отображаются старые данные
-    [products, currency, depositTerm, value, depositOptions] //а при таком варианте задержки  нет
+    [currency, depositTerm, depositOptions, value] //а при таком варианте задержки  нет
   );
 
   //переключатель валюты
@@ -97,6 +100,7 @@ const ProductSelection = () => {
     }
     if (e.target.name === "termSlider") {
       setdepositTerm(+newValue);
+      sessionStorage.setItem("depositTerm", JSON.stringify(newValue));
     }
     if (e.target.name === "depositInput") {
       setValue(numberWithoutSpaces(e.target.value, maxInputSum));

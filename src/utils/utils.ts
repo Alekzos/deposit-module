@@ -58,3 +58,12 @@ export const calcWithinterestCapitalization = (
 export const inRange = (val: number, min: number, max: number) => {
   return val >= min && val <= max;
 };
+
+//тайпскрипт выдает ошибку, что там Null или String, для ее обхода такой вариант работает:
+
+export const getsessionStorageData = (itemName: string) => {
+  let item = sessionStorage.getItem(itemName);
+  if (item) {
+    return JSON.parse(item);
+  }
+};

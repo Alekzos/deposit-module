@@ -38,6 +38,9 @@ export interface IUser {
   login: string;
   password: string;
   isUserLogged: boolean;
+  accounts: any;
+  usd: Array<number>;
+  rub: Array<number>;
 }
 
 export interface IUserLogin {

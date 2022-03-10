@@ -158,16 +158,30 @@
       "users": [{
         "id": 1,
         "login":"test",
-        "password": "test"
+        "password": "test",
+        "accounts":{
+          "rub":["r1","r2","r3","r4","r5"],
+          "usd":["u1","u2","u3","u4","u5"]
+        }
     },
       {
         "id": 2,
         "login":"test2",
-        "password": "test2"
+        "password": "test2",
+        "accounts":{
+          "rub":["r1","r2","r3","r4","r5"],
+          "usd":["u1","u2","u3","u4","u5"]
+          // "eur":{"e1":100,"e2":200}
+        }
     },
       {
         "id": 3,
         "login":"test3",
-        "password": "test3"
-      }]
+        "password": "test3",
+        "accounts":{
+          "rub":["r1","r2","r3","r4","r5"],
+          "usd":["u1","u2","u3","u4","u5"]
+        }}
+       
+      ]
 }

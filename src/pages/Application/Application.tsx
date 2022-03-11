@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
+import "../../styles/application.css";
+
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,7 +10,8 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 
-import { getsessionStorageData } from "../../utils/utils";
+import { getsessionStorageData, numberWithSpaces } from "../../utils/utils";
+
 export const Application = () => {
   const [account, setAccount] = useState("");
 
@@ -17,17 +20,11 @@ export const Application = () => {
   };
 
   const product = getsessionStorageData("product");
+  const accounts = getsessionStorageData("accounts");
 
-  let accounts = [];
-
-  // let accountsEUR = getsessionStorageData("accountsEUR");
-  // console.log(accountsEUR);
-
-  if (product.currency === "usd") {
-    accounts = getsessionStorageData("accountsUSD");
-  } else {
-    accounts = getsessionStorageData("accountsRUB");
-  }
+  const filteredAccounts = accounts.filter(
+    (account: any) => account.currency === product.currency
+  );
 
   return (
     <div className="application">
@@ -47,10 +44,18 @@ export const Application = () => {
             label="счёт"
             onChange={handleChange}
           >
-            {accounts.map((account: []) => {
+            {filteredAccounts.map((filteredAccount: any) => {
               return (
-                <MenuItem key={account.toString()} value={account}>
-                  {account}
+                <MenuItem
+                  className="selectAccountItem"
+                  key={filteredAccount.account}
+                  value={filteredAccount.account}
+                >
+                  {filteredAccount.account}
+                  <span className="accountBalanceItem">
+                    {numberWithSpaces(filteredAccount.balance)}
+                    {filteredAccount.currency === product.rub ? "₽" : "$"}
+                  </span>
                 </MenuItem>
               );
             })}

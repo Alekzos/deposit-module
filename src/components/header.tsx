@@ -33,7 +33,10 @@ export const Header = () => {
           </Typography>
 
           <nav>
-            {sessionStorage.getItem("isLogged") ? (
+            {sessionStorage.getItem("isLogged") &&
+            sessionStorage.getItem("hideCalcPage") !== "1" &&
+            window.location.pathname !== pageURLs.productSelectionPage &&
+            window.location.pathname !== pageURLs.homePage ? (
               <Link
                 variant="button"
                 color="text.primary"
@@ -46,7 +49,10 @@ export const Header = () => {
               ""
             )}
 
-            {sessionStorage.getItem("isLogged") ? (
+            {sessionStorage.getItem("isLogged") &&
+            sessionStorage.getItem("hideApplicationPage") !== "1" &&
+            window.location.pathname !== pageURLs.applicationPage &&
+            window.location.pathname !== pageURLs.homePage ? (
               <Link
                 variant="button"
                 color="text.primary"

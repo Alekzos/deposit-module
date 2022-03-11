@@ -70,6 +70,8 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, value }) => {
               onClick={(event: React.MouseEvent<HTMLElement>) => {
                 sessionStorage.setItem("value", JSON.stringify(value));
                 sessionStorage.setItem("product", JSON.stringify(product));
+                sessionStorage.setItem("hideCalcPage", "1");
+                sessionStorage.setItem("hideApplicationPage", "0");
               }}
               size="small"
             >

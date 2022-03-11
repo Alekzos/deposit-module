@@ -1,0 +1,4 @@
+.selectAccountItem {display: block;
+    position: relative;}
+
+.accountBalanceItem {float:right; color:gray; font-size: 14px;}

@@ -159,29 +159,40 @@
         "id": 1,
         "login":"test",
         "password": "test",
-        "accounts":{
-          "rub":["r1","r2","r3","r4","r5"],
-          "usd":["u1","u2","u3","u4","u5"]
-        }
+        "accounts":[
+          {"account":"r1", "balance":1000000,"currency":"rub"},
+          {"account":"r2","balance":200,"currency":"rub"},
+          {"account":"u1","balance":400,"currency":"usd"},
+          {"account":"u2","balance":500,"currency":"usd"}
+        ]
+
     },
       {
         "id": 2,
         "login":"test2",
         "password": "test2",
-        "accounts":{
-          "rub":["r1","r2","r3","r4","r5"],
-          "usd":["u1","u2","u3","u4","u5"]
-          // "eur":{"e1":100,"e2":200}
-        }
+        "accounts":[
+          {"account":"r3", "balance":1000000,"currency":"rub"},
+          {"account":"r4","balance":200,"currency":"rub"},
+          {"account":"r5","balance":300,"currency":"rub"},
+          {"account":"u3","balance":400,"currency":"usd"},
+          {"account":"u4","balance":500,"currency":"usd"},
+          {"account":"u5","balance":600,"currency":"usd"}
+        ]
     },
       {
         "id": 3,
         "login":"test3",
         "password": "test3",
-        "accounts":{
-          "rub":["r1","r2","r3","r4","r5"],
-          "usd":["u1","u2","u3","u4","u5"]
-        }}
+        "accounts":[
+          {"account":"r6", "balance":1000000,"currency":"rub"},
+          {"account":"r7","balance":200,"currency":"rub"},
+          {"account":"r8","balance":3000,"currency":"rub"},
+          {"account":"u4","balance":400,"currency":"usd"},
+          {"account":"u5","balance":500,"currency":"usd"},
+          {"account":"u6","balance":600,"currency":"usd"}
+        ]
+      }
        
       ]
 }

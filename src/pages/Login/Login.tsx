@@ -47,6 +47,7 @@ export const LoginPage = () => {
         console.log(error);
       });
 
+    console.log(users);
     let TheUserData: IUser[] = (users || []).filter(
       (user) => user.login === values.login
     );
@@ -84,21 +85,11 @@ export const LoginPage = () => {
           setIsLogged(true);
           sessionStorage.setItem("login", user[0].login);
           sessionStorage.setItem("isLogged", JSON.stringify(isLogged));
-          sessionStorage.setItem(
-            "accountsRUB",
-            JSON.stringify(user[0].accounts.rub)
-          );
-          sessionStorage.setItem(
-            "accountsUSD",
-            JSON.stringify(user[0].accounts.usd)
-          );
-          sessionStorage.setItem(
-            "accountsEUR",
-            JSON.stringify(user[0].accounts.eur)
-          );
+          sessionStorage.setItem("accounts", JSON.stringify(user[0].accounts));
 
-          // console.log(sessionStorage.getItem("isLogged"));
-          // console.log(isLogged);
+          sessionStorage.setItem("hideCalcPage", "0");
+          sessionStorage.setItem("hideApplicationPage", "1");
+
           navigate(pageURLs.productSelectionPage);
         }
       } else {

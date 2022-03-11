@@ -12,6 +12,8 @@ import Typography from "@mui/material/Typography";
 
 import { getsessionStorageData, numberWithSpaces } from "../../utils/utils";
 
+import { Currencies } from "../../data/consts";
+
 export const Application = () => {
   const [account, setAccount] = useState("");
 
@@ -54,7 +56,8 @@ export const Application = () => {
                   {filteredAccount.account}
                   <span className="accountBalanceItem">
                     {numberWithSpaces(filteredAccount.balance)}
-                    {filteredAccount.currency === product.rub ? "₽" : "$"}
+
+                    {filteredAccount.currency === Currencies.rub ? "₽" : "$"}
                   </span>
                 </MenuItem>
               );

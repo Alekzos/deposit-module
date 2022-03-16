@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import "../../styles/Login.css";
 
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { useLocation, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
@@ -21,8 +19,9 @@ import Typography from "@mui/material/Typography";
 
 import axios from "axios";
 import { IUser, IUserLogin } from "../../data/types";
-import { getUsers } from "../../API/API";
-import { userDataURL, loginErrMessages, pageURLs } from "../../data/consts";
+import { checkUserLogin, checkUserPassword } from "../../utils/checkUserLogin";
+
+import { userDataURL, pageURLs } from "../../data/consts";
 
 export const LoginPage = () => {
   const [values, setValues] = useState<IUserLogin>({
@@ -31,65 +30,47 @@ export const LoginPage = () => {
     showPassword: false,
   });
 
-  const [isLogged, setIsLogged] = useState<boolean>(false);
   const [loginErrMessage, setLoginErrMessage] = useState<string>("");
   const [passwordErrMessage, setPasswordErrMessage] = useState<string>("");
+  const [isLogged, setIsLogged] = useState<boolean>(false);
   let navigate = useNavigate();
 
-  const login = () => {
-    async function geUsersData() {
-      const users = await getUsers(userDataURL);
-      console.log(users);
-    }
+  //получение пользователей и фильтрация по выбранному
+  const getUser = async (userDataURL: string) => {
+    let users = await axios
+      .get<IUser[]>(userDataURL)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-    geUsersData();
-    // let TheUserData: IUser[] = (users || []).filter(
-    //   (user) => user.login === values.login
-    // );
-    // checkUser(TheUserData);
-    // checkUser();
-  };
+    console.log(users);
+    let TheUserData: IUser[] = (users || []).filter(
+      (user) => user.login === values.login
+    );
 
-  //проверка пароля и логина и вывод сообщения
-  const checkUser = (user: Array<IUser>) => {
-    //если логин не введен
-    if (!values.login) {
-      setLoginErrMessage(loginErrMessages.loginEmpty);
+    //вывести ошибку в логине если есть
+    setLoginErrMessage(checkUserLogin(TheUserData, values));
+
+    //вывести ошибку в пароле если есть, если нет, тогда перенаправить на другую страницу
+    if (checkUserPassword(TheUserData, values) === "ok") {
+      setPasswordErrMessage("");
+      setIsLogged(true);
+
+      sessionStorage.setItem("login", TheUserData[0].login);
+      sessionStorage.setItem("isLogged", JSON.stringify(isLogged));
+      sessionStorage.setItem(
+        "accounts",
+        JSON.stringify(TheUserData[0].accounts)
+      );
+      sessionStorage.setItem("hideCalcPage", "0");
+      sessionStorage.setItem("hideApplicationPage", "1");
+
+      navigate(pageURLs.productSelectionPage);
     } else {
-      //если введен, но не найден
-      if (!user[0]) {
-        setLoginErrMessage(loginErrMessages.LoginNotFound);
-      } else {
-        //введен и найден
-        setLoginErrMessage("");
-      }
-    }
-
-    //если пароль не введен
-    if (!values.password) {
-      setPasswordErrMessage(loginErrMessages.PasswordEmpty);
-    } else {
-      if (user.length > 0) {
-        //если введен, но не совпадает
-        if (values.password !== user[0].password) {
-          setPasswordErrMessage(loginErrMessages.PasswordNotFound);
-        } else {
-          //все подошло
-          setPasswordErrMessage("");
-
-          setIsLogged(true);
-          sessionStorage.setItem("login", user[0].login);
-          sessionStorage.setItem("isLogged", JSON.stringify(isLogged));
-          sessionStorage.setItem("accounts", JSON.stringify(user[0].accounts));
-
-          sessionStorage.setItem("hideCalcPage", "0");
-          sessionStorage.setItem("hideApplicationPage", "1");
-
-          navigate(pageURLs.productSelectionPage);
-        }
-      } else {
-        setPasswordErrMessage("");
-      }
+      setPasswordErrMessage(checkUserPassword(TheUserData, values));
     }
   };
 
@@ -166,7 +147,7 @@ export const LoginPage = () => {
           variant="outlined"
           sx={{ m: 1 }}
           onClick={(event: React.MouseEvent<HTMLElement>) => {
-            login();
+            getUser(userDataURL);
           }}
         >
           Войти

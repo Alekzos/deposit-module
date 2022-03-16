@@ -5,11 +5,11 @@ import { IProduct } from "../../../data/types";
 import Stack from "@mui/material/Stack";
 interface ProductListProps {
   products: void | IProduct[];
-  value: number;
+  depositSum: number;
 }
 
 //компонент для вывода списка депозитов
-const ProductList: React.FC<ProductListProps> = ({ products, value }) => {
+const ProductList: React.FC<ProductListProps> = ({ products, depositSum }) => {
   return (
     <Stack
       direction="column"
@@ -18,7 +18,13 @@ const ProductList: React.FC<ProductListProps> = ({ products, value }) => {
       spacing={2}
     >
       {(products || []).map((product) => {
-        return <ProductItem key={product.id} product={product} value={value} />;
+        return (
+          <ProductItem
+            key={product.id}
+            product={product}
+            depositSum={depositSum}
+          />
+        );
       })}
     </Stack>
   );

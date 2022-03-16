@@ -16,11 +16,11 @@ import { Link } from "react-router-dom";
 
 interface ProductItemProps {
   product: IProduct;
-  value: number;
+  depositSum: number;
 }
 
 //компонент для вывода самой карточки
-const ProductItem: React.FC<ProductItemProps> = ({ product, value }) => {
+const ProductItem: React.FC<ProductItemProps> = ({ product, depositSum }) => {
   return (
     <div>
       <Card sx={{ minWidth: 275 }}>
@@ -68,7 +68,10 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, value }) => {
           <Link to={pageURLs.applicationPage}>
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
-                sessionStorage.setItem("value", JSON.stringify(value));
+                sessionStorage.setItem(
+                  "depositSum",
+                  JSON.stringify(depositSum)
+                );
                 sessionStorage.setItem("product", JSON.stringify(product));
                 sessionStorage.setItem("hideCalcPage", "1");
                 sessionStorage.setItem("hideApplicationPage", "0");

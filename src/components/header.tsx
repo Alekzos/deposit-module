@@ -3,18 +3,28 @@ import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import GlobalStyles from "@mui/material/GlobalStyles";
+import Box from "@mui/material/Box";
 
 import { useNavigate } from "react-router-dom";
 import { pageURLs } from "../data/consts";
+import logo from "../styles/logoipsum-logo.svg";
 
 export const Header = () => {
   let navigate = useNavigate();
 
   const Logout = (event: React.MouseEvent<HTMLElement>) => {
-    sessionStorage.clear();
+    //sessionStorage.clear();
+    sessionStorage.removeItem("accounts");
+    sessionStorage.removeItem("depositTerm");
+    sessionStorage.removeItem("hideApplicationPage");
+    sessionStorage.removeItem("hideCalcPage");
+    sessionStorage.removeItem("isLogged");
+    sessionStorage.removeItem("login");
+    sessionStorage.removeItem("product");
+    sessionStorage.removeItem("depositSum");
+
     navigate(pageURLs.homePage);
   };
 
@@ -26,11 +36,11 @@ export const Header = () => {
       <CssBaseline />
       <AppBar position="static" color="default" elevation={0}>
         <Toolbar sx={{ flexWrap: "wrap" }}>
-          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1 }}>
             <Link className="logo" href={pageURLs.homePage}>
-              Логотип
+              <img src={logo} alt="logo" />
             </Link>
-          </Typography>
+          </Box>
 
           <nav>
             {sessionStorage.getItem("isLogged") &&

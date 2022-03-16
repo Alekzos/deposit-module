@@ -41,7 +41,7 @@ const ProductSelection = () => {
   const [products, setProducts] = useState<void | IProduct[]>([]);
   const [currency, setCurrency] = useState<string>(Currencies.rub);
 
-  const [value, setValue] = useState<number>(0);
+  const [depositSum, setDepositSum] = useState<number>(0);
   const [messageProductNotFound, setMessageProductNotFound] =
     useState<string>("");
 
@@ -55,22 +55,27 @@ const ProductSelection = () => {
   });
 
   useEffect(() => {
-    getProductsWithDebounce({ currency, depositTerm, depositOptions, value });
-  }, [currency, depositTerm, depositOptions, value]);
+    getProductsWithDebounce({
+      currency,
+      depositTerm,
+      depositOptions,
+      depositSum,
+    });
+  }, [currency, depositTerm, depositOptions, depositSum]);
 
   //задержка для ввода, чтобы запрос не сразу отправлялся при изменении данных
   const getProductsWithDebounce = useCallback(
-    debounce(({ currency, depositTerm, depositOptions, value }) => {
+    debounce(({ currency, depositTerm, depositOptions, depositSum }) => {
       const fetchData = async (productsDataURL: string) => {
         let response = await getProducts(
           productsDataURL,
           currency,
           depositTerm,
           depositOptions,
-          value
+          depositSum
         );
         setProducts(response);
-        if (value > 0) {
+        if (depositSum > 0) {
           setMessageProductNotFound(
             "Продукты c заданными условиями не найдены"
           );
@@ -95,14 +100,14 @@ const ProductSelection = () => {
     newValue: number | number[]
   ) => {
     if (e.target.name === "depositSlider") {
-      setValue(+newValue);
+      setDepositSum(+newValue);
     }
     if (e.target.name === "termSlider") {
       setdepositTerm(+newValue);
       sessionStorage.setItem("depositTerm", JSON.stringify(newValue));
     }
     if (e.target.name === "depositInput") {
-      setValue(numberWithoutSpaces(e.target.value, maxInputSum));
+      setDepositSum(numberWithoutSpaces(e.target.value, maxInputSum));
     }
     if (e.target.name === "termInput") {
       setdepositTerm(numberWithoutSpaces(e.target.value, maxInputTerm));
@@ -155,7 +160,7 @@ const ProductSelection = () => {
             step={stepInputSum}
             min={0}
             max={maxInputSum}
-            value={value}
+            value={depositSum}
             // handleInputChange={handleInputChange}
             handleSliderChange={handleSliderChange}
           />
@@ -241,7 +246,7 @@ const ProductSelection = () => {
         <Grid item xs={6}>
           <Box>
             {products?.length ? (
-              <ProductList products={products} value={value} />
+              <ProductList products={products} depositSum={depositSum} />
             ) : (
               <Typography variant="h6" component="div">
                 {messageProductNotFound

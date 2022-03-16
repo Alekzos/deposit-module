@@ -100,16 +100,16 @@ export const KeyRateUsd = 0.5;
 export const depositEarlyTerminationRatio = 0.9;
 export const withdrawalsRatio = 0.8;
 
-export enum loginErrMessages {
-  loginEmpty = "введите логин",
-  PasswordEmpty = "введите пароль",
-  PasswordNotFound = "пароль не подходит",
-  LoginNotFound = "пользователь не найден",
-}
+export const loginErrMessages = {
+  loginEmpty: "введите логин",
+  PasswordEmpty: "введите пароль",
+  PasswordNotFound: "пароль не подходит",
+  LoginNotFound: "пользователь не найден",
+};
 
-export enum pageURLs {
-  homePage = "/",
-  productSelectionPage = "/calc",
-  applicationPage = "/application",
-  applicationList = "/applicationlist",
-}
+export const pageURLs = {
+  homePage: "/",
+  productSelectionPage: "/calc",
+  applicationPage: "/application",
+  applicationList: "/applicationlist",
+};

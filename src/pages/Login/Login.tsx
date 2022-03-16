@@ -21,7 +21,7 @@ import Typography from "@mui/material/Typography";
 
 import axios from "axios";
 import { IUser, IUserLogin } from "../../data/types";
-
+import { getUsers } from "../../API/API";
 import { userDataURL, loginErrMessages, pageURLs } from "../../data/consts";
 
 export const LoginPage = () => {
@@ -36,23 +36,18 @@ export const LoginPage = () => {
   const [passwordErrMessage, setPasswordErrMessage] = useState<string>("");
   let navigate = useNavigate();
 
-  //получение пользователей и фильтрация по выбранному
-  const getUser = async (userDataURL: string) => {
-    let users = await axios
-      .get<IUser[]>(userDataURL)
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  const login = () => {
+    async function geUsersData() {
+      const users = await getUsers(userDataURL);
+      console.log(users);
+    }
 
-    console.log(users);
-    let TheUserData: IUser[] = (users || []).filter(
-      (user) => user.login === values.login
-    );
-
-    checkUser(TheUserData);
+    geUsersData();
+    // let TheUserData: IUser[] = (users || []).filter(
+    //   (user) => user.login === values.login
+    // );
+    // checkUser(TheUserData);
+    // checkUser();
   };
 
   //проверка пароля и логина и вывод сообщения
@@ -171,7 +166,7 @@ export const LoginPage = () => {
           variant="outlined"
           sx={{ m: 1 }}
           onClick={(event: React.MouseEvent<HTMLElement>) => {
-            getUser(userDataURL);
+            login();
           }}
         >
           Войти

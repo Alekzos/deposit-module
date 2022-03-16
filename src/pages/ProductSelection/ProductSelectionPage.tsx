@@ -55,12 +55,12 @@ const ProductSelection = () => {
   });
 
   useEffect(() => {
-    getProductsWithDebounce();
+    getProductsWithDebounce({ currency, depositTerm, depositOptions, value });
   }, [currency, depositTerm, depositOptions, value]);
 
   //задержка для ввода, чтобы запрос не сразу отправлялся при изменении данных
   const getProductsWithDebounce = useCallback(
-    debounce(() => {
+    debounce(({ currency, depositTerm, depositOptions, value }) => {
       const fetchData = async (productsDataURL: string) => {
         let response = await getProducts(
           productsDataURL,
@@ -78,8 +78,7 @@ const ProductSelection = () => {
       };
       fetchData(productsDataURL);
     }, 500),
-    //[products] // при таком варианте отображаются старые данные
-    [currency, depositTerm, depositOptions, value] //а при таком варианте задержки  нет
+    []
   );
 
   //переключатель валюты

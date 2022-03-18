@@ -1,6 +1,6 @@
 import axios from "axios";
-import { IUser } from "../../src/data/types";
-import { userDataURL } from "../../src/data/consts";
+import { IUser } from "../data/types";
+import { userDataURL } from "../data/consts";
 
 //получение пользователей и фильтрация по выбранному
 export const getUsers = (userDataURL: string) => {

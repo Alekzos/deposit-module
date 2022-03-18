@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 import { productSelectionSlice } from "../../../redux/productSelectionSlice";
-// import setProduct from "../../../redux/productSelectionSlice";
+import { setProduct } from "../../../redux/productSelectionSlice";
 
 import { Link } from "react-router-dom";
 

@@ -10,6 +10,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+import { productSelectionSlice } from "../../../redux/productSelectionSlice";
+// import setProduct from "../../../redux/productSelectionSlice";
+
 import { Link } from "react-router-dom";
 
 //sessionStorage.setItem("currency", currency);
@@ -21,6 +25,12 @@ interface ProductItemProps {
 
 //компонент для вывода самой карточки
 const ProductItem: React.FC<ProductItemProps> = ({ product, depositSum }) => {
+  const { productRTK } = useAppSelector((product) => product.productReducer);
+  const { setProduct } = productSelectionSlice.actions;
+  const dispatch = useAppDispatch();
+  dispatch(setProduct());
+  console.log(productRTK);
+
   return (
     <div>
       <Card sx={{ minWidth: 275 }}>
@@ -74,7 +84,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, depositSum }) => {
                 );
                 sessionStorage.setItem("product", JSON.stringify(product));
                 sessionStorage.setItem("hideCalcPage", "1");
-                sessionStorage.setItem("hideApplicationPage", "0");
+                sessionStorage.setItem("hideApplicationPage", "0"); //
               }}
               size="small"
             >

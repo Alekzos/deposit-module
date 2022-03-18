@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import {
   Currencies,
@@ -18,6 +18,9 @@ import "../../styles/ProductSelectionPage.css";
 
 import { debounce } from "lodash";
 
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { productSelectionSlice } from "../../redux/productSelectionSlice";
+
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -34,7 +37,7 @@ import FormControl from "@mui/material/FormControl";
 
 import ProductList from "./components/ProductList";
 import SliderWithTextField from "./components/SliderWithTextField";
-import { getProducts } from "./components/getProducts";
+import { getProducts } from "../../api/getProducts";
 
 //main
 const ProductSelection = () => {

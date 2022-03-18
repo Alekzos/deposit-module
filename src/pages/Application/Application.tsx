@@ -10,13 +10,20 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 
+import { useLocation } from "react-router-dom";
+
 import { getsessionStorageData, numberWithSpaces } from "../../utils/utils";
 
 import { Currencies } from "../../data/consts";
 
 export const Application = () => {
   const [account, setAccount] = useState("");
+  // const depositSum = location.state;
+  const location = useLocation();
+  const product1 = location.state;
 
+  console.log("location.state");
+  console.log(product1);
   const handleChange = (event: SelectChangeEvent) => {
     setAccount(event.target.value as string);
   };

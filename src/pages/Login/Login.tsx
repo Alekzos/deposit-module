@@ -17,10 +17,9 @@ import Button from "@mui/material/Button";
 import FormHelperText from "@mui/material/FormHelperText";
 import Typography from "@mui/material/Typography";
 
-import axios from "axios";
 import { IUser, IUserLogin } from "../../data/types";
 import { checkUserLogin, checkUserPassword } from "../../utils/checkUserLogin";
-import { getUsers } from "../../API/API";
+import { getUsers } from "../../api/api";
 import { userDataURL, pageURLs } from "../../data/consts";
 
 export const LoginPage = () => {
@@ -36,35 +35,34 @@ export const LoginPage = () => {
   let navigate = useNavigate();
 
   //получение пользователей и фильтрация по выбранному
-  const login = async () => {
+  const auth = async () => {
     let users = await getUsers(userDataURL);
-    console.log(users);
 
-    // let TheUserData: IUser[] = (users || []).filter(
-    //   (user) => user.login === values.login
-    // );
+    let TheUserData: IUser[] = (users || []).filter(
+      (user) => user.login === values.login
+    );
 
-    // //вывести ошибку в логине если есть
-    // setLoginErrMessage(checkUserLogin(TheUserData, values));
+    //вывести ошибку в логине если есть
+    setLoginErrMessage(checkUserLogin(TheUserData, values));
 
-    // //вывести ошибку в пароле если есть, если нет, тогда перенаправить на другую страницу
-    // if (checkUserPassword(TheUserData, values) === "ok") {
-    //   setPasswordErrMessage("");
-    //   setIsLogged(true);
+    //вывести ошибку в пароле если есть, если нет, тогда перенаправить на страницу калькулятора
+    if (checkUserPassword(TheUserData, values) === "ok") {
+      setPasswordErrMessage("");
+      setIsLogged(true);
 
-    //   sessionStorage.setItem("login", TheUserData[0].login);
-    //   sessionStorage.setItem("isLogged", JSON.stringify(isLogged));
-    //   sessionStorage.setItem(
-    //     "accounts",
-    //     JSON.stringify(TheUserData[0].accounts)
-    //   );
-    //   sessionStorage.setItem("hideCalcPage", "0");
-    //   sessionStorage.setItem("hideApplicationPage", "1");
+      sessionStorage.setItem("login", TheUserData[0].login);
+      sessionStorage.setItem("isLogged", JSON.stringify(isLogged));
+      sessionStorage.setItem(
+        "accounts",
+        JSON.stringify(TheUserData[0].accounts)
+      );
+      sessionStorage.setItem("hideCalcPage", "0");
+      sessionStorage.setItem("hideApplicationPage", "1");
 
-    //   navigate(pageURLs.productSelectionPage);
-    // } else {
-    //   setPasswordErrMessage(checkUserPassword(TheUserData, values));
-    // }
+      navigate(pageURLs.productSelectionPage);
+    } else {
+      setPasswordErrMessage(checkUserPassword(TheUserData, values));
+    }
   };
 
   const handleChange =
@@ -79,7 +77,6 @@ export const LoginPage = () => {
     });
   };
 
-  //не оч понятно за чем это надо, взял из шаблона.
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -140,7 +137,7 @@ export const LoginPage = () => {
           variant="outlined"
           sx={{ m: 1 }}
           onClick={(event: React.MouseEvent<HTMLElement>) => {
-            login();
+            auth();
           }}
         >
           Войти

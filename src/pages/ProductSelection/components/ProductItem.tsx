@@ -25,10 +25,10 @@ interface ProductItemProps {
 
 //компонент для вывода самой карточки
 const ProductItem: React.FC<ProductItemProps> = ({ product, depositSum }) => {
+  const dispatch = useAppDispatch();
   const { productRTK } = useAppSelector((product) => product.productReducer);
   const { setProduct } = productSelectionSlice.actions;
-  const dispatch = useAppDispatch();
-  dispatch(setProduct());
+  dispatch(setProduct(product));
   console.log(productRTK);
 
   return (

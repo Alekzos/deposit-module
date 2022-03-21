@@ -17,6 +17,8 @@ import Button from "@mui/material/Button";
 
 import { Link } from "react-router-dom";
 
+import { addApplication } from "../../api/api";
+
 import {
   getsessionStorageData,
   numberWithSpaces,
@@ -41,6 +43,7 @@ export const Application = () => {
   const surname = sessionStorage.getItem("surname");
   const patronymic = sessionStorage.getItem("patronymic");
   const inn = sessionStorage.getItem("inn");
+  let applicationStatus = false;
 
   const filteredAccounts = accounts.filter(
     (account: any) => account.currency === selectedProduct.currency
@@ -124,6 +127,7 @@ export const Application = () => {
             счёт для пополнения депозита
           </InputLabel>
           <Select
+            required
             sx={{ maxWidth: "500px" }}
             labelId="account-select-label"
             id="account"
@@ -155,7 +159,17 @@ export const Application = () => {
           <Link to={pageURLs.applicationList}>
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
-                console.log("Черновик");
+                addApplication(
+                  selectedProduct,
+                  selectedDepositSum,
+                  selectedDepositTerm,
+                  name,
+                  surname,
+                  patronymic,
+                  inn,
+                  account,
+                  (applicationStatus = false)
+                );
               }}
               size="small"
             >
@@ -165,7 +179,17 @@ export const Application = () => {
           <Link to={pageURLs.applicationList}>
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
-                console.log("Отправить");
+                addApplication(
+                  selectedProduct,
+                  selectedDepositSum,
+                  selectedDepositTerm,
+                  name,
+                  surname,
+                  patronymic,
+                  inn,
+                  account,
+                  (applicationStatus = true)
+                );
               }}
               size="small"
             >

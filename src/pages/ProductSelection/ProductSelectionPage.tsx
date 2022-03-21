@@ -4,22 +4,19 @@ import { useState, useEffect, useCallback } from "react";
 
 import {
   Currencies,
-  productsDataURL,
   maxInputSum,
   maxInputTerm,
   stepInputSum,
+  jsonDataURLs,
 } from "../../data/consts";
 
 import { IProduct } from "../../data/types";
 
 import { numberWithoutSpaces } from "../../utils/utils";
+import { debounce } from "lodash";
+import { getProducts } from "../../api/getProducts";
 
 import "../../styles/ProductSelectionPage.css";
-
-import { debounce } from "lodash";
-
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { productSelectionSlice } from "../../redux/productSelectionSlice";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -34,10 +31,8 @@ import HelpOutline from "@mui/icons-material/HelpOutline";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
-
 import ProductList from "./components/ProductList";
 import SliderWithTextField from "./components/SliderWithTextField";
-import { getProducts } from "../../api/getProducts";
 
 //main
 const ProductSelection = () => {
@@ -70,7 +65,7 @@ const ProductSelection = () => {
     debounce(({ currency, depositTerm, depositOptions, depositSum }) => {
       const fetchData = async (productsDataURL: string) => {
         let response = await getProducts(
-          productsDataURL,
+          jsonDataURLs.products,
           currency,
           depositTerm,
           depositOptions,
@@ -83,7 +78,7 @@ const ProductSelection = () => {
           );
         } else setMessageProductNotFound("");
       };
-      fetchData(productsDataURL);
+      fetchData(jsonDataURLs.products);
     }, 500),
     []
   );

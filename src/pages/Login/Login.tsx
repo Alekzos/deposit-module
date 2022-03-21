@@ -20,7 +20,7 @@ import Typography from "@mui/material/Typography";
 import { IUser, IUserLogin } from "../../data/types";
 import { checkUserLogin, checkUserPassword } from "../../utils/checkUserLogin";
 import { getUsers } from "../../api/api";
-import { userDataURL, pageURLs } from "../../data/consts";
+import { pageURLs } from "../../data/consts";
 
 export const LoginPage = () => {
   const [values, setValues] = useState<IUserLogin>({
@@ -36,7 +36,7 @@ export const LoginPage = () => {
 
   //получение пользователей и фильтрация по выбранному
   const auth = async () => {
-    let users = await getUsers(userDataURL);
+    let users = await getUsers();
 
     let TheUserData: IUser[] = (users || []).filter(
       (user) => user.login === values.login

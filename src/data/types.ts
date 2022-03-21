@@ -33,6 +33,18 @@ export interface ISliderWithTextFieldProps {
   handleSliderChange?: any;
 }
 
+export interface IApplication {
+  product: IProduct;
+  selectedDepositSum: number;
+  selectedDepositTerm: number;
+  name: string;
+  surname: string;
+  patronymic: string;
+  inn: string;
+  account: string;
+  applicationStatus: boolean;
+  id: number;
+}
 export interface IUser {
   id: number;
   login: string;

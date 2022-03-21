@@ -1,209 +1,387 @@
 {
   "products": [
-    { 
-        "id": 1, 
-        "title": "Авансовый", 
-        "description": "Выплата процентов авансом за весь срок", 
-        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
-        "minSum": 0, 
-        "maxSum": 0, 
-        "minTerm": 14,  
-        "maxTerm": 365, 
-        "sumDescription":"без ограничений",
-        "termDescription":"От 14 - 365 дней",
-        "currency":"rub",
-        "paymentPeriods":"startOfTerm", 
-        "withdrawals": 0,
-        "earlyTermination":0 
+    {
+      "id": 1,
+      "title": "Авансовый",
+      "description": "Выплата процентов авансом за весь срок",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 0,
+      "maxSum": 0,
+      "minTerm": 14,
+      "maxTerm": 365,
+      "sumDescription": "без ограничений",
+      "termDescription": "От 14 - 365 дней",
+      "currency": "rub",
+      "paymentPeriods": "startOfTerm",
+      "withdrawals": 0,
+      "earlyTermination": 0
     },
-    { 
-        "id": 2, 
-        "title": "Универсальный", 
-        "description": "Со сроком привлечения до года / свыше года", 
-        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
-        "minSum": 0, 
-        "maxSum": 0, 
-        "minTerm": 2,  
-        "maxTerm": 1095, 
-        "sumDescription":"без ограничений",
-        "termDescription":"От 2 - 1095 дней",
-        "currency":"rub",
-        "paymentPeriods":"monthly", 
-        "withdrawals": 0,
-        "earlyTermination":1
+    {
+      "id": 2,
+      "title": "Универсальный",
+      "description": "Со сроком привлечения до года / свыше года",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 0,
+      "maxSum": 0,
+      "minTerm": 2,
+      "maxTerm": 1095,
+      "sumDescription": "без ограничений",
+      "termDescription": "От 2 - 1095 дней",
+      "currency": "rub",
+      "paymentPeriods": "monthly",
+      "withdrawals": 0,
+      "earlyTermination": 1
     },
-
-    { 
-        "id": 3, 
-        "title": "Универсальный", 
-        "description": "Со сроком привлечения до года / свыше года", 
-        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
-        "minSum": 0, 
-        "maxSum": 0, 
-        "minTerm": 2,  
-        "maxTerm": 1095, 
-        "sumDescription":"без ограничений",
-        "termDescription":"От 2 - 1095 дней",
-        "currency":"usd",
-        "paymentPeriods":"monthly", 
-        "withdrawals": 0,
-        "earlyTermination":1 
+    {
+      "id": 3,
+      "title": "Универсальный",
+      "description": "Со сроком привлечения до года / свыше года",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 0,
+      "maxSum": 0,
+      "minTerm": 2,
+      "maxTerm": 1095,
+      "sumDescription": "без ограничений",
+      "termDescription": "От 2 - 1095 дней",
+      "currency": "usd",
+      "paymentPeriods": "monthly",
+      "withdrawals": 0,
+      "earlyTermination": 1
     },
-
-      { 
-        "id": 4, 
-        "title": "Фиксированный", 
-        "description": "С возможностью досрочного расторжения", 
-        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
-        "minSum": 0, 
-        "maxSum": 450000000,
-        "minTerm": 60,  
-        "maxTerm": 360,
-        "sumDescription":"До 450 млн ₽",
-        "termDescription": "60, 90, 120, 180, 270 или 360 дней",
-        "currency":"rub",
-        "paymentPeriods":"endOfTerm",
-        "withdrawals": 0,
-        "earlyTermination":1
+    {
+      "id": 4,
+      "title": "Фиксированный",
+      "description": "С возможностью досрочного расторжения",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 0,
+      "maxSum": 450000000,
+      "minTerm": 60,
+      "maxTerm": 360,
+      "sumDescription": "До 450 млн ₽",
+      "termDescription": "60, 90, 120, 180, 270 или 360 дней",
+      "currency": "rub",
+      "paymentPeriods": "endOfTerm",
+      "withdrawals": 0,
+      "earlyTermination": 1
     },
-
-
-    { 
-        "id": 5, 
-        "title": "Фиксированный", 
-        "description": "С возможностью досрочного расторжения", 
-        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
-        "minSum": 500000, 
-        "maxSum": 15000000,
-        "minTerm": 60,  
-        "maxTerm": 360,
-        "sumDescription":"От 500 тыс до 15 млн $",
-        "termDescription": "60, 90, 120, 180, 270 или 360 дней",
-        "currency":"usd",
-        "paymentPeriods":"endOfTerm",
-        "withdrawals": 0,
-        "earlyTermination":1
+    {
+      "id": 5,
+      "title": "Фиксированный",
+      "description": "С возможностью досрочного расторжения",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 500000,
+      "maxSum": 15000000,
+      "minTerm": 60,
+      "maxTerm": 360,
+      "sumDescription": "От 500 тыс до 15 млн $",
+      "termDescription": "60, 90, 120, 180, 270 или 360 дней",
+      "currency": "usd",
+      "paymentPeriods": "endOfTerm",
+      "withdrawals": 0,
+      "earlyTermination": 1
     },
-
-    { 
-        "id": 5, 
-        "title": "Гибкий", 
-        "description": "С возможностью пополнения и частичного снятия", 
-        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
-        "minSum": 2000000, 
-        "maxSum": 0,
-        "minTerm": 61,  
-        "maxTerm": 365,
-        "sumDescription":"От 2 млн ₽",
-        "termDescription": "От 61 до 365 дней",
-        "currency":"rub",
-        "paymentPeriods":"endOfTerm",
-        "withdrawals": 1,
-        "earlyTermination":1
+    {
+      "id": 6,
+      "title": "Гибкий",
+      "description": "С возможностью пополнения и частичного снятия",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 2000000,
+      "maxSum": 0,
+      "minTerm": 61,
+      "maxTerm": 365,
+      "sumDescription": "От 2 млн ₽",
+      "termDescription": "От 61 до 365 дней",
+      "currency": "rub",
+      "paymentPeriods": "endOfTerm",
+      "withdrawals": 1,
+      "earlyTermination": 1
     },
-
-
-    { 
-        "id": 6, 
-        "title": "Гибкий", 
-        "description": "С возможностью пополнения и частичного снятия", 
-        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
-        "minSum": 200000, 
-        "maxSum": 0,
-        "minTerm": 61,  
-        "maxTerm": 365,
-        "sumDescription":"От 200 тыс. $",
-        "termDescription": "От 61 до 365 дней",
-        "currency":"usd",
-        "paymentPeriods":"endOfTerm",
-        "withdrawals": 1,
-        "earlyTermination":1
+    {
+      "id": 7,
+      "title": "Гибкий",
+      "description": "С возможностью пополнения и частичного снятия",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 200000,
+      "maxSum": 0,
+      "minTerm": 61,
+      "maxTerm": 365,
+      "sumDescription": "От 200 тыс. $",
+      "termDescription": "От 61 до 365 дней",
+      "currency": "usd",
+      "paymentPeriods": "endOfTerm",
+      "withdrawals": 1,
+      "earlyTermination": 1
     },
-
-    { 
-        "id": 7, 
-        "title": "Овернайт", 
-        "description": "Размещение на 1 рабочий день", 
-        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
-        "minSum": 1000000, 
-        "maxSum": 0,
-        "minTerm": 1,  
-        "maxTerm": 1,
-        "sumDescription":"От 1 млн ₽",
-        "termDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
-        "currency":"rub",
-        "paymentPeriods":"endOfTerm",
-        "withdrawals": 0,
-        "earlyTermination":0
+    {
+      "id": 8,
+      "title": "Овернайт",
+      "description": "Размещение на 1 рабочий день",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 1000000,
+      "maxSum": 0,
+      "minTerm": 1,
+      "maxTerm": 1,
+      "sumDescription": "От 1 млн ₽",
+      "termDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
+      "currency": "rub",
+      "paymentPeriods": "endOfTerm",
+      "withdrawals": 0,
+      "earlyTermination": 0
     },
-
-    { 
-        "id": 8, 
-        "title": "Овернайт", 
-        "description": "Размещение на 1 рабочий день", 
-        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
-        "minSum": 15000, 
-        "maxSum": 0,
-        "minTerm": 1,  
-        "maxTerm": 1,
-        "sumDescription":"От 15 тыс $",
-        "termDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
-        "currency":"usd",
-        "paymentPeriods":"endOfTerm",
-        "withdrawals": 0,
-        "earlyTermination":0
+    {
+      "id": 9,
+      "title": "Овернайт",
+      "description": "Размещение на 1 рабочий день",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 15000,
+      "maxSum": 0,
+      "minTerm": 1,
+      "maxTerm": 1,
+      "sumDescription": "От 15 тыс $",
+      "termDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
+      "currency": "usd",
+      "paymentPeriods": "endOfTerm",
+      "withdrawals": 0,
+      "earlyTermination": 0
+    },
+    {
+      "id": 8,
+      "title": "Пополняемый",
+      "description": "С возможностью пополнения и частичного снятия",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 2000000,
+      "maxSum": 0,
+      "minTerm": 61,
+      "maxTerm": 1095,
+      "sumDescription": "От 2 млн ₽",
+      "termDescription": "От 61 до 1095 дней",
+      "currency": "rub",
+      "paymentPeriods": "endOfTerm",
+      "withdrawals": 1,
+      "earlyTermination": 0
+    },
+    {
+      "id": 9,
+      "title": "Пополняемый",
+      "description": "С возможностью пополнения и частичного снятия",
+      "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+      "minSum": 200000,
+      "maxSum": 0,
+      "minTerm": 61,
+      "maxTerm": 1095,
+      "sumDescription": "От 200 тыс. $",
+      "termDescription": "От 61 до 1095 дней",
+      "currency": "usd",
+      "paymentPeriods": "endOfTerm",
+      "withdrawals": 1,
+      "earlyTermination": 0
     }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "login": "test",
+      "password": "test",
+      "accounts": [
+        {
+          "account": "r1",
+          "balance": 1000000,
+          "currency": "rub"
+        },
+        {
+          "account": "r2",
+          "balance": 200,
+          "currency": "rub"
+        },
+        {
+          "account": "u1",
+          "balance": 400,
+          "currency": "usd"
+        },
+        {
+          "account": "u2",
+          "balance": 500,
+          "currency": "usd"
+        }
       ],
-
-      "users": [{
+      "name": "Вячеслав",
+      "surname": "Анисимов",
+      "patronymic": "Анатольевич",
+      "inn": "571693430051"
+    },
+    {
+      "id": 2,
+      "login": "test2",
+      "password": "test2",
+      "accounts": [
+        {
+          "account": "r3",
+          "balance": 1000000,
+          "currency": "rub"
+        },
+        {
+          "account": "r4",
+          "balance": 200,
+          "currency": "rub"
+        },
+        {
+          "account": "r5",
+          "balance": 300,
+          "currency": "rub"
+        },
+        {
+          "account": "u3",
+          "balance": 400,
+          "currency": "usd"
+        },
+        {
+          "account": "u4",
+          "balance": 500,
+          "currency": "usd"
+        },
+        {
+          "account": "u5",
+          "balance": 600,
+          "currency": "usd"
+        }
+      ],
+      "name": "Степан",
+      "surname": "Кудряшов",
+      "patronymic": "Ефимович",
+      "inn": "846086898656"
+    },
+    {
+      "id": 3,
+      "login": "test3",
+      "password": "test3",
+      "accounts": [
+        {
+          "account": "r6",
+          "balance": 1000000,
+          "currency": "rub"
+        },
+        {
+          "account": "r7",
+          "balance": 200,
+          "currency": "rub"
+        },
+        {
+          "account": "r8",
+          "balance": 3000,
+          "currency": "rub"
+        },
+        {
+          "account": "u4",
+          "balance": 400,
+          "currency": "usd"
+        },
+        {
+          "account": "u5",
+          "balance": 500,
+          "currency": "usd"
+        },
+        {
+          "account": "u6",
+          "balance": 600,
+          "currency": "usd"
+        }
+      ],
+      "name": "Игнатий",
+      "surname": "Марков",
+      "patronymic": "Кимович",
+      "inn": "067702636101"
+    }
+  ],
+  "applications": [
+    {
+      "product": {
+        "id": 8,
+        "title": "Овернайт",
+        "description": "Размещение на 1 рабочий день",
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": 1000000,
+        "maxSum": 0,
+        "minTerm": 1,
+        "maxTerm": 1,
+        "sumDescription": "От 1 млн ₽",
+        "termDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
+        "currency": "rub",
+        "paymentPeriods": "endOfTerm",
+        "withdrawals": 0,
+        "earlyTermination": 0,
+        "interestRate": "9.69",
+        "futureValue": "53095.89",
+        "effectiveInterestRate": 0
+      },
+      "selectedDepositSum": 200000000,
+      "selectedDepositTerm": 1,
+      "name": "Вячеслав",
+      "surname": "Анисимов",
+      "patronymic": "Анатольевич",
+      "inn": "571693430051",
+      "account": "",
+      "applicationStatus": true,
+      "id": 3
+    },
+    {
+      "product": {
         "id": 1,
-        "login":"test",
-        "password": "test",
-        "accounts":[
-          {"account":"r1", "balance":1000000,"currency":"rub"},
-          {"account":"r2","balance":200,"currency":"rub"},
-          {"account":"u1","balance":400,"currency":"usd"},
-          {"account":"u2","balance":500,"currency":"usd"}
-        ],
-        "name": "Вячеслав",
-        "surname": "Анисимов",
-        "patronymic": "Анатольевич",
-        "inn":"571693430051"
+        "title": "Авансовый",
+        "description": "Выплата процентов авансом за весь срок",
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": 0,
+        "maxSum": 0,
+        "minTerm": 14,
+        "maxTerm": 365,
+        "sumDescription": "без ограничений",
+        "termDescription": "От 14 - 365 дней",
+        "currency": "rub",
+        "paymentPeriods": "startOfTerm",
+        "withdrawals": 0,
+        "earlyTermination": 0,
+        "interestRate": "9.69",
+        "futureValue": "13165126.03",
+        "effectiveInterestRate": 0
+      },
+      "selectedDepositSum": 190000000,
+      "selectedDepositTerm": 261,
+      "name": "Вячеслав",
+      "surname": "Анисимов",
+      "patronymic": "Анатольевич",
+      "inn": "571693430051",
+      "account": "",
+      "applicationStatus": false,
+      "id": 4
     },
-      {
-        "id": 2,
-        "login":"test2",
-        "password": "test2",
-        "accounts":[
-          {"account":"r3", "balance":1000000,"currency":"rub"},
-          {"account":"r4","balance":200,"currency":"rub"},
-          {"account":"r5","balance":300,"currency":"rub"},
-          {"account":"u3","balance":400,"currency":"usd"},
-          {"account":"u4","balance":500,"currency":"usd"},
-          {"account":"u5","balance":600,"currency":"usd"}
-        ],
-        "name": "Степан",
-        "surname": "Кудряшов",
-        "patronymic": "Ефимович",
-        "inn":"846086898656"
-    },
-      {
-        "id": 3,
-        "login":"test3",
-        "password": "test3",
-        "accounts":[
-          {"account":"r6", "balance":1000000,"currency":"rub"},
-          {"account":"r7","balance":200,"currency":"rub"},
-          {"account":"r8","balance":3000,"currency":"rub"},
-          {"account":"u4","balance":400,"currency":"usd"},
-          {"account":"u5","balance":500,"currency":"usd"},
-          {"account":"u6","balance":600,"currency":"usd"}
-        ],
-        "name": "Игнатий",
-        "surname": "Марков",
-        "patronymic": "Кимович",
-        "inn": "067702636101"
-      }
-       
-      ]
+    {
+      "product": {
+        "id": 1,
+        "title": "Авансовый",
+        "description": "Выплата процентов авансом за весь срок",
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": 0,
+        "maxSum": 0,
+        "minTerm": 14,
+        "maxTerm": 365,
+        "sumDescription": "без ограничений",
+        "termDescription": "От 14 - 365 дней",
+        "currency": "rub",
+        "paymentPeriods": "startOfTerm",
+        "withdrawals": 0,
+        "earlyTermination": 0,
+        "interestRate": "9.79",
+        "futureValue": "26942616.44",
+        "effectiveInterestRate": 0
+      },
+      "selectedDepositSum": 410000000,
+      "selectedDepositTerm": 245,
+      "name": "Степан",
+      "surname": "Кудряшов",
+      "patronymic": "Ефимович",
+      "inn": "846086898656",
+      "account": "r4",
+      "applicationStatus": true,
+      "id": 5
+    }
+  ]
 }

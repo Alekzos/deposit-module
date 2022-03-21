@@ -38,7 +38,7 @@ export const Header = () => {
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />
       <CssBaseline />
-      <AppBar position="static" color="default" elevation={0}>
+      <AppBar position="fixed" color="default" elevation={0}>
         <Toolbar sx={{ flexWrap: "wrap" }}>
           <Box sx={{ flexGrow: 1 }}>
             <Link className="logo" href={pageURLs.homePage}>

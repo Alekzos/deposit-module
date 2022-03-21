@@ -11,9 +11,19 @@ export enum paymentPeriods {
   endOfTerm = "endOfTerm",
 }
 
-//json
-export const productsDataURL = "http://localhost:8000/products";
-export const userDataURL = "http://localhost:8000/users";
+//json data
+export const jsonDataURLs = {
+  products: "http://localhost:8000/products",
+  users: "http://localhost:8000/users",
+  applications: "http://localhost:8000/applications",
+};
+
+export const pageURLs = {
+  homePage: "/",
+  productSelectionPage: "/calc",
+  applicationPage: "/application",
+  applicationList: "/applicationlist",
+};
 
 //метки для бегунка с датами
 export const marksSliderDepositTerm = [
@@ -105,11 +115,4 @@ export const loginErrMessages = {
   PasswordEmpty: "введите пароль",
   PasswordNotFound: "пароль не подходит",
   LoginNotFound: "пользователь не найден",
-};
-
-export const pageURLs = {
-  homePage: "/",
-  productSelectionPage: "/calc",
-  applicationPage: "/application",
-  applicationList: "/applicationlist",
 };

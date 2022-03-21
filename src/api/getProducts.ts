@@ -61,6 +61,5 @@ export const getProducts = async (
     )[2],
   }));
 
-  // console.log(calculatedProducts);
   return calculatedProducts;
 };

@@ -41,6 +41,10 @@ export interface IUser {
   accounts: any;
   usd: Array<number>;
   rub: Array<number>;
+  name: string;
+  surname: string;
+  patronymic: string;
+  inn: string;
 }
 
 export interface IUserLogin {

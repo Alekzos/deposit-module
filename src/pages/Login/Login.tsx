@@ -52,6 +52,11 @@ export const LoginPage = () => {
 
       sessionStorage.setItem("login", TheUserData[0].login);
       sessionStorage.setItem("isLogged", JSON.stringify(isLogged));
+      sessionStorage.setItem("name", TheUserData[0].name);
+      sessionStorage.setItem("surname", TheUserData[0].surname);
+      sessionStorage.setItem("patronymic", TheUserData[0].patronymic);
+      sessionStorage.setItem("inn", TheUserData[0].inn);
+
       sessionStorage.setItem(
         "accounts",
         JSON.stringify(TheUserData[0].accounts)

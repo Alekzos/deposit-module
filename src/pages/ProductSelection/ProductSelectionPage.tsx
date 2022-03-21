@@ -49,7 +49,6 @@ const ProductSelection = () => {
     useState<string>("");
 
   const [depositTerm, setdepositTerm] = useState<number>(1);
-  sessionStorage.setItem("depositTerm", JSON.stringify(depositTerm));
 
   const [depositOptions, setDepositOptions] = useState({
     earlyTermination: false,
@@ -107,7 +106,6 @@ const ProductSelection = () => {
     }
     if (e.target.name === "termSlider") {
       setdepositTerm(+newValue);
-      sessionStorage.setItem("depositTerm", JSON.stringify(newValue));
     }
     if (e.target.name === "depositInput") {
       setDepositSum(numberWithoutSpaces(e.target.value, maxInputSum));
@@ -249,7 +247,11 @@ const ProductSelection = () => {
         <Grid item xs={6}>
           <Box>
             {products?.length ? (
-              <ProductList products={products} depositSum={depositSum} />
+              <ProductList
+                products={products}
+                depositSum={depositSum}
+                depositTerm={depositTerm}
+              />
             ) : (
               <Typography variant="h6" component="div">
                 {messageProductNotFound

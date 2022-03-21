@@ -24,6 +24,10 @@ export const Header = () => {
     sessionStorage.removeItem("login");
     sessionStorage.removeItem("product");
     sessionStorage.removeItem("depositSum");
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("surname");
+    sessionStorage.removeItem("patronymic");
+    sessionStorage.removeItem("inn");
 
     navigate(pageURLs.homePage);
   };

@@ -10,26 +10,26 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import { productSelectionSlice } from "../../../redux/productSelectionSlice";
-import { setProduct } from "../../../redux/productSelectionSlice";
 
 import { Link } from "react-router-dom";
-
-//sessionStorage.setItem("currency", currency);
 
 interface ProductItemProps {
   product: IProduct;
   depositSum: number;
+  depositTerm: number;
 }
 
 //компонент для вывода самой карточки
-const ProductItem: React.FC<ProductItemProps> = ({ product, depositSum }) => {
+const ProductItem: React.FC<ProductItemProps> = ({
+  product,
+  depositSum,
+  depositTerm,
+}) => {
   const dispatch = useAppDispatch();
-  const { productRTK } = useAppSelector((product) => product.productReducer);
-  const { setProduct } = productSelectionSlice.actions;
-  dispatch(setProduct(product));
-  console.log(productRTK);
+  const { setProduct, setDepositSum, setDepositTerm } =
+    productSelectionSlice.actions;
 
   return (
     <div>
@@ -78,11 +78,9 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, depositSum }) => {
           <Link to={pageURLs.applicationPage}>
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
-                sessionStorage.setItem(
-                  "depositSum",
-                  JSON.stringify(depositSum)
-                );
-                sessionStorage.setItem("product", JSON.stringify(product));
+                dispatch(setDepositSum(depositSum));
+                dispatch(setProduct(product));
+                dispatch(setDepositTerm(depositTerm));
                 sessionStorage.setItem("hideCalcPage", "1");
                 sessionStorage.setItem("hideApplicationPage", "0"); //
               }}

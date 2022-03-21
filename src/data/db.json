@@ -164,8 +164,11 @@
           {"account":"r2","balance":200,"currency":"rub"},
           {"account":"u1","balance":400,"currency":"usd"},
           {"account":"u2","balance":500,"currency":"usd"}
-        ]
-
+        ],
+        "name": "Вячеслав",
+        "surname": "Анисимов",
+        "patronymic": "Анатольевич",
+        "inn":"571693430051"
     },
       {
         "id": 2,
@@ -178,7 +181,11 @@
           {"account":"u3","balance":400,"currency":"usd"},
           {"account":"u4","balance":500,"currency":"usd"},
           {"account":"u5","balance":600,"currency":"usd"}
-        ]
+        ],
+        "name": "Степан",
+        "surname": "Кудряшов",
+        "patronymic": "Ефимович",
+        "inn":"846086898656"
     },
       {
         "id": 3,
@@ -191,7 +198,11 @@
           {"account":"u4","balance":400,"currency":"usd"},
           {"account":"u5","balance":500,"currency":"usd"},
           {"account":"u6","balance":600,"currency":"usd"}
-        ]
+        ],
+        "name": "Игнатий",
+        "surname": "Марков",
+        "patronymic": "Кимович",
+        "inn": "067702636101"
       }
        
       ]

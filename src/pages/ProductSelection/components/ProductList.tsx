@@ -6,10 +6,15 @@ import Stack from "@mui/material/Stack";
 interface ProductListProps {
   products: void | IProduct[];
   depositSum: number;
+  depositTerm: number;
 }
 
 //компонент для вывода списка депозитов
-const ProductList: React.FC<ProductListProps> = ({ products, depositSum }) => {
+const ProductList: React.FC<ProductListProps> = ({
+  products,
+  depositSum,
+  depositTerm,
+}) => {
   return (
     <Stack
       direction="column"
@@ -23,6 +28,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, depositSum }) => {
             key={product.id}
             product={product}
             depositSum={depositSum}
+            depositTerm={depositTerm}
           />
         );
       })}

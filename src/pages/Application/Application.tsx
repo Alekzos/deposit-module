@@ -10,43 +10,121 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 
-import { useLocation } from "react-router-dom";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
 
-import { getsessionStorageData, numberWithSpaces } from "../../utils/utils";
+import { Link } from "react-router-dom";
 
-import { Currencies } from "../../data/consts";
+import {
+  getsessionStorageData,
+  numberWithSpaces,
+  declOfNum,
+} from "../../utils/utils";
+
+import { Currencies, declensionsDays, pageURLs } from "../../data/consts";
+
+import { useAppSelector } from "../../redux/hooks";
 
 export const Application = () => {
   const [account, setAccount] = useState("");
-  // const depositSum = location.state;
-  const location = useLocation();
-  const product1 = location.state;
+  const { selectedProduct, selectedDepositSum, selectedDepositTerm } =
+    useAppSelector((state) => state.productReducer);
 
-  console.log("location.state");
-  console.log(product1);
   const handleChange = (event: SelectChangeEvent) => {
     setAccount(event.target.value as string);
   };
 
-  const product = getsessionStorageData("product");
   const accounts = getsessionStorageData("accounts");
+  const name = sessionStorage.getItem("name");
+  const surname = sessionStorage.getItem("surname");
+  const patronymic = sessionStorage.getItem("patronymic");
+  const inn = sessionStorage.getItem("inn");
 
   const filteredAccounts = accounts.filter(
-    (account: any) => account.currency === product.currency
+    (account: any) => account.currency === selectedProduct.currency
   );
 
   return (
     <div className="application">
       <Typography variant="h1">Заявление на открытие депозита</Typography>
-      Страница депозитной заявки Содержит - заголовок и статус - информацию,
-      полученную со страницы калькулятора - выбор счета - информацию о клиенте -
-      кнопки Сохранить и Отправить (для клиента)
       <Box sx={{ maxWidth: 500 }}>
+        <Card sx={{ minWidth: 275 }}>
+          <CardContent>
+            <Typography variant="h6" component="div">
+              Вклад «{selectedProduct.title}»
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              {selectedProduct.description}
+            </Typography>
+            <Typography variant="body2">
+              <>
+                Cумма:{" "}
+                <strong>
+                  {numberWithSpaces(selectedDepositSum)}{" "}
+                  {selectedProduct.currency === Currencies.rub ? "₽" : "$"}
+                </strong>
+                <br />
+              </>
+              <>
+                Cрок:{" "}
+                <strong>
+                  {selectedDepositTerm}{" "}
+                  {declOfNum(selectedDepositTerm, declensionsDays)}
+                </strong>
+                <br />
+                <br />
+              </>
+              {selectedProduct.effectiveInterestRate ? (
+                <>
+                  Эффективная ставка:{" "}
+                  <strong>{selectedProduct.effectiveInterestRate}%</strong>
+                  <br />
+                </>
+              ) : (
+                <>
+                  Cтавка:  <strong>{selectedProduct.interestRate}%</strong>
+                  <br />
+                </>
+              )}
+              Ваш доход: 
+              <strong>
+                {numberWithSpaces(selectedProduct.futureValue)}{" "}
+                {selectedProduct.currency === Currencies.rub ? "₽" : "$"}
+              </strong>
+              <br />
+              <br />
+              Частичное снятие и пополнение: 
+              <strong>{selectedProduct.withdrawals ? "да" : "нет"}</strong>
+              <br />
+              Досрочное расторжение: 
+              <strong>{selectedProduct.earlyTermination ? "да" : "нет"}</strong>
+              <br />
+              Капитализация: 
+              <strong>
+                {selectedProduct.effectiveInterestRate ? "да" : "нет"}
+              </strong>
+              <br />
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
+      <Box>
+        ФИО:{" "}
+        <strong>
+          {surname} {name} {patronymic}
+        </strong>
+        <br />
+        ИНН: <strong>{inn}</strong>
+      </Box>
+      <Box>
         <FormControl required>
           <InputLabel id="account-select-label">
             счёт для пополнения депозита
           </InputLabel>
           <Select
+            sx={{ maxWidth: "500px" }}
             labelId="account-select-label"
             id="account"
             value={account}
@@ -71,6 +149,30 @@ export const Application = () => {
             })}
           </Select>
         </FormControl>
+      </Box>
+      <Box>
+        <CardActions>
+          <Link to={pageURLs.applicationList}>
+            <Button
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                console.log("Черновик");
+              }}
+              size="small"
+            >
+              Черновик
+            </Button>
+          </Link>
+          <Link to={pageURLs.applicationList}>
+            <Button
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                console.log("Отправить");
+              }}
+              size="small"
+            >
+              Отправить
+            </Button>
+          </Link>
+        </CardActions>
       </Box>
     </div>
   );

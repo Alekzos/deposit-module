@@ -44,6 +44,9 @@ export interface IApplication {
   account: string;
   applicationStatus: boolean;
   id: number;
+  date: string;
+  depositSum: number;
+  depositTerm: number;
 }
 export interface IUser {
   id: number;

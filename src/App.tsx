@@ -8,7 +8,7 @@ import { NotFound } from "./pages/NotFound/NotFound";
 
 import { pageURLs } from "./data/consts";
 
-import "./styles/App.css";
+import "./styles/style.css";
 import { Header } from "./components/Header";
 
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";

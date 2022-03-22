@@ -1,0 +1,104 @@
+
+.calcPage, .loginPage, .application, .applicationList {
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 120px;
+    padding-bottom: 100px;
+}
+
+.logo img {margin-top: 10px;}
+
+
+/* applicationListPage */
+.MuiTableCell-head {font-weight: bold;}
+.MuiTableCell-root {text-align: right;}
+
+
+/* applicationPage */
+.selectAccountItem {display: block;
+    position: relative;}
+
+.accountBalanceItem {float:right; color:gray; font-size: 14px;}
+
+
+
+/* loginPage */
+.loginPageTitle {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom:30px;
+}
+
+.loginPage .loginForm {margin: 0 auto;max-width: 430px;}
+.MuiFormHelperText-root{color:#d32f2f;}
+
+.MuiBox-root >div, .MuiBox-root >button {width: 100%;   }
+.MuiBox-root >button  {max-width: 200px; margin: 0 auto;}
+
+
+/* ProductSelectionPage */
+.MuiTypography-h1 {
+    font-size: 46px;
+    margin-bottom: 20px;
+   }
+   
+    .MuiBox-root {
+       margin-top: 20px;
+       margin-bottom: 20px;
+   }
+   
+    .MuiBox-root,  .MuiToggleButtonGroup-fullWidth {margin-right: 50px;}
+    .MuiToggleButtonGroup-fullWidth {margin-top: 5px;}
+   
+    .MuiToggleButton-root {
+       background-color:rgba(0, 0, 0, 0.08);
+       border-radius: 16px !important;
+       border: 0;
+       height: 32px;
+       text-transform: none;
+       color: black;
+       width: auto;
+       margin-right: 20px;
+   }
+   
+    .MuiToggleButton-root.Mui-selected {
+       color: #fff;
+       background-color: #1976d2;
+   }
+   
+    .MuiToggleButton-root.Mui-selected:hover {
+       background-color: #1976d2;
+   }
+   
+    .MuiTypography-caption {
+       width: 100%;
+       display: block;
+   }
+   
+    .MuiSlider-root[aria-labelledby="input-slider"] {
+       top: -15px;
+   }
+   
+   
+    .MuiInputBase-root .MuiSvgIcon-root {
+       padding-left:10px;  
+     
+   }
+   
+    .MuiFormControlLabel-root {
+       height: 45px;
+   }
+   
+   
+   
+   
+    .checkWithdrawalsHelp {margin-left: 10px; position: absolute;}
+   
+    .interestСapitalizationHelp {margin-top: 95px;}
+    .MuiTypography-caption {font-size: 0.9rem;}
+   
+    .MuiSlider-markLabel[data-index="0"] {margin-left: 16px;}
+   
+    .MuiTypography-subtitle2 {
+       font-weight: bold;
+   }

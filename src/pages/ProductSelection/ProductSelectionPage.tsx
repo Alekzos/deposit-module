@@ -16,8 +16,6 @@ import { numberWithoutSpaces } from "../../utils/utils";
 import { debounce } from "lodash";
 import { getProducts } from "../../api/getProducts";
 
-import "../../styles/ProductSelectionPage.css";
-
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";

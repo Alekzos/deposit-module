@@ -35,6 +35,7 @@ export const addApplication = async (
   account: string | null,
   applicationStatus: boolean
 ) => {
+  let date = new Date().toLocaleDateString();
   return await axios.post(jsonDataURLs.applications, {
     product: { ...selectedProduct },
     selectedDepositSum,
@@ -45,5 +46,6 @@ export const addApplication = async (
     inn,
     account,
     applicationStatus,
+    date,
   });
 };

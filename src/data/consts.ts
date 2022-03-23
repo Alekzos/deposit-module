@@ -117,12 +117,12 @@ export const loginErrMessages = {
   LoginNotFound: "пользователь не найден",
 };
 
-interface HeadCell {
+export interface IHeadCell {
   name: string;
   label: string;
 }
 
-export const headCells: readonly HeadCell[] = [
+export const headCells: readonly IHeadCell[] = [
   {
     name: "id",
     label: "№",

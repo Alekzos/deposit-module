@@ -36,12 +36,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
-import { headCells } from "../../data/consts";
+import { headCells, IHeadCell } from "../../data/consts";
 type Order = "asc" | "desc";
 
 export const ApplicationList = () => {
   const [applications, setApplications] = useState<void | IApplication[]>([]);
   const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<string>("id");
 
   const getApplicationList = async () => {
     let response = await getApplications();
@@ -80,16 +81,10 @@ export const ApplicationList = () => {
     }
   };
 
-  // const sortApplications = (
-  //   event: React.MouseEvent<HTMLTableCellElement> | null
-  // ) => {
-  //   console.log(111);
-  // };
-
-  // const createSortHandler =
-  //   (property: keyof IApplication) => (event: React.MouseEvent<unknown>) => {
-  //     onRequestSort(event, property);
-  //   };
+  const createSortHandler = (headCellName: string) => {
+    order === "asc" ? setOrder("desc") : setOrder("asc");
+    setOrderBy(headCellName);
+  };
 
   return (
     <div className="applicationList">
@@ -152,25 +147,25 @@ export const ApplicationList = () => {
               <TableCell />
 
               {headCells.map((headCell) => (
-                <TableCell key={headCell.name}>
+                <TableCell
+                  key={headCell.name}
+                  sortDirection={orderBy === headCell.name ? order : false}
+                >
                   <TableSortLabel
-                  // active={orderBy === headCell.name}
-                  // direction={orderBy === headCell.name ? order : "asc"}
-                  // onClick={createSortHandler()}
+                    active={orderBy === headCell.name}
+                    direction={orderBy === headCell.name ? order : "asc"}
+                    onClick={(event: React.MouseEvent<HTMLElement>) => {
+                      createSortHandler(headCell.name);
+                    }}
                   >
                     {headCell.label}
-                    <Box component="span" sx={visuallyHidden}>
-                      {order === "desc"
-                        ? "sorted descending"
-                        : "sorted ascending"}
-                    </Box>
-                    {/* {orderBy === headCell.id ? (
-                    <Box component="span" sx={visuallyHidden}>
-                      {order === "desc"
-                        ? "sorted descending"
-                        : "sorted ascending"}
-                    </Box>
-                  ) : null} */}
+                    {orderBy === headCell.name ? (
+                      <Box component="span" sx={visuallyHidden}>
+                        {order === "desc"
+                          ? "sorted descending"
+                          : "sorted ascending"}
+                      </Box>
+                    ) : null}
                   </TableSortLabel>
                 </TableCell>
               ))}

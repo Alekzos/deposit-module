@@ -18,25 +18,11 @@ import { FilterApplicationsComponent } from "./FilterApplications/FilterApplicat
 import { ApplicationRow } from "./ApplicationRow";
 
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-
-import { alpha } from "@mui/material/styles";
-import TablePagination from "@mui/material/TablePagination";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import Switch from "@mui/material/Switch";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
+
 import { visuallyHidden } from "@mui/utils";
 
-import { headCells, IHeadCell } from "../../data/consts";
+import { headCells } from "../../data/consts";
 type Order = "asc" | "desc";
 
 export const ApplicationList = () => {
@@ -58,7 +44,7 @@ export const ApplicationList = () => {
   const [currencySearch, setCurrencySearch] = useState<string>("");
   const [innSearch, setInnSearch] = useState<string>("");
 
-  const filteredApplications = filterApplications(
+  let filteredApplications = filterApplications(
     applications,
     fioSearch,
     accountSearch,
@@ -66,6 +52,7 @@ export const ApplicationList = () => {
     innSearch
   );
 
+  //для поиска
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "fioSearch") {
       setFioSearch(e.target.value);
@@ -81,10 +68,46 @@ export const ApplicationList = () => {
     }
   };
 
+  //запуск сортировки
   const createSortHandler = (headCellName: string) => {
-    order === "asc" ? setOrder("desc") : setOrder("asc");
     setOrderBy(headCellName);
+    order === "asc" ? setOrder("desc") : setOrder("asc");
   };
+
+  function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+
+  function getComparator<Key extends keyof any>(
+    order: Order,
+    orderBy: Key
+  ): (
+    a: { [key in Key]: number | string },
+    b: { [key in Key]: number | string }
+  ) => number {
+    return order === "desc"
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
+
+  //сортировка числовых значений
+  filteredApplications = filteredApplications
+    .slice()
+    .sort(getComparator(order, "id"));
+
+  //сортировка продукта значений
+  // filteredApplications = filteredApplications
+  //   .slice()
+  //   .sort(getComparator(order, filteredApplications.product.title));
+
+  // console.log(filteredApplications);
+  // filteredApplications = filteredApplications.sort(getComparator(order, "id"));
 
   return (
     <div className="applicationList">
@@ -99,47 +122,13 @@ export const ApplicationList = () => {
         - ссылка для перехода на страницу депозитной заявки
       </div>
 
-      <Box>
-        <TextField
-          label="поиск по фио"
-          name="fioSearch"
-          value={fioSearch}
-          onChange={handleChange}
-        />
-        <TextField
-          label="поиск по № счета"
-          name="accountSearch"
-          value={accountSearch}
-          onChange={handleChange}
-        />
-        <TextField
-          label="поиск по ИНН"
-          name="innSearch"
-          value={innSearch}
-          onChange={handleChange}
-        />
-
-        <FormControl>
-          <RadioGroup
-            value={currencySearch}
-            onChange={handleChange}
-            row
-            aria-labelledby="фильтр валюты"
-            name="currencySearch"
-          >
-            <FormControlLabel value="" control={<Radio />} label="Все" />
-            <FormControlLabel value="rub" control={<Radio />} label="₽" />
-            <FormControlLabel value="usd" control={<Radio />} label="$" />
-          </RadioGroup>
-        </FormControl>
-      </Box>
-
-      {/* <FilterApplicationsComponent
+      <FilterApplicationsComponent
         fioSearch={fioSearch}
         accountSearch={accountSearch}
         currencySearch={currencySearch}
+        innSearch={innSearch}
         handleChange={handleChange}
-      /> */}
+      />
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>

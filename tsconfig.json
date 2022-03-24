@@ -8,12 +8,12 @@
       "es6" //Добавил в соответсвении с инструкцией MUI https://mui.com/guides/typescript/
     ],
 
-    //Добавил в соответсвении с инструкции MUI https://mui.com/guides/typescript/ чьлюы совместить с TS
+    //Добавил в соответсвении с инструкции MUI https://mui.com/guides/typescript/ чтобы совместить с TS
     "noImplicitAny": true, 
-    "noImplicitThis": true,
+    "noImplicitThis": false,
     "strictNullChecks": true,
-    //для материала
 
+    //для материала
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

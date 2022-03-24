@@ -653,6 +653,38 @@
       "applicationDate": "22.03.2022",
       "expirationDate": "11.12.2022",
       "id": 11
+    },
+    {
+      "product": {
+        "id": 1,
+        "title": "Авансовый",
+        "description": "Выплата процентов авансом за весь срок",
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": 0,
+        "maxSum": 0,
+        "minTerm": 14,
+        "maxTerm": 365,
+        "sumDescription": "без ограничений",
+        "termDescription": "От 14 - 365 дней",
+        "currency": "rub",
+        "paymentPeriods": "startOfTerm",
+        "withdrawals": 0,
+        "earlyTermination": 0,
+        "interestRate": "9.79",
+        "futureValue": "38406304.11",
+        "effectiveInterestRate": 0
+      },
+      "selectedDepositSum": 430000000,
+      "selectedDepositTerm": 333,
+      "name": "Вячеслав",
+      "surname": "Анисимов",
+      "patronymic": "Анатольевич",
+      "inn": "571693430051",
+      "account": "r1",
+      "applicationStatus": true,
+      "applicationDate": "23.03.2022",
+      "expirationDate": "19.02.2023",
+      "id": 12
     }
   ]
 }

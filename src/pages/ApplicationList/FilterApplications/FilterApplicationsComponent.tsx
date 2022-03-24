@@ -1,6 +1,4 @@
-import React from "react";
-
-import { useState } from "react";
+import React, { FC } from "react";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -9,24 +7,39 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 
-export const FilterApplicationsComponent = (
-  fioSearch: any,
-  accountSearch: any,
-  currencySearch: any,
-  handleChange: any
-) => {
+type Props = {
+  fioSearch: string;
+  accountSearch: string;
+  currencySearch: string;
+  innSearch: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export const FilterApplicationsComponent = ({
+  fioSearch,
+  accountSearch,
+  currencySearch,
+  innSearch,
+  handleChange,
+}: Props) => {
   return (
     <Box>
       <TextField
-        label="найти фио"
+        label="поиск по фио"
         name="fioSearch"
         value={fioSearch}
         onChange={handleChange}
       />
       <TextField
-        label="найти счет"
+        label="поиск по № счета"
         name="accountSearch"
         value={accountSearch}
+        onChange={handleChange}
+      />
+      <TextField
+        label="поиск по ИНН"
+        name="innSearch"
+        value={innSearch}
         onChange={handleChange}
       />
 

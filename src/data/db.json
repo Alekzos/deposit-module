@@ -973,6 +973,38 @@
       "applicationDate": "25.03.2022",
       "expirationDate": "26.03.2022",
       "id": 21
+    },
+    {
+      "product": {
+        "id": 8,
+        "title": "Овернайт",
+        "description": "Размещение на 1 рабочий день",
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": 1000000,
+        "maxSum": 0,
+        "minTerm": 1,
+        "maxTerm": 1,
+        "sumDescription": "От 1 млн ₽",
+        "termDescription": "Один рабочий день (при проведении операции в пятницу — на период с пятницы до понедельника включительно)",
+        "currency": "rub",
+        "paymentPeriods": "endOfTerm",
+        "withdrawals": 0,
+        "earlyTermination": 0,
+        "interestRate": "9.79",
+        "futureValue": "95217.81",
+        "effectiveInterestRate": 0,
+        "selectedDepositSum": 355000000,
+        "selectedDepositTerm": 1
+      },
+      "name": "Вячеслав",
+      "surname": "Анисимов",
+      "patronymic": "Анатольевич",
+      "inn": "571693430051",
+      "account": "40817810573000596037",
+      "applicationStatus": false,
+      "applicationDate": "25.03.2022",
+      "expirationDate": "26.03.2022",
+      "id": 22
     }
   ]
 }

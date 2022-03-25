@@ -20,13 +20,12 @@ import { Currencies, declensionsDays, pageURLs } from "../../data/consts";
 import { useAppSelector } from "../../redux/hooks";
 
 export const Application = () => {
-  const { selectedProduct, selectedDepositSum, selectedDepositTerm } =
-    useAppSelector((state) => state.productReducer);
-
+  const { selectedProduct } = useAppSelector((state) => state.productReducer);
   const { selectedUser } = useAppSelector((state) => state.userReducer);
   const { accounts, name, surname, patronymic, inn } = selectedUser;
   let applicationStatus = false;
 
+  console.log(selectedProduct);
   //если форма не заполнена (стор пуст), тогда редирект на выбор депозита.
   //признак пустоты стора - незаполненая валюта
   const navigate = useNavigate();
@@ -61,7 +60,7 @@ export const Application = () => {
           <>
             Cумма:{" "}
             <strong>
-              {numberWithSpaces(selectedDepositSum)}{" "}
+              {numberWithSpaces(selectedProduct.selectedDepositSum)}{" "}
               {selectedProduct.currency === Currencies.rub ? "₽" : "$"}
             </strong>
             <br />
@@ -69,8 +68,13 @@ export const Application = () => {
           <>
             Cрок:{" "}
             <strong>
-              {selectedDepositTerm}{" "}
-              {declOfNum(selectedDepositTerm, declensionsDays)}
+              {selectedProduct.selectedDepositTerm}{" "}
+              {selectedProduct.selectedDepositTerm
+                ? declOfNum(
+                    selectedProduct.selectedDepositTerm,
+                    declensionsDays
+                  )
+                : ""}
             </strong>
             <br />
           </>
@@ -154,8 +158,6 @@ export const Application = () => {
           onClick={(event: React.MouseEvent<HTMLElement>) => {
             addApplication(
               selectedProduct,
-              selectedDepositSum,
-              selectedDepositTerm,
               selectedUser,
               account,
               (applicationStatus = true)
@@ -172,8 +174,6 @@ export const Application = () => {
           onClick={(event: React.MouseEvent<HTMLElement>) => {
             addApplication(
               selectedProduct,
-              selectedDepositSum,
-              selectedDepositTerm,
               selectedUser,
               account,
               (applicationStatus = false)

@@ -3,8 +3,6 @@ import { IProduct } from "../data/types";
 
 interface ProductState {
   selectedProduct: IProduct;
-  selectedDepositSum: number;
-  selectedDepositTerm: number;
 }
 
 // Define the initial state using that type
@@ -29,9 +27,9 @@ const initialState: ProductState = {
     futureValue: 0,
     effectiveInterestRate: 0,
     interestRate: 0,
+    selectedDepositSum: 0,
+    selectedDepositTerm: 1,
   },
-  selectedDepositSum: 0,
-  selectedDepositTerm: 1,
 };
 
 export const productSelectionSlice = createSlice({
@@ -41,16 +39,9 @@ export const productSelectionSlice = createSlice({
     setProduct: (state, action) => {
       state.selectedProduct = action.payload;
     },
-    setDepositSum: (state, action) => {
-      state.selectedDepositSum = action.payload;
-    },
-    setDepositTerm: (state, action) => {
-      state.selectedDepositTerm = action.payload;
-    },
   },
 });
 
 // export const selectProduct = (state: RootState) => state.product;
-export const { setProduct, setDepositSum, setDepositTerm } =
-  productSelectionSlice.actions;
+export const { setProduct } = productSelectionSlice.actions;
 export default productSelectionSlice.reducer;

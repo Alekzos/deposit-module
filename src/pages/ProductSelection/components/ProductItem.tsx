@@ -28,9 +28,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   depositTerm,
 }) => {
   const dispatch = useAppDispatch();
-  const { setProduct, setDepositSum, setDepositTerm } =
-    productSelectionSlice.actions;
-
+  const { setProduct } = productSelectionSlice.actions;
   return (
     <div>
       <Card sx={{ minWidth: 275 }}>
@@ -78,11 +76,11 @@ const ProductItem: React.FC<ProductItemProps> = ({
           <Link to={pageURLs.applicationPage}>
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
-                dispatch(setDepositSum(depositSum));
-                dispatch(setProduct(product));
-                dispatch(setDepositTerm(depositTerm));
-                sessionStorage.setItem("hideCalcPage", "1");
-                sessionStorage.setItem("hideApplicationPage", "0"); //
+                //переделал, чтобы передевать везде не 3 параметра, а 1 продукт
+                let selectedProduct = product;
+                selectedProduct.selectedDepositSum = depositSum;
+                selectedProduct.selectedDepositTerm = depositTerm;
+                dispatch(setProduct(selectedProduct));
               }}
               size="small"
             >

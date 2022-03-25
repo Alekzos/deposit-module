@@ -25,11 +25,9 @@ export const getApplications = () => {
 };
 
 export const addApplication = async (
-  selectedProduct: IProduct | null,
-  selectedDepositSum: number | null,
-  selectedDepositTerm: number,
-  selectedUser: any,
-  account: string | null,
+  selectedProduct: IProduct | null | undefined,
+  selectedUser: IUser,
+  account: string,
   applicationStatus: boolean
 ) => {
   const { name, surname, patronymic, inn } = selectedUser;
@@ -37,13 +35,11 @@ export const addApplication = async (
   let applicationDate = new Date().toLocaleDateString();
   let date = new Date();
   let expirationDate = new Date(
-    date.setDate(date.getDate() + selectedDepositTerm)
+    date.setDate(date.getDate() + selectedProduct.selectedDepositTerm)
   ).toLocaleDateString();
 
   return await axios.post(jsonDataURLs.applications, {
     product: { ...selectedProduct },
-    selectedDepositSum,
-    selectedDepositTerm,
     name,
     surname,
     patronymic,

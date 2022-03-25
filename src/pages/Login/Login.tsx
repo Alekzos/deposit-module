@@ -55,8 +55,8 @@ export const LoginPage = () => {
       setPasswordErrMessage("");
 
       sessionStorage.setItem("login", TheUserData[0].login);
-      dispatch(setUser(TheUserData[0]));
       sessionStorage.setItem("role", TheUserData[0].role);
+      dispatch(setUser(TheUserData[0]));
 
       //если админ, то редиректить на страницу заявок
       TheUserData[0].role === userRoles.user

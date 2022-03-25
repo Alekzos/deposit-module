@@ -22,6 +22,7 @@ export const ApplicationRow = (props: { application: IApplication }) => {
   const [open, setOpen] = useState(false);
 
   const { application } = props;
+
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -40,7 +41,7 @@ export const ApplicationRow = (props: { application: IApplication }) => {
         <TableCell>{application.expirationDate}</TableCell>
         <TableCell scope="row">{application.product.title}</TableCell>
         <TableCell scope="row">
-          {numberWithSpaces(application.selectedDepositSum)}{" "}
+          {numberWithSpaces(application.product.selectedDepositSum)}{" "}
           {application.product.currency === Currencies.rub ? "₽" : "$"}
         </TableCell>
         <TableCell scope="row">

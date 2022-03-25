@@ -18,8 +18,8 @@ export interface IProduct {
   futureValue?: any;
   effectiveInterestRate?: any;
   interestRate?: any;
-  selectedDepositSum?: number | undefined;
-  selectedDepositTerm?: number | undefined;
+  selectedDepositSum?: number;
+  selectedDepositTerm?: number;
 }
 
 export interface ISliderWithTextFieldProps {

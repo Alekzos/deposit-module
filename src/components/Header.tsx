@@ -15,20 +15,8 @@ export const Header = () => {
   let navigate = useNavigate();
 
   const Logout = (event: React.MouseEvent<HTMLElement>) => {
-    //sessionStorage.clear();
-    sessionStorage.removeItem("accounts");
-    sessionStorage.removeItem("depositTerm");
-    sessionStorage.removeItem("hideApplicationPage");
-    sessionStorage.removeItem("hideCalcPage");
-    sessionStorage.removeItem("isLogged");
     sessionStorage.removeItem("login");
-    sessionStorage.removeItem("product");
-    sessionStorage.removeItem("depositSum");
-    sessionStorage.removeItem("name");
-    sessionStorage.removeItem("surname");
-    sessionStorage.removeItem("patronymic");
-    sessionStorage.removeItem("inn");
-
+    sessionStorage.removeItem("role");
     navigate(pageURLs.homePage);
   };
 

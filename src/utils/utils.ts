@@ -1,8 +1,10 @@
 //добавление пробелов между числами для форматирования компонента ввода суммы депозита
-export function numberWithSpaces(val: any) {
-  val = Number(val.toString().replace(" ", ""));
-  let formatedNumber = val.toLocaleString();
-  return formatedNumber;
+export function numberWithSpaces(val: number | undefined) {
+  if (val) {
+    val = Number(val.toString().replace(" ", ""));
+    let formatedNumber = val.toLocaleString();
+    return formatedNumber;
+  }
 }
 
 //преобразование отформатированного числа с пробелами в число без пробелов

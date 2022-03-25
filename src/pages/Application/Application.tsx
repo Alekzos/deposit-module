@@ -25,7 +25,6 @@ export const Application = () => {
   const { accounts, name, surname, patronymic, inn } = selectedUser;
   let applicationStatus = false;
 
-  console.log(selectedProduct);
   //если форма не заполнена (стор пуст), тогда редирект на выбор депозита.
   //признак пустоты стора - незаполненая валюта
   const navigate = useNavigate();

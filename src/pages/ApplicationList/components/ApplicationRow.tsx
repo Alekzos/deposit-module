@@ -13,10 +13,10 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Collapse from "@mui/material/Collapse";
 
-import { IApplication } from "../../data/types";
+import { IApplication } from "../../../data/types";
 
-import { numberWithSpaces } from "../../utils/utils";
-import { Currencies } from "../../data/consts";
+import { numberWithSpaces } from "../../../utils/utils";
+import { Currencies } from "../../../data/consts";
 
 export const ApplicationRow = (props: { application: IApplication }) => {
   const [open, setOpen] = useState(false);

@@ -28,13 +28,12 @@ export const addApplication = async (
   selectedProduct: IProduct | null,
   selectedDepositSum: number | null,
   selectedDepositTerm: number,
-  name: string | null,
-  surname: string | null,
-  patronymic: string | null,
-  inn: string | null,
+  selectedUser: any,
   account: string | null,
   applicationStatus: boolean
 ) => {
+  const { name, surname, patronymic, inn } = selectedUser;
+
   let applicationDate = new Date().toLocaleDateString();
   let date = new Date();
   let expirationDate = new Date(

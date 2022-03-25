@@ -19,7 +19,10 @@ import Typography from "@mui/material/Typography";
 import { IUser, IUserLogin } from "../../data/types";
 import { checkUserLogin, checkUserPassword } from "../../utils/checkUserLogin";
 import { getUsers } from "../../api/api";
-import { pageURLs } from "../../data/consts";
+import { pageURLs, userRoles } from "../../data/consts";
+
+import { useAppDispatch } from "../../redux/hooks";
+import { selectUserSlice } from "../../redux/userReducer";
 
 export const LoginPage = () => {
   const [values, setValues] = useState<IUserLogin>({
@@ -30,7 +33,10 @@ export const LoginPage = () => {
 
   const [loginErrMessage, setLoginErrMessage] = useState<string>("");
   const [passwordErrMessage, setPasswordErrMessage] = useState<string>("");
-  const [isLogged, setIsLogged] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+  const { setUser } = selectUserSlice.actions;
+
   let navigate = useNavigate();
 
   //получение пользователей и фильтрация по выбранному
@@ -47,23 +53,15 @@ export const LoginPage = () => {
     //вывести ошибку в пароле если есть, если нет, тогда перенаправить на страницу калькулятора
     if (checkUserPassword(TheUserData, values) === "ok") {
       setPasswordErrMessage("");
-      setIsLogged(true);
 
       sessionStorage.setItem("login", TheUserData[0].login);
-      sessionStorage.setItem("isLogged", JSON.stringify(isLogged));
-      sessionStorage.setItem("name", TheUserData[0].name);
-      sessionStorage.setItem("surname", TheUserData[0].surname);
-      sessionStorage.setItem("patronymic", TheUserData[0].patronymic);
-      sessionStorage.setItem("inn", TheUserData[0].inn);
+      dispatch(setUser(TheUserData[0]));
+      sessionStorage.setItem("role", TheUserData[0].role);
 
-      sessionStorage.setItem(
-        "accounts",
-        JSON.stringify(TheUserData[0].accounts)
-      );
-      sessionStorage.setItem("hideCalcPage", "0");
-      sessionStorage.setItem("hideApplicationPage", "1");
-
-      navigate(pageURLs.productSelectionPage);
+      //если админ, то редиректить на страницу заявок
+      TheUserData[0].role === userRoles.user
+        ? navigate(pageURLs.productSelectionPage)
+        : navigate(pageURLs.applicationList);
     } else {
       setPasswordErrMessage(checkUserPassword(TheUserData, values));
     }

@@ -2,6 +2,8 @@ import React from "react";
 
 import { useEffect, useState } from "react";
 
+import orderBy from "lodash/orderBy";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,9 +15,9 @@ import Typography from "@mui/material/Typography";
 
 import { IApplication } from "../../data/types";
 import { getApplications } from "../../api/api";
-import { filterApplications } from "./FilterApplications/filterApplications";
-import { FilterApplicationsComponent } from "./FilterApplications/FilterApplicationsComponent";
-import { ApplicationRow } from "./ApplicationRow";
+import { filterApplications } from "./utils";
+import { FilterApplicationsComponent } from "./components/FilterApplications";
+import { ApplicationRow } from "./components/ApplicationRow";
 
 import Box from "@mui/material/Box";
 import TableSortLabel from "@mui/material/TableSortLabel";
@@ -28,7 +30,7 @@ type Order = "asc" | "desc";
 export const ApplicationList = () => {
   const [applications, setApplications] = useState<void | IApplication[]>([]);
   const [order, setOrder] = useState<Order>("asc");
-  const [orderBy, setOrderBy] = useState<string>("id");
+  const [orderByColumn, setOrderByColumn] = useState<string>("id");
 
   const getApplicationList = async () => {
     let response = await getApplications();
@@ -43,6 +45,7 @@ export const ApplicationList = () => {
   const [accountSearch, setAccountSearch] = useState<string>("");
   const [currencySearch, setCurrencySearch] = useState<string>("");
   const [innSearch, setInnSearch] = useState<string>("");
+  const [headCellName, setHeadCellName] = useState<string>("");
 
   let filteredApplications = filterApplications(
     applications,
@@ -68,46 +71,46 @@ export const ApplicationList = () => {
     }
   };
 
-  //запуск сортировки
-  const createSortHandler = (headCellName: string) => {
-    setOrderBy(headCellName);
+  // useEffect(() => {
+  // }, [filteredApplications]);
+
+  const sortApplications = (headCellName: string) => {
+    setOrderByColumn(headCellName);
     order === "asc" ? setOrder("desc") : setOrder("asc");
+    setHeadCellName(headCellName);
   };
 
-  function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
+  const sort = (headCellNa: string) => {
+    // if (Object.entries(filteredApplications[0])) {
+    //   console.log(Object.entries(filteredApplications[0]));
+    // }
+
+    //надо будет поправить, сделать проверку, что тайтл вложенный элемент
+    //
+
+    if (headCellNa === "title") {
+      filteredApplications = orderBy(
+        filteredApplications,
+        (item) => item.product[headCellNa],
+        order
+      );
+    } else {
+      filteredApplications = orderBy(
+        filteredApplications,
+        [headCellName],
+        order
+      );
     }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
 
-  function getComparator<Key extends keyof any>(
-    order: Order,
-    orderBy: Key
-  ): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string }
-  ) => number {
-    return order === "desc"
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
-  }
+    //console.log(filteredApplications[0]);
+    // filteredApplications = orderBy(
+    //   filteredApplications,
+    //   (item) => item.product.title,
+    //   order
+    // );
+  };
 
-  //сортировка числовых значений
-  filteredApplications = filteredApplications
-    .slice()
-    .sort(getComparator(order, "id"));
-
-  //сортировка продукта значений
-  // filteredApplications = filteredApplications
-  //   .slice()
-  //   .sort(getComparator(order, filteredApplications.product.title));
-
-  // console.log(filteredApplications);
-  // filteredApplications = filteredApplications.sort(getComparator(order, "id"));
+  sort(headCellName);
 
   return (
     <div className="applicationList">
@@ -138,17 +141,19 @@ export const ApplicationList = () => {
               {headCells.map((headCell) => (
                 <TableCell
                   key={headCell.name}
-                  sortDirection={orderBy === headCell.name ? order : false}
+                  sortDirection={
+                    orderByColumn === headCell.name ? order : false
+                  }
                 >
                   <TableSortLabel
-                    active={orderBy === headCell.name}
-                    direction={orderBy === headCell.name ? order : "asc"}
+                    active={orderByColumn === headCell.name}
+                    direction={orderByColumn === headCell.name ? order : "asc"}
                     onClick={(event: React.MouseEvent<HTMLElement>) => {
-                      createSortHandler(headCell.name);
+                      sortApplications(headCell.name);
                     }}
                   >
                     {headCell.label}
-                    {orderBy === headCell.name ? (
+                    {orderByColumn === headCell.name ? (
                       <Box component="span" sx={visuallyHidden}>
                         {order === "desc"
                           ? "sorted descending"

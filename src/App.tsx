@@ -6,7 +6,7 @@ import { Application } from "./pages/Application/Application";
 import { ApplicationList } from "./pages/ApplicationList/ApplicationList";
 import { NotFound } from "./pages/NotFound/NotFound";
 
-import { pageURLs } from "./data/consts";
+import { pageURLs, userRoles } from "./data/consts";
 
 import "./styles/style.css";
 import { Header } from "./components/Header";
@@ -22,7 +22,15 @@ import {
 
 //если пользователь не залогинился, тогда редиректить на главную
 function PrivateOutlet() {
-  return sessionStorage.getItem("isLogged") ? <Outlet /> : <Navigate to="/" />;
+  return sessionStorage.getItem("login") ? <Outlet /> : <Navigate to="/" />;
+}
+
+function PrivateOutletforUsers() {
+  return sessionStorage.getItem("role") === userRoles.user ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/" />
+  );
 }
 
 function App() {
@@ -35,14 +43,16 @@ function App() {
             <Route path={pageURLs.homePage} element={<LoginPage />} />
 
             <Route element={<PrivateOutlet />}>
-              <Route
-                path={pageURLs.productSelectionPage}
-                element={<ProductSelection />}
-              />
-              <Route
-                path={pageURLs.applicationPage}
-                element={<Application />}
-              />
+              <Route element={<PrivateOutletforUsers />}>
+                <Route
+                  path={pageURLs.productSelectionPage}
+                  element={<ProductSelection />}
+                />
+                <Route
+                  path={pageURLs.applicationPage}
+                  element={<Application />}
+                />
+              </Route>
               <Route
                 path={pageURLs.applicationList}
                 element={<ApplicationList />}

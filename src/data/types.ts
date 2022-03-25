@@ -53,7 +53,6 @@ export interface IUser {
   id: number;
   login: string;
   password: string;
-  isUserLogged: boolean;
   accounts: any;
   usd: Array<number>;
   rub: Array<number>;
@@ -61,6 +60,7 @@ export interface IUser {
   surname: string;
   patronymic: string;
   inn: string;
+  role: string;
 }
 
 export interface IUserLogin {

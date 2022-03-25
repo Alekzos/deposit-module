@@ -1,9 +1,9 @@
 import axios from "axios";
 import { IProduct } from "../data/types";
 import { doCalc } from "../utils/doCalc";
+import { jsonDataURLs } from "../data/consts";
 
 export const getProducts = async (
-  productsDataURL: string,
   currency: string,
   depositTerm: number,
   depositOptions: any,
@@ -11,7 +11,7 @@ export const getProducts = async (
 ) => {
   //получение
   let products = await axios
-    .get<IProduct[]>(productsDataURL)
+    .get<IProduct[]>(jsonDataURLs.products)
     .then(async function (response) {
       return response.data;
     })

@@ -21,7 +21,6 @@
 .accountBalanceItem {float:right; color:gray; font-size: 14px;}
 
 
-
 /* loginPage */
 .loginPageTitle {
     margin: 0 auto;
@@ -74,6 +73,7 @@
        width: 100%;
        display: block;
    }
+
    
     .MuiSlider-root[aria-labelledby="input-slider"] {
        top: -15px;

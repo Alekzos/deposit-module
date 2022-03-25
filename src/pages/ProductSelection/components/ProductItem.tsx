@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import { useAppDispatch } from "../../../redux/hooks";
-import { productSelectionSlice } from "../../../redux/productSelectionSlice";
+import { productSelectionSlice } from "../../../redux/productReducer";
 
 import { Link } from "react-router-dom";
 

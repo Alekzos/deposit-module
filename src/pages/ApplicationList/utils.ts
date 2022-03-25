@@ -1,4 +1,4 @@
-import { IApplication } from "../../../data/types";
+import { IApplication } from "../../data/types";
 
 export const filterApplications = (
   applications: void | IApplication[],

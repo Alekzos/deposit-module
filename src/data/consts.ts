@@ -12,10 +12,11 @@ export enum paymentPeriods {
 }
 
 //json data
+const baseBackendUrl = "http://localhost:8000";
 export const jsonDataURLs = {
-  products: "http://localhost:8000/products",
-  users: "http://localhost:8000/users",
-  applications: "http://localhost:8000/applications",
+  products: `${baseBackendUrl}/products`,
+  users: `${baseBackendUrl}/users`,
+  applications: `${baseBackendUrl}/applications`,
 };
 
 export const pageURLs = {
@@ -153,3 +154,8 @@ export const headCells: readonly IHeadCell[] = [
     label: "Статус",
   },
 ];
+
+export enum userRoles {
+  user = "user",
+  admin = "admin",
+}

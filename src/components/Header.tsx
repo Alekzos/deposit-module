@@ -8,7 +8,7 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import Box from "@mui/material/Box";
 
 import { useNavigate } from "react-router-dom";
-import { pageURLs } from "../data/consts";
+import { pageURLs, userRoles } from "../data/consts";
 import logo from "../styles/logoipsum-logo.svg";
 
 export const Header = () => {
@@ -47,9 +47,9 @@ export const Header = () => {
           </Box>
 
           <nav>
-            {sessionStorage.getItem("isLogged") &&
-            sessionStorage.getItem("hideCalcPage") !== "1" &&
+            {sessionStorage.getItem("role") === userRoles.user &&
             window.location.pathname !== pageURLs.productSelectionPage &&
+            window.location.pathname !== pageURLs.applicationPage &&
             window.location.pathname !== pageURLs.homePage ? (
               <Link
                 variant="button"
@@ -63,9 +63,11 @@ export const Header = () => {
               ""
             )}
 
-            {sessionStorage.getItem("isLogged") &&
-            sessionStorage.getItem("hideApplicationPage") !== "1" &&
+            {sessionStorage.getItem("login") &&
+            sessionStorage.getItem("role") === userRoles.user &&
+            window.location.pathname !== pageURLs.productSelectionPage &&
             window.location.pathname !== pageURLs.applicationPage &&
+            window.location.pathname !== pageURLs.applicationList &&
             window.location.pathname !== pageURLs.homePage ? (
               <Link
                 variant="button"
@@ -79,7 +81,8 @@ export const Header = () => {
               ""
             )}
 
-            {sessionStorage.getItem("isLogged") ? (
+            {sessionStorage.getItem("login") &&
+            window.location.pathname !== pageURLs.applicationList ? (
               <Link
                 variant="button"
                 color="text.primary"
@@ -93,7 +96,7 @@ export const Header = () => {
             )}
           </nav>
 
-          {sessionStorage.getItem("isLogged") ? (
+          {sessionStorage.getItem("login") ? (
             <Button
               onClick={Logout}
               href="#"

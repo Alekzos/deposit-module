@@ -63,7 +63,6 @@ const ProductSelection = () => {
     debounce(({ currency, depositTerm, depositOptions, depositSum }) => {
       const fetchData = async (productsDataURL: string) => {
         let response = await getProducts(
-          jsonDataURLs.products,
           currency,
           depositTerm,
           depositOptions,

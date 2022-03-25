@@ -1,12 +1,14 @@
 //рассчет процентов по депозиту
 import { calcWithinterestCapitalization } from "./utils";
 import {
-  calcValueKf,
   KeyRateRub,
   KeyRateUsd,
   depositEarlyTerminationRatio,
   withdrawalsRatio,
 } from "../data/consts";
+
+import { calcValueKf } from "../pages/ProductSelection/const";
+
 export const doCalc = (
   earlyTermination: number,
   withdrawals: number,

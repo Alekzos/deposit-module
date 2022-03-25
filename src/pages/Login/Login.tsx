@@ -19,7 +19,8 @@ import Typography from "@mui/material/Typography";
 import { IUser, IUserLogin } from "../../data/types";
 import { checkUserLogin, checkUserPassword } from "../../utils/checkUserLogin";
 import { getUsers } from "../../api/api";
-import { pageURLs, userRoles } from "../../data/consts";
+import { pageURLs } from "../../data/consts";
+import { userRoles } from "./consts";
 
 import { useAppDispatch } from "../../redux/hooks";
 import { selectUserSlice } from "../../redux/userReducer";

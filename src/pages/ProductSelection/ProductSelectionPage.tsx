@@ -31,13 +31,13 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
 import ProductList from "./components/ProductList";
 import SliderWithTextField from "./components/SliderWithTextField";
-
+import { useAppSelector } from "../../redux/hooks";
 //main
 const ProductSelection = () => {
   const [products, setProducts] = useState<void | IProduct[]>([]);
   const [currency, setCurrency] = useState<string>(Currencies.rub);
-
   const [depositSum, setDepositSum] = useState<number>(0);
+  const { selectedUser } = useAppSelector((state) => state.userReducer);
   const [messageProductNotFound, setMessageProductNotFound] =
     useState<string>("");
 

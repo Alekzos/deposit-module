@@ -86,7 +86,9 @@ export const ApplicationRow = (props: { application: IApplication }) => {
                   <TableCell>
                     {application.product.effectiveInterestRate ? "да" : "нет"}
                   </TableCell>
-                  <TableCell>{application.selectedDepositTerm}</TableCell>
+                  <TableCell>
+                    {application.product.selectedDepositTerm}
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>

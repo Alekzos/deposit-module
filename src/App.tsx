@@ -6,7 +6,8 @@ import { Application } from "./pages/Application/Application";
 import { ApplicationList } from "./pages/ApplicationList/ApplicationList";
 import { NotFound } from "./pages/NotFound/NotFound";
 
-import { pageURLs, userRoles } from "./data/consts";
+import { pageURLs } from "./data/consts";
+import { userRoles } from "./pages/Login/consts";
 
 import "./styles/style.css";
 import { Header } from "./components/Header";
@@ -48,8 +49,13 @@ function App() {
                   path={pageURLs.productSelectionPage}
                   element={<ProductSelection />}
                 />
-                <Route
+                {/* <Route
                   path={pageURLs.applicationPage}
+                  element={<Application />}
+                /> */}
+
+                <Route
+                  path={`${pageURLs.applicationPage}/:applicationId`}
                   element={<Application />}
                 />
               </Route>

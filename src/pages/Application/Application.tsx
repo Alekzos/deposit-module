@@ -27,10 +27,11 @@ export const Application = () => {
 
   //если форма не заполнена (стор пуст), тогда редирект на выбор депозита.
   //признак пустоты стора - незаполненая валюта
+  //стор при нажатии на ф5 очищается, так что надо искать другое решение.
   const navigate = useNavigate();
   useEffect(() => {
     if (!selectedProduct.currency) {
-      navigate(pageURLs.productSelectionPage);
+      navigate(pageURLs.homePage);
     }
   }, []);
 

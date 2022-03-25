@@ -9,11 +9,8 @@ import { Tooltip } from "@mui/material";
 import HelpOutline from "@mui/icons-material/HelpOutline";
 
 import { numberWithSpaces, declOfNum } from "../../../utils/utils";
-import {
-  marksSliderDepositTerm,
-  Currencies,
-  declensionsDays,
-} from "../../../data/consts";
+import { Currencies, declensionsDays } from "../../../data/consts";
+import { marksSliderDepositTerm } from "../const";
 import { ISliderWithTextFieldProps } from "../../../data/types";
 
 const SliderWithTextField: React.FC<ISliderWithTextFieldProps> = ({

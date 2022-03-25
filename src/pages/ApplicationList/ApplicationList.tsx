@@ -24,7 +24,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 
 import { visuallyHidden } from "@mui/utils";
 
-import { headCells } from "../../data/consts";
+import { headCells } from "./consts";
 type Order = "asc" | "desc";
 
 export const ApplicationList = () => {

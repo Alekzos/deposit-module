@@ -1,5 +1,5 @@
 import { IUser } from "../data/types";
-import { loginErrMessages } from "../data/consts";
+import { loginErrMessages } from "../pages//Login/consts";
 
 //проверка логина
 export const checkUserLogin = (user: Array<IUser>, values: any) => {

@@ -8,8 +8,10 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import Box from "@mui/material/Box";
 
 import { useNavigate } from "react-router-dom";
-import { pageURLs, userRoles } from "../data/consts";
+import { pageURLs } from "../data/consts";
+import { userRoles } from "../pages/Login/consts";
 import logo from "../styles/logoipsum-logo.svg";
+import { Link as RouterLink } from "react-router-dom";
 
 export const Header = () => {
   let navigate = useNavigate();
@@ -29,7 +31,11 @@ export const Header = () => {
       <AppBar position="fixed" color="default" elevation={0}>
         <Toolbar sx={{ flexWrap: "wrap" }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Link className="logo" href={pageURLs.homePage}>
+            <Link
+              component={RouterLink}
+              className="logo"
+              to={pageURLs.homePage}
+            >
               <img src={logo} alt="logo" />
             </Link>
           </Box>
@@ -40,9 +46,10 @@ export const Header = () => {
             window.location.pathname !== pageURLs.applicationPage &&
             window.location.pathname !== pageURLs.homePage ? (
               <Link
+                component={RouterLink}
                 variant="button"
                 color="text.primary"
-                href={pageURLs.productSelectionPage}
+                to={pageURLs.productSelectionPage}
                 sx={{ my: 1, mx: 1.5 }}
               >
                 Подобрать депозит
@@ -58,9 +65,10 @@ export const Header = () => {
             window.location.pathname !== pageURLs.applicationList &&
             window.location.pathname !== pageURLs.homePage ? (
               <Link
+                component={RouterLink}
                 variant="button"
                 color="text.primary"
-                href={pageURLs.applicationPage}
+                to={pageURLs.applicationPage}
                 sx={{ my: 1, mx: 1.5 }}
               >
                 Оформить заявку
@@ -72,9 +80,10 @@ export const Header = () => {
             {sessionStorage.getItem("login") &&
             window.location.pathname !== pageURLs.applicationList ? (
               <Link
+                component={RouterLink}
                 variant="button"
                 color="text.primary"
-                href={pageURLs.applicationList}
+                to={pageURLs.applicationList}
                 sx={{ my: 1, mx: 1.5 }}
               >
                 Список заявок

@@ -73,7 +73,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
           </Typography>
         </CardContent>
         <CardActions>
-          <Link to={pageURLs.applicationPage}>
+          <Link to={`${pageURLs.applicationPage}/new`}>
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
                 //переделал, чтобы передевать везде не 3 параметра, а 1 продукт

@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../data/types";
 
-interface ProductState {
+interface UserState {
   selectedUser: IUser;
 }
 
 // Define the initial state using that type
-const initialState: ProductState = {
+const initialState: UserState = {
   selectedUser: {
     id: 0,
     login: "",

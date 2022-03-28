@@ -114,7 +114,6 @@ export const ApplicationList = () => {
   return (
     <div className="applicationList">
       <Typography variant="h1">Список депозитных заявок</Typography>
-      <a href="/">test</a>
       <div>
         клиент и сотрудник банка сотрудник - получает список и видит от всех
         клиентов и 2 кнопочки справа подтвердить и отклонить, статус открыт,

@@ -21,45 +21,40 @@ import { useAppSelector } from "../../redux/hooks";
 
 export const Application = () => {
   const { selectedProduct } = useAppSelector((state) => state.productReducer);
-  const { selectedUser }: any = useAppSelector((state) => state.userReducer);
-  // const { accounts, name, surname, patronymic, inn } = selectedUser;
+  const { selectedUser } = useAppSelector((state) => state.userReducer);
+  const { accounts, name, surname, patronymic, inn } = selectedUser;
   let applicationStatus = false;
 
-  try {
-    console.log(selectedUser[0].name);
-  } catch (error) {
-    console.log(error);
-  }
-
-  // useEffect(() => {
-  //   console.log(selectedUser[0].name);
-  // }, []);
-
-  //console.log(selectedUser[0].name);
   //если форма не заполнена (стор пуст), тогда редирект на выбор депозита.
   //признак пустоты стора - незаполненая валюта
-  //стор при нажатии на ф5 очищается, так что надо искать другое решение.
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!selectedProduct.currency) {
-  //     navigate(pageURLs.homePage);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!selectedProduct.currency) {
+      navigate(pageURLs.homePage);
+    }
+  }, []);
+
+  useEffect(() => {
+    setAccount(selectedUser.account);
+  }, []);
 
   //выбор счета
-  const [account, setAccount] = useState("");
+  const [account, setAccount] = useState<string | undefined>(
+    selectedUser.account
+  );
   const handleChange = (event: SelectChangeEvent) => {
     setAccount(event.target.value as string);
   };
+  // account ? console.log(1) : console.log(2);
 
-  // //ограничение выбора счета в зависимости от валюты выбранного продукта
-  // const filteredAccounts = accounts.filter(
-  //   (account: any) => account.currency === selectedProduct.currency
-  // );
+  //ограничение выбора счета в зависимости от валюты выбранного продукта
+  const filteredAccounts = accounts.filter(
+    (account: any) => account.currency === selectedProduct.currency
+  );
 
   return (
     <div className="application">
-      {/* <Typography variant="h1">Заявление на открытие депозита</Typography>
+      <Typography variant="h1">Заявление на открытие депозита</Typography>
       <Box sx={{ maxWidth: 500 }}>
         <Typography variant="h6" component="div">
           Вклад «{selectedProduct.title}»
@@ -131,6 +126,11 @@ export const Application = () => {
         </Typography>
       </Box>
       <Box>
+        ак<br></br>
+        {account}
+        <br></br>
+        селектед<br></br>
+        {selectedUser.account}
         <FormControl required>
           <Typography variant="h6">Cчёт для пополнения депозита </Typography>
           <Select
@@ -138,16 +138,18 @@ export const Application = () => {
             sx={{ maxWidth: "500px" }}
             labelId="account-select-label"
             id="account"
-            value={account}
-            label="счёт"
+            value={account ? account : selectedUser.account}
             onChange={handleChange}
           >
-            {filteredAccounts.map((filteredAccount: any) => {
+            {/* {console.log(account)}
+            {console.log(selectedUser.account)} */}
+
+            {(filteredAccounts || []).map((filteredAccount: any) => {
               return (
                 <MenuItem
                   className="selectAccountItem"
                   key={filteredAccount.account}
-                  value={filteredAccount.account}
+                  value={String(filteredAccount.account)}
                 >
                   {filteredAccount.account}
                   <span className="accountBalanceItem">
@@ -194,7 +196,7 @@ export const Application = () => {
         >
           в черновик
         </Button>
-      </Box> */}
+      </Box>
     </div>
   );
 };

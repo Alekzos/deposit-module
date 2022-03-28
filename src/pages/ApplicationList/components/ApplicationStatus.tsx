@@ -6,7 +6,6 @@ import TableCell from "@mui/material/TableCell";
 import { IApplication } from "../../../data/types";
 import { IUser } from "../../../data/types";
 import EditIcon from "@mui/icons-material/Edit";
-import Icon from "@mui/material/Icon";
 import { getUsers } from "../../../api/api";
 
 import Link from "@mui/material/Link";
@@ -32,10 +31,10 @@ export const ApplicationStatus = (props: { application: IApplication }) => {
   const setUsertoStore = async () => {
     let users = await getUsers();
     let TheUserData: IUser[] = (users || []).filter(
-      (user: any) => user.login === sessionStorage.getItem("login")
+      (user: any) => user.inn === application.inn
     );
-    console.log(TheUserData);
-    dispatch(setUser(TheUserData));
+    TheUserData[0].account = application.account;
+    dispatch(setUser(TheUserData[0]));
   };
 
   const setDatatoStore = () => {

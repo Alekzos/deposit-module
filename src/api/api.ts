@@ -27,7 +27,7 @@ export const getApplications = () => {
 export const addApplication = async (
   selectedProduct: IProduct,
   selectedUser: IUser,
-  account: string,
+  account: string | undefined,
   applicationStatus: boolean
 ) => {
   const { name, surname, patronymic, inn } = selectedUser;

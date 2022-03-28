@@ -2,6 +2,8 @@ import React from "react";
 
 import { useState } from "react";
 
+import { ApplicationStatus } from "./ApplicationStatus";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -49,9 +51,7 @@ export const ApplicationRow = (props: { application: IApplication }) => {
             ? application.product.effectiveInterestRate
             : application.product.interestRate}
         </TableCell>
-        <TableCell scope="row">
-          {application.applicationStatus ? "на рассмотрении" : "черновик"}
-        </TableCell>
+        <ApplicationStatus application={application} />
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>

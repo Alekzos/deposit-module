@@ -81,14 +81,20 @@ export const ApplicationList = () => {
   };
 
   const sort = (headCellNa: string) => {
-    // if (Object.entries(filteredApplications[0])) {
-    //   console.log(Object.entries(filteredApplications[0]));
-    // }
+    //надо будет поправить, сделать проверку, что тайтл вложенный элемент,
+    //но почему-то работает через раз, а тайспскрипт всегда выдает ошибку
+    // if (filteredApplications[0].product[headCellNa]) {
+    //   filteredApplications = orderBy(
+    //     filteredApplications,
+    //     (item) => item.product[headCellNa],
+    //     order
+    //   );
 
-    //надо будет поправить, сделать проверку, что тайтл вложенный элемент
-    //
-
-    if (headCellNa === "title") {
+    if (
+      headCellNa === "title" ||
+      headCellNa === "selectedDepositSum" ||
+      headCellNa === "interestRate"
+    ) {
       filteredApplications = orderBy(
         filteredApplications,
         (item) => item.product[headCellNa],
@@ -101,13 +107,6 @@ export const ApplicationList = () => {
         order
       );
     }
-
-    //console.log(filteredApplications[0]);
-    // filteredApplications = orderBy(
-    //   filteredApplications,
-    //   (item) => item.product.title,
-    //   order
-    // );
   };
 
   sort(headCellName);
@@ -115,6 +114,7 @@ export const ApplicationList = () => {
   return (
     <div className="applicationList">
       <Typography variant="h1">Список депозитных заявок</Typography>
+      <a href="/">test</a>
       <div>
         клиент и сотрудник банка сотрудник - получает список и видит от всех
         клиентов и 2 кнопочки справа подтвердить и отклонить, статус открыт,
@@ -125,19 +125,24 @@ export const ApplicationList = () => {
         - ссылка для перехода на страницу депозитной заявки
       </div>
 
-      <FilterApplicationsComponent
-        fioSearch={fioSearch}
-        accountSearch={accountSearch}
-        currencySearch={currencySearch}
-        innSearch={innSearch}
-        handleChange={handleChange}
-      />
+      {/* скрыть форму поиска не для админов */}
+      {sessionStorage.getItem("role") === "admin" ? (
+        <FilterApplicationsComponent
+          fioSearch={fioSearch}
+          accountSearch={accountSearch}
+          currencySearch={currencySearch}
+          innSearch={innSearch}
+          handleChange={handleChange}
+        />
+      ) : (
+        ""
+      )}
+
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell />
-
               {headCells.map((headCell) => (
                 <TableCell
                   key={headCell.name}
@@ -156,8 +161,8 @@ export const ApplicationList = () => {
                     {orderByColumn === headCell.name ? (
                       <Box component="span" sx={visuallyHidden}>
                         {order === "desc"
-                          ? "sorted descending"
-                          : "sorted ascending"}
+                          ? "отсортировано по убыванию"
+                          : "отсортировано по возрастанию"}
                       </Box>
                     ) : null}
                   </TableSortLabel>

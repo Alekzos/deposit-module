@@ -63,6 +63,7 @@ export interface IUser {
   patronymic: string;
   inn: string;
   role: string;
+  account?: string;
 }
 
 export interface IUserLogin {

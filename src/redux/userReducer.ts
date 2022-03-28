@@ -12,6 +12,7 @@ const initialState: UserState = {
     login: "",
     password: "",
     accounts: [],
+    account: "",
     usd: [],
     rub: [],
     name: "",

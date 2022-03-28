@@ -21,19 +21,30 @@ import { useAppSelector } from "../../redux/hooks";
 
 export const Application = () => {
   const { selectedProduct } = useAppSelector((state) => state.productReducer);
-  const { selectedUser } = useAppSelector((state) => state.userReducer);
-  const { accounts, name, surname, patronymic, inn } = selectedUser;
+  const { selectedUser }: any = useAppSelector((state) => state.userReducer);
+  // const { accounts, name, surname, patronymic, inn } = selectedUser;
   let applicationStatus = false;
 
+  try {
+    console.log(selectedUser[0].name);
+  } catch (error) {
+    console.log(error);
+  }
+
+  // useEffect(() => {
+  //   console.log(selectedUser[0].name);
+  // }, []);
+
+  //console.log(selectedUser[0].name);
   //если форма не заполнена (стор пуст), тогда редирект на выбор депозита.
   //признак пустоты стора - незаполненая валюта
   //стор при нажатии на ф5 очищается, так что надо искать другое решение.
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!selectedProduct.currency) {
-      navigate(pageURLs.homePage);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!selectedProduct.currency) {
+  //     navigate(pageURLs.homePage);
+  //   }
+  // }, []);
 
   //выбор счета
   const [account, setAccount] = useState("");
@@ -41,14 +52,14 @@ export const Application = () => {
     setAccount(event.target.value as string);
   };
 
-  //ограничение выбора счета в зависимости от валюты выбранного продукта
-  const filteredAccounts = accounts.filter(
-    (account: any) => account.currency === selectedProduct.currency
-  );
+  // //ограничение выбора счета в зависимости от валюты выбранного продукта
+  // const filteredAccounts = accounts.filter(
+  //   (account: any) => account.currency === selectedProduct.currency
+  // );
 
   return (
     <div className="application">
-      <Typography variant="h1">Заявление на открытие депозита</Typography>
+      {/* <Typography variant="h1">Заявление на открытие депозита</Typography>
       <Box sx={{ maxWidth: 500 }}>
         <Typography variant="h6" component="div">
           Вклад «{selectedProduct.title}»
@@ -183,7 +194,7 @@ export const Application = () => {
         >
           в черновик
         </Button>
-      </Box>
+      </Box> */}
     </div>
   );
 };

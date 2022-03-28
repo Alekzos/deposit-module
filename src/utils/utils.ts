@@ -69,3 +69,16 @@ export const getsessionStorageData = (itemName: string) => {
     return JSON.parse(item);
   }
 };
+
+//выводит сообщение, что данные могут стерется (на случай если нажмет обновить страницу)
+export const onLeavePage = () => {
+  window.onbeforeunload = (event) => {
+    const e = event || window.event;
+    // Cancel the event
+    e.preventDefault();
+    if (e) {
+      e.returnValue = ""; // Legacy method for cross browser support
+    }
+    return ""; // Legacy method for cross browser support
+  };
+};

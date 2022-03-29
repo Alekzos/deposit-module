@@ -11,170 +11,118 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { addApplication } from "../../api/api";
+import { IApplication, IProduct, IUser } from "../../data/types";
+import {
+  addApplication,
+  getApplications,
+  getUsers,
+  patchApplication,
+} from "../../api/api";
 
-import { numberWithSpaces, declOfNum } from "../../utils/utils";
+import { pageURLs, userInitialValue } from "../../data/consts";
+import { applicationStatuses } from "./consts";
 
-import { Currencies, declensionsDays, pageURLs } from "../../data/consts";
+import { useParams } from "react-router-dom";
 
 import { useAppSelector } from "../../redux/hooks";
+import { ApplicationForm } from "./components/ApplicationForm";
 
 export const Application = () => {
-  const { selectedProduct } = useAppSelector((state) => state.productReducer);
+  let { selectedProduct } = useAppSelector((state) => state.productReducer);
   const { selectedUser } = useAppSelector((state) => state.userReducer);
-  const { accounts, name, surname, patronymic, inn } = selectedUser;
-  let applicationStatus = false;
 
-  //если форма не заполнена (стор пуст), тогда редирект на выбор депозита.
-  //признак пустоты стора - незаполненая валюта
+  const [product, setProduct] = useState<any>([]);
+
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!selectedProduct.currency) {
-      navigate(pageURLs.homePage);
-    }
-  }, []);
-
-  useEffect(() => {
-    setAccount(selectedUser.account);
-  }, []);
 
   //выбор счета
-  const [account, setAccount] = useState<string | undefined>(
-    selectedUser.account
-  );
+  const [account, setAccount] = useState<string | undefined>();
   const handleChange = (event: SelectChangeEvent) => {
     setAccount(event.target.value as string);
   };
-  // account ? console.log(1) : console.log(2);
 
-  //ограничение выбора счета в зависимости от валюты выбранного продукта
-  const filteredAccounts = accounts.filter(
-    (account: any) => account.currency === selectedProduct.currency
-  );
+  let { applicationId } = useParams();
+  const [application, setApplication] = useState<void | IApplication>();
+
+  //так как запрос асинхронный, то форма при дестуктуризации выдает ошибку undefined,
+  //для решения этого поставил пустые значения по умолчанию в  userInitialValue
+  const [user, setUser] = useState<IUser>(userInitialValue);
+  // const [applicationStatus, setApplicationStatus] = useState<number>(0);
+  //если заявка новая - взять данные о продукте с калькулятора,
+  //иначе взять айди заявки и получить данные по ней
+  useEffect(() => {
+    if (applicationId === "new") {
+      setProduct(selectedProduct);
+      setUser(selectedUser);
+      setAccount(selectedUser.account);
+
+      //если форма не заполнена (стор пуст), тогда редирект на выбор депозита.
+      //признак пустоты стора - незаполненая валюта
+      if (!selectedProduct.currency) {
+        navigate(pageURLs.productSelectionPage);
+      }
+    } else {
+      //выгрузка продукта и аккаунта из заявки
+      const getApplicationList = async () => {
+        let response = await getApplications();
+        const application = (response || []).filter(
+          (application) => application.id === Number(applicationId)
+        );
+        setApplication(application[0]);
+        setProduct(application[0].product);
+        setAccount(application[0].account);
+        //выгрузка данных о юзере из заявки
+        const getUserList = async () => {
+          let response = await getUsers();
+          const user = (response || []).filter(
+            (user) => user.inn === application[0].inn
+          );
+          setUser(user[0]);
+        };
+        getUserList();
+      };
+
+      getApplicationList();
+    }
+  }, [selectedUser]);
+
+  const postApllication = (action?: string) => {
+    let applicationStatus = 0;
+    if (applicationId === "new") {
+      addApplication(product, user, account, applicationStatus);
+    } else {
+      if (action === "post") {
+        // setApplicationStatus(1); //выдает 0, потому вернулся к "магии",
+        patchApplication(
+          Number(applicationId),
+          (applicationStatus = 1),
+          account
+        );
+      } else {
+        patchApplication(
+          Number(applicationId),
+          (applicationStatus = 0),
+          account
+        );
+      }
+    }
+  };
 
   return (
     <div className="application">
-      <Typography variant="h1">Заявление на открытие депозита</Typography>
-      <Box sx={{ maxWidth: 500 }}>
-        <Typography variant="h6" component="div">
-          Вклад «{selectedProduct.title}»
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {selectedProduct.description}
-        </Typography>
-        <Typography variant="body1">
-          <>
-            Cумма:{" "}
-            <strong>
-              {numberWithSpaces(selectedProduct.selectedDepositSum)}{" "}
-              {selectedProduct.currency === Currencies.rub ? "₽" : "$"}
-            </strong>
-            <br />
-          </>
-          <>
-            Cрок:{" "}
-            <strong>
-              {selectedProduct.selectedDepositTerm}{" "}
-              {selectedProduct.selectedDepositTerm
-                ? declOfNum(
-                    selectedProduct.selectedDepositTerm,
-                    declensionsDays
-                  )
-                : ""}
-            </strong>
-            <br />
-          </>
-          {selectedProduct.effectiveInterestRate ? (
-            <>
-              Эффективная ставка:{" "}
-              <strong>{selectedProduct.effectiveInterestRate}%</strong>
-              <br />
-            </>
-          ) : (
-            <>
-              Cтавка:  <strong>{selectedProduct.interestRate}%</strong>
-              <br />
-            </>
-          )}
-          Ваш доход: 
-          <strong>
-            {numberWithSpaces(selectedProduct.futureValue)}{" "}
-            {selectedProduct.currency === Currencies.rub ? "₽" : "$"}
-          </strong>
-          <br />
-          <br />
-          <Typography variant="h6">Дополнительные опции</Typography>
-          Частичное снятие и пополнение: 
-          <strong>{selectedProduct.withdrawals ? "да" : "нет"}</strong>
-          <br />
-          Досрочное расторжение: 
-          <strong>{selectedProduct.earlyTermination ? "да" : "нет"}</strong>
-          <br />
-          Капитализация: 
-          <strong>
-            {selectedProduct.effectiveInterestRate ? "да" : "нет"}
-          </strong>
-          <br />
-          <br />
-          <Typography variant="h6">Информация о клиенте</Typography>
-          ФИО:{" "}
-          <strong>
-            {surname} {name} {patronymic}
-          </strong>
-          <br />
-          ИНН: <strong>{inn}</strong>
-        </Typography>
-      </Box>
-      <Box>
-        ак<br></br>
-        {account}
-        <br></br>
-        селектед<br></br>
-        {selectedUser.account}
-        <FormControl required>
-          <Typography variant="h6">Cчёт для пополнения депозита </Typography>
-          <Select
-            required
-            sx={{ maxWidth: "500px" }}
-            labelId="account-select-label"
-            id="account"
-            value={account ? account : selectedUser.account}
-            onChange={handleChange}
-          >
-            {/* {console.log(account)}
-            {console.log(selectedUser.account)} */}
-
-            {(filteredAccounts || []).map((filteredAccount: any) => {
-              return (
-                <MenuItem
-                  className="selectAccountItem"
-                  key={filteredAccount.account}
-                  value={String(filteredAccount.account)}
-                >
-                  {filteredAccount.account}
-                  <span className="accountBalanceItem">
-                    {numberWithSpaces(filteredAccount.balance)}
-
-                    {filteredAccount.currency === Currencies.rub ? "₽" : "$"}
-                  </span>
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-      </Box>
+      <ApplicationForm
+        product={product}
+        user={user}
+        account={account}
+        handleChange={handleChange}
+      />
       <Box>
         <Button
           variant="contained"
           component={Link}
           sx={{ mr: 2 }}
           onClick={(event: React.MouseEvent<HTMLElement>) => {
-            addApplication(
-              selectedProduct,
-              selectedUser,
-              account,
-              (applicationStatus = true)
-            );
+            postApllication("post");
           }}
           to={pageURLs.applicationList}
         >
@@ -185,12 +133,7 @@ export const Application = () => {
           variant="outlined"
           component={Link}
           onClick={(event: React.MouseEvent<HTMLElement>) => {
-            addApplication(
-              selectedProduct,
-              selectedUser,
-              account,
-              (applicationStatus = false)
-            );
+            postApllication();
           }}
           to={pageURLs.applicationList}
         >

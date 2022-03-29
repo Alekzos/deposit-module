@@ -3,27 +3,33 @@ import React from "react";
 import { useState } from "react";
 
 import { ApplicationStatus } from "./ApplicationStatus";
-
+import { ChangeApplicationStatusList } from "./ChangeApplicationStatus";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbDownOffAlt from "@mui/icons-material/ThumbDownOffAlt";
 
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Collapse from "@mui/material/Collapse";
 
-import { IApplication } from "../../../data/types";
+import { IApplication, IUser } from "../../../data/types";
 
 import { numberWithSpaces } from "../../../utils/utils";
 import { Currencies } from "../../../data/consts";
+import { userRoles } from "../../Login/consts";
 
-export const ApplicationRow = (props: { application: IApplication }) => {
+export const ApplicationRow = (props: {
+  application: IApplication;
+  user: IUser;
+}) => {
   const [open, setOpen] = useState(false);
 
-  const { application } = props;
+  const { application, user } = props;
 
   return (
     <React.Fragment>
@@ -52,6 +58,12 @@ export const ApplicationRow = (props: { application: IApplication }) => {
             : application.product.interestRate}
         </TableCell>
         <ApplicationStatus application={application} />
+
+        {user.role === userRoles.admin ? (
+          <ChangeApplicationStatusList application={application} />
+        ) : (
+          ""
+        )}
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>

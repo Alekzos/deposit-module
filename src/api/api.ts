@@ -28,7 +28,7 @@ export const addApplication = async (
   selectedProduct: IProduct,
   selectedUser: IUser,
   account: string | undefined,
-  applicationStatus: boolean
+  applicationStatus: number
 ) => {
   const { name, surname, patronymic, inn } = selectedUser;
 
@@ -48,5 +48,22 @@ export const addApplication = async (
     applicationStatus,
     applicationDate,
     expirationDate,
+  });
+};
+
+export const getApplication = (id: number) => {
+  let response = getApplications();
+  return response;
+};
+
+//обновить статус заявки
+export const patchApplication = async (
+  id: number,
+  applicationStatus: number,
+  account?: string
+) => {
+  return await axios.patch(`${jsonDataURLs.applications}/${id}`, {
+    applicationStatus: applicationStatus,
+    account: account,
   });
 };

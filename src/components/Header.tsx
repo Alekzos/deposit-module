@@ -37,7 +37,11 @@ export const Header = () => {
             <Link
               component={RouterLink}
               className="logo"
-              to={pageURLs.homePage}
+              to={
+                sessionStorage.getItem("login")
+                  ? pageURLs.productSelectionPage
+                  : pageURLs.homePage
+              }
             >
               <img src={logo} alt="logo" />
             </Link>

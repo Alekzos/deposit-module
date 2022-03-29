@@ -1,46 +1,15 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-
-import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import { IApplication } from "../../../data/types";
-import { IUser } from "../../../data/types";
 import EditIcon from "@mui/icons-material/Edit";
-import { getUsers } from "../../../api/api";
-
+import { applicationStatuses } from "../../Application/consts";
+import { switchApplicationStatus } from "../utils";
 import Link from "@mui/material/Link";
-import { useNavigate } from "react-router-dom";
 import { pageURLs } from "../../../data/consts";
-import { useAppDispatch } from "../../../redux/hooks";
-import { productSelectionSlice } from "../../../redux/productReducer";
-import { selectUserSlice } from "../../../redux/userReducer";
-// type Props = {
-//   status: boolean;
-//   id: number;
-//   currency: string;
-//   account: string;
-// };
 
 export const ApplicationStatus = (props: { application: IApplication }) => {
   const { application } = props;
-
-  const dispatch = useAppDispatch();
-  const { setProduct } = productSelectionSlice.actions;
-  const { setUser } = selectUserSlice.actions;
-
-  const setUsertoStore = async () => {
-    let users = await getUsers();
-    let TheUserData: IUser[] = (users || []).filter(
-      (user: any) => user.inn === application.inn
-    );
-    TheUserData[0].account = application.account;
-    dispatch(setUser(TheUserData[0]));
-  };
-
-  const setDatatoStore = () => {
-    dispatch(setProduct(application.product));
-    setUsertoStore();
-  };
 
   return (
     <TableCell
@@ -52,16 +21,16 @@ export const ApplicationStatus = (props: { application: IApplication }) => {
         },
       }}
     >
+      {/* если не черновик - вывести в таблицу, иначе добавить еще кнопку редактирования */}
       {application.applicationStatus ? (
-        "на рассмотрении"
+        switchApplicationStatus(application.applicationStatus)
       ) : (
         <React.Fragment>
           <Link
             component={RouterLink}
-            to={`${pageURLs.applicationPage}/new`}
-            onClick={setDatatoStore}
+            to={`${pageURLs.applicationPage}/${application.id}`}
           >
-            черновик
+            {switchApplicationStatus(application.applicationStatus)}
             <EditIcon
               sx={{
                 ml: 1,

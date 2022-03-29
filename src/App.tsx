@@ -49,11 +49,6 @@ function App() {
                   path={pageURLs.productSelectionPage}
                   element={<ProductSelection />}
                 />
-                {/* <Route
-                  path={pageURLs.applicationPage}
-                  element={<Application />}
-                /> */}
-
                 <Route
                   path={`${pageURLs.applicationPage}/:applicationId`}
                   element={<Application />}

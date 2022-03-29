@@ -9,3 +9,18 @@ export enum userRoles {
   user = "user",
   admin = "admin",
 }
+
+export const userInitialValue = {
+  id: 0,
+  login: "",
+  password: "",
+  accounts: [],
+  account: "",
+  usd: [],
+  rub: [],
+  name: "",
+  surname: "",
+  patronymic: "",
+  inn: "",
+  role: "",
+};

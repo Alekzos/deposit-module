@@ -13,8 +13,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-import { IApplication } from "../../data/types";
-import { getApplications } from "../../api/api";
+import { IApplication, IUser } from "../../data/types";
+import { getApplications, getUsers } from "../../api/api";
 import { filterApplications } from "./utils";
 import { FilterApplicationsComponent } from "./components/FilterApplications";
 import { ApplicationRow } from "./components/ApplicationRow";
@@ -25,20 +25,33 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 
 import { headCells } from "./consts";
+import { userInitialValue } from "../../data/consts";
 type Order = "asc" | "desc";
 
 export const ApplicationList = () => {
   const [applications, setApplications] = useState<void | IApplication[]>([]);
   const [order, setOrder] = useState<Order>("asc");
   const [orderByColumn, setOrderByColumn] = useState<string>("id");
+  const [user, setUser] = useState<IUser>(userInitialValue);
 
-  const getApplicationList = async () => {
-    let response = await getApplications();
-    setApplications(response);
-  };
+  //получить данные пользователя, чтобы фильтровать в зависимости от роли
+  useEffect(() => {
+    const getApplicationList = async () => {
+      let response = await getApplications();
+      setApplications(response);
+    };
+    getApplicationList();
+  }, []);
 
   useEffect(() => {
-    getApplicationList();
+    const getUserList = async () => {
+      let response = await getUsers();
+      const user = (response || []).filter(
+        (user) => user.login === sessionStorage.getItem("login")
+      );
+      setUser(user[0]);
+    };
+    getUserList();
   }, []);
 
   const [fioSearch, setFioSearch] = useState<string>("");
@@ -52,7 +65,8 @@ export const ApplicationList = () => {
     fioSearch,
     accountSearch,
     currencySearch,
-    innSearch
+    innSearch,
+    user
   );
 
   //для поиска
@@ -171,7 +185,11 @@ export const ApplicationList = () => {
           </TableHead>
           <TableBody>
             {(filteredApplications || []).map((application) => (
-              <ApplicationRow key={application.id} application={application} />
+              <ApplicationRow
+                key={application.id}
+                user={user}
+                application={application}
+              />
             ))}
           </TableBody>
         </Table>

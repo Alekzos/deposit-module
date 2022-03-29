@@ -44,7 +44,7 @@ export interface IApplication {
   patronymic: string;
   inn: string;
   account: string;
-  applicationStatus: boolean;
+  applicationStatus: number;
   id: number;
   applicationDate: string;
   expirationDate: string;

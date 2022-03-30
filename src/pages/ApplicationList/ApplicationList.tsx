@@ -18,6 +18,8 @@ import { getApplications, getUsers } from "../../api/api";
 import { filterApplications } from "./utils";
 import { FilterApplicationsComponent } from "./components/FilterApplications";
 import { ApplicationRow } from "./components/ApplicationRow";
+import { applicationStatuses } from "../Application/consts";
+import { userRoles } from "../Login/consts";
 
 import Box from "@mui/material/Box";
 import TableSortLabel from "@mui/material/TableSortLabel";
@@ -34,15 +36,7 @@ export const ApplicationList = () => {
   const [orderByColumn, setOrderByColumn] = useState<string>("id");
   const [user, setUser] = useState<IUser>(userInitialValue);
 
-  //получить данные пользователя, чтобы фильтровать в зависимости от роли
-  useEffect(() => {
-    const getApplicationList = async () => {
-      let response = await getApplications();
-      setApplications(response);
-    };
-    getApplicationList();
-  }, []);
-
+  //получить данные пользователя
   useEffect(() => {
     const getUserList = async () => {
       let response = await getUsers();
@@ -53,6 +47,26 @@ export const ApplicationList = () => {
     };
     getUserList();
   }, []);
+
+  //получить заявки и отфильтровать в зависимости от пользователя
+  useEffect(() => {
+    const getApplicationList = async () => {
+      let response = await getApplications();
+      if (user.role === userRoles.user) {
+        let applications = (response || []).filter(
+          (application) => application.inn === user.inn
+        );
+        setApplications(applications);
+      }
+      if (user.role === userRoles.admin) {
+        let applications = (response || []).filter(
+          (application) => application.applicationStatus !== 0
+        );
+        setApplications(applications);
+      }
+    };
+    getApplicationList();
+  }, [user]);
 
   const [fioSearch, setFioSearch] = useState<string>("");
   const [accountSearch, setAccountSearch] = useState<string>("");
@@ -84,9 +98,6 @@ export const ApplicationList = () => {
       setInnSearch(e.target.value);
     }
   };
-
-  // useEffect(() => {
-  // }, [filteredApplications]);
 
   const sortApplications = (headCellName: string) => {
     setOrderByColumn(headCellName);
@@ -139,7 +150,7 @@ export const ApplicationList = () => {
       </div>
 
       {/* скрыть форму поиска не для админов */}
-      {sessionStorage.getItem("role") === "admin" ? (
+      {sessionStorage.getItem("role") === userRoles.admin ? (
         <FilterApplicationsComponent
           fioSearch={fioSearch}
           accountSearch={accountSearch}

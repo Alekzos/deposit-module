@@ -31,19 +31,6 @@ export const filterApplications = (
     application.product.currency.includes(currencySearch)
   );
 
-  //ограничение видимости для разных пользователей
-  if (user.role === userRoles.user) {
-    filteredApplications = (filteredApplications || []).filter(
-      (application) => application.inn === user.inn
-    );
-  }
-
-  if (user.role === userRoles.admin) {
-    filteredApplications = (filteredApplications || []).filter(
-      (application) => application.applicationStatus !== 0
-    );
-  }
-
   return filteredApplications;
 };
 

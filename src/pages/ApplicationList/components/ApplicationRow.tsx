@@ -45,8 +45,16 @@ export const ApplicationRow = (props: {
         </TableCell>
 
         <TableCell scope="row">{application.id}</TableCell>
-        <TableCell scope="row">{application.applicationDate}</TableCell>
-        <TableCell>{application.expirationDate}</TableCell>
+        <TableCell scope="row">
+          {new Date(
+            Date.parse(application.applicationDate)
+          ).toLocaleDateString()}
+        </TableCell>
+        <TableCell>
+          {new Date(
+            Date.parse(application.expirationDate)
+          ).toLocaleDateString()}
+        </TableCell>
         <TableCell scope="row">{application.product.title}</TableCell>
         <TableCell scope="row">
           {numberWithSpaces(application.product.selectedDepositSum)}{" "}

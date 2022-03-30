@@ -92,18 +92,11 @@ export const Application = () => {
       addApplication(product, user, account, applicationStatus);
     } else {
       if (action === "post") {
-        // setApplicationStatus(1); //выдает 0, потому вернулся к "магии",
-        patchApplication(
-          Number(applicationId),
-          (applicationStatus = 1),
-          account
-        );
+        let applicationStatus = 1;
+        patchApplication(Number(applicationId), applicationStatus, account);
       } else {
-        patchApplication(
-          Number(applicationId),
-          (applicationStatus = 0),
-          account
-        );
+        let applicationStatus = 0;
+        patchApplication(Number(applicationId), applicationStatus, account);
       }
     }
   };

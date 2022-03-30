@@ -32,11 +32,11 @@ export const addApplication = async (
 ) => {
   const { name, surname, patronymic, inn } = selectedUser;
 
-  let applicationDate = new Date().toLocaleDateString();
+  let applicationDate = new Date();
   let date = new Date();
   let expirationDate = new Date(
     date.setDate(date.getDate() + (selectedProduct.selectedDepositTerm || 0))
-  ).toLocaleDateString();
+  );
 
   return await axios.post(jsonDataURLs.applications, {
     product: { ...selectedProduct },

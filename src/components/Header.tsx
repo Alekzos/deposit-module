@@ -39,7 +39,9 @@ export const Header = () => {
               className="logo"
               to={
                 sessionStorage.getItem("login")
-                  ? pageURLs.productSelectionPage
+                  ? sessionStorage.getItem("role") === userRoles.admin
+                    ? pageURLs.applicationList
+                    : pageURLs.productSelectionPage
                   : pageURLs.homePage
               }
             >

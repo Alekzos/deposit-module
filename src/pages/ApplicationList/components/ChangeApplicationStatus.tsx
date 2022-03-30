@@ -9,20 +9,12 @@ import { patchApplication } from "../../../api/api";
 
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { ConstructionOutlined } from "@mui/icons-material";
 export const ChangeApplicationStatusList = (props: {
   application: IApplication;
 }) => {
   const { application } = props;
 
-  //   useEffect(() => {
-  //     const getUserList = async () => {
-  //       let response = await getUsers();
-  //       const user = (response || []).filter(
-  //         (user) => user.login === sessionStorage.getItem("login")
-  //       );
-  //       setApplicationStatus(user[0]);
-  //     };
-  //   }, [application.applicationStatus]);
   const changeApplicationStatus = (status: number) => {
     patchApplication(
       Number(application.id),

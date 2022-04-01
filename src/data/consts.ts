@@ -30,23 +30,3 @@ export const KeyRateUsd = 0.5;
 //штраф за активацию опций досрочного вывода / частичного снятия
 export const depositEarlyTerminationRatio = 0.9;
 export const withdrawalsRatio = 0.8;
-
-export const userInitialValue = {
-  id: 0,
-  login: "",
-  password: "",
-  usd: [],
-  rub: [],
-  name: "",
-  surname: "",
-  patronymic: "",
-  inn: "",
-  role: "",
-  accounts: [
-    {
-      account: "",
-      balance: 0,
-      currency: "",
-    },
-  ],
-};

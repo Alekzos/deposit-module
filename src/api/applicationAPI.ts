@@ -2,17 +2,6 @@ import axios from "axios";
 import { IUser, IProduct, IApplication } from "../data/types";
 import { jsonDataURLs } from "../data/consts";
 
-export const getUsers = () => {
-  return axios
-    .get<IUser[]>(jsonDataURLs.users)
-    .then(function (response) {
-      return response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
-
 export const getApplications = () => {
   return axios
     .get<IApplication[]>(jsonDataURLs.applications)
@@ -28,7 +17,7 @@ export const addApplication = async (
   selectedProduct: IProduct,
   selectedUser: IUser,
   account: string | undefined,
-  applicationStatus: number
+  applicationStatus: string
 ) => {
   const { name, surname, patronymic, inn } = selectedUser;
 
@@ -59,7 +48,7 @@ export const getApplication = (id: number) => {
 //обновить статус заявки
 export const patchApplication = async (
   id: number,
-  applicationStatus: number,
+  applicationStatus: string,
   account?: string
 ) => {
   return await axios.patch(`${jsonDataURLs.applications}/${id}`, {

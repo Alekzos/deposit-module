@@ -3,7 +3,8 @@ import React from "react";
 import { IProduct, IUser } from "../../../data/types";
 import { numberWithSpaces } from "../../../utils/utils";
 import { Currencies, pageURLs } from "../../../data/consts";
-import { getUsers } from "../../../api/api";
+import { getUsers } from "../../../api/userAPI";
+import { getUserLogin } from "../../Login/utils";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -90,7 +91,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
                 const getUserList = async () => {
                   let response = await getUsers();
                   const user = (response || []).filter(
-                    (user) => user.login === sessionStorage.getItem("login")
+                    (user) => user.login === getUserLogin()
                   );
 
                   dispatch(setUser(user[0]));

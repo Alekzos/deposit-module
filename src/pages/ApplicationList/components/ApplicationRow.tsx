@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { ApplicationStatus } from "./ApplicationStatus";
 import { ChangeApplicationStatusList } from "./ChangeApplicationStatus";
@@ -9,31 +9,37 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ThumbDownOffAlt from "@mui/icons-material/ThumbDownOffAlt";
 
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Collapse from "@mui/material/Collapse";
-
 import { IApplication, IUser } from "../../../data/types";
 
-import { numberWithSpaces } from "../../../utils/utils";
+import { numberWithSpaces, formatAccount } from "../../../utils/utils";
 import { Currencies } from "../../../data/consts";
 import { userRoles } from "../../Login/consts";
 
 export const ApplicationRow = (props: {
   application: IApplication;
   user: IUser;
+  onChangeApplicationStatus: any;
 }) => {
   const [open, setOpen] = useState(false);
 
-  const { application, user } = props;
+  const { application, user, onChangeApplicationStatus } = props;
 
   return (
     <React.Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+      <TableRow
+        onClick={() => setOpen(!open)}
+        sx={{
+          "& > *": { borderBottom: "unset" },
+          "&:hover": {
+            cursor: "pointer",
+          },
+        }}
+      >
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -68,13 +74,14 @@ export const ApplicationRow = (props: {
         <ApplicationStatus application={application} />
 
         {user.role === userRoles.admin ? (
-          <ChangeApplicationStatusList application={application} />
-        ) : (
-          ""
-        )}
+          <ChangeApplicationStatusList
+            onChangeApplicationStatus={onChangeApplicationStatus}
+            application={application}
+          />
+        ) : null}
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Table size="small">
               <TableHead>

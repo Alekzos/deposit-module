@@ -8,6 +8,7 @@ import { NotFound } from "./pages/NotFound/NotFound";
 
 import { pageURLs } from "./data/consts";
 import { userRoles } from "./pages/Login/consts";
+import { getUserLogin, isAdmin } from "./pages/Login/utils";
 
 import "./styles/style.css";
 import { Header } from "./components/Header";
@@ -23,15 +24,11 @@ import {
 
 //если пользователь не залогинился, тогда редиректить на главную
 function PrivateOutlet() {
-  return sessionStorage.getItem("login") ? <Outlet /> : <Navigate to="/" />;
+  return getUserLogin() ? <Outlet /> : <Navigate to="/" />;
 }
 
 function PrivateOutletforUsers() {
-  return sessionStorage.getItem("role") === userRoles.user ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/" />
-  );
+  return !isAdmin() ? <Outlet /> : <Navigate to="/" />;
 }
 
 function App() {

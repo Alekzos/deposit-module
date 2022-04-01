@@ -12,14 +12,15 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { IApplication, IProduct, IUser } from "../../data/types";
+import { getUsers } from "../../api/userAPI";
 import {
   addApplication,
   getApplications,
-  getUsers,
   patchApplication,
-} from "../../api/api";
+} from "../../api/applicationAPI";
 
-import { pageURLs, userInitialValue } from "../../data/consts";
+import { pageURLs } from "../../data/consts";
+import { userInitialValue } from "../Login/consts";
 import { applicationStatuses } from "./consts";
 
 import { useParams } from "react-router-dom";
@@ -47,7 +48,7 @@ export const Application = () => {
   //так как запрос асинхронный, то форма при дестуктуризации выдает ошибку undefined,
   //для решения этого поставил пустые значения по умолчанию в  userInitialValue
   const [user, setUser] = useState<IUser>(userInitialValue);
-  // const [applicationStatus, setApplicationStatus] = useState<number>(0);
+
   //если заявка новая - взять данные о продукте с калькулятора,
   //иначе взять айди заявки и получить данные по ней
   useEffect(() => {
@@ -87,15 +88,16 @@ export const Application = () => {
   }, [selectedUser]);
 
   const postApllication = (action?: string) => {
-    let applicationStatus = 0;
+    let applicationStatus = "DRAFT";
     if (applicationId === "new") {
+      let applicationStatus = "UNDER_CONSIDERATION";
       addApplication(product, user, account, applicationStatus);
     } else {
       if (action === "post") {
-        let applicationStatus = 1;
+        let applicationStatus = "UNDER_CONSIDERATION";
         patchApplication(Number(applicationId), applicationStatus, account);
       } else {
-        let applicationStatus = 0;
+        let applicationStatus = "DRAFT";
         patchApplication(Number(applicationId), applicationStatus, account);
       }
     }
@@ -117,6 +119,7 @@ export const Application = () => {
           onClick={(event: React.MouseEvent<HTMLElement>) => {
             postApllication("post");
           }}
+          disabled={account ? false : true}
           to={pageURLs.applicationList}
         >
           Отправить

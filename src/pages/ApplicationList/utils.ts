@@ -34,21 +34,7 @@ export const filterApplications = (
   return filteredApplications;
 };
 
-export const switchApplicationStatus = (applicationStatus: number) => {
-  let status = "";
-  switch (applicationStatus) {
-    case 0:
-      status = applicationStatuses[0];
-      break;
-    case 1:
-      status = applicationStatuses[1];
-      break;
-    case 2:
-      status = applicationStatuses[2];
-      break;
-    case 3:
-      status = applicationStatuses[3];
-      break;
-  }
-  return status;
+export const switchApplicationStatus = (applicationStatus: any) => {
+  let statusName: keyof typeof applicationStatuses = applicationStatus;
+  return applicationStatuses[statusName];
 };

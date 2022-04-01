@@ -9,19 +9,12 @@ import Box from "@mui/material/Box";
 
 import { useNavigate } from "react-router-dom";
 import { pageURLs } from "../data/consts";
-import { onLeavePage } from "../utils/utils";
-import { userRoles } from "../pages/Login/consts";
+import { getUserLogin, isAdmin, logout } from "../pages/Login/utils";
 import logo from "../styles/logoipsum-logo.svg";
 import { Link as RouterLink } from "react-router-dom";
 
 export const Header = () => {
-  let navigate = useNavigate();
-
-  const Logout = (event: React.MouseEvent<HTMLElement>) => {
-    sessionStorage.removeItem("login");
-    sessionStorage.removeItem("role");
-    navigate(pageURLs.homePage);
-  };
+  useNavigate(); //без этого почему-то кнопка "выйти не работает"
 
   // onLeavePage();
   return (
@@ -38,11 +31,9 @@ export const Header = () => {
               component={RouterLink}
               className="logo"
               to={
-                sessionStorage.getItem("login")
-                  ? sessionStorage.getItem("role") === userRoles.admin
-                    ? pageURLs.applicationList
-                    : pageURLs.productSelectionPage
-                  : pageURLs.homePage
+                isAdmin()
+                  ? pageURLs.applicationList
+                  : pageURLs.productSelectionPage
               }
             >
               <img src={logo} alt="logo" />
@@ -50,7 +41,7 @@ export const Header = () => {
           </Box>
 
           <nav>
-            {sessionStorage.getItem("role") === userRoles.user &&
+            {!isAdmin() &&
             window.location.pathname !== pageURLs.productSelectionPage &&
             window.location.pathname !== pageURLs.applicationPage &&
             window.location.pathname !== pageURLs.homePage ? (
@@ -63,11 +54,9 @@ export const Header = () => {
               >
                 Подобрать депозит
               </Link>
-            ) : (
-              ""
-            )}
+            ) : null}
 
-            {sessionStorage.getItem("login") &&
+            {getUserLogin() &&
             window.location.pathname !== pageURLs.applicationList ? (
               <Link
                 component={RouterLink}
@@ -83,18 +72,17 @@ export const Header = () => {
             )}
           </nav>
 
-          {sessionStorage.getItem("login") ? (
+          {getUserLogin() ? (
             <Button
-              onClick={Logout}
-              href="#"
+              onClick={() => logout()}
+              to={pageURLs.homePage}
               variant="outlined"
               sx={{ my: 1, mx: 1.5 }}
+              component={RouterLink}
             >
               Выйти
             </Button>
-          ) : (
-            ""
-          )}
+          ) : null}
         </Toolbar>
       </AppBar>
     </React.Fragment>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IProduct } from "../data/types";
-import { doCalc } from "../utils/doCalc";
+import { doCalc } from "../pages/ProductSelection/doCalc";
 import { jsonDataURLs } from "../data/consts";
 
 export const getProducts = async (

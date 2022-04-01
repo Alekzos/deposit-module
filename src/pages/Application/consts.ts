@@ -1,6 +1,6 @@
-export const applicationStatuses = {
-  0: "черновик",
-  1: "на рассмотрении",
-  2: "утверждено",
-  3: "отклонено",
-};
+export enum applicationStatuses {
+  DRAFT = "черновик",
+  UNDER_CONSIDERATION = "на рассмотрении",
+  APPROVED = "утверждено",
+  REJECTED = "отклонено",
+}

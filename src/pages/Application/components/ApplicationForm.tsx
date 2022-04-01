@@ -8,9 +8,12 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 
 import { IApplication } from "../../../data/types";
-import { addApplication, getApplications } from "../../../api/api";
-
-import { numberWithSpaces, declOfNum } from "../../../utils/utils";
+import { addApplication, getApplications } from "../../../api/applicationAPI";
+import {
+  numberWithSpaces,
+  declOfNum,
+  formatAccount,
+} from "../../../utils/utils";
 
 import { Currencies, declensionsDays, pageURLs } from "../../../data/consts";
 
@@ -30,6 +33,7 @@ export const ApplicationForm = ({
   return (
     <React.Fragment>
       <Typography variant="h1">Заявление на открытие депозита</Typography>
+
       <Box sx={{ maxWidth: 500 }}>
         <Typography variant="h6" component="div">
           Вклад «{product.title}»
@@ -113,7 +117,7 @@ export const ApplicationForm = ({
                   key={filteredAccount.account}
                   value={String(filteredAccount.account)}
                 >
-                  {filteredAccount.account}
+                  {formatAccount(filteredAccount.account)}
                   <span className="accountBalanceItem">
                     {numberWithSpaces(filteredAccount.balance)}
 

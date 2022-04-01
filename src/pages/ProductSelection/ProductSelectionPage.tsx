@@ -14,7 +14,7 @@ import { IProduct } from "../../data/types";
 
 import { numberWithoutSpaces } from "../../utils/utils";
 import { debounce } from "lodash";
-import { getProducts } from "../../api/getProducts";
+import { getProducts } from "../../api/productAPI";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";

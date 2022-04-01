@@ -61,24 +61,16 @@ export const inRange = (val: number, min: number, max: number) => {
   return val >= min && val <= max;
 };
 
-//тайпскрипт выдает ошибку, что там Null или String, для ее обхода такой вариант работает:
+//вставка строки в строку
+let insert = (str: string, substr: string, pos: number = 0) =>
+  substr === undefined ? str : str.slice(0, pos) + substr + str.slice(pos);
 
-export const getsessionStorageData = (itemName: string) => {
-  let item = sessionStorage.getItem(itemName);
-  if (item) {
-    return JSON.parse(item);
-  }
-};
-
-//выводит сообщение, что данные могут стерется (на случай если нажмет обновить страницу)
-export const onLeavePage = () => {
-  window.onbeforeunload = (event) => {
-    const e = event || window.event;
-    // Cancel the event
-    e.preventDefault();
-    if (e) {
-      e.returnValue = ""; // Legacy method for cross browser support
-    }
-    return ""; // Legacy method for cross browser support
-  };
+//форматирование номера счета по банковской логике
+export const formatAccount = (account: string) => {
+  let formatedAccount = insert(account, " ", 3);
+  formatedAccount = insert(formatedAccount, " ", 6);
+  formatedAccount = insert(formatedAccount, " ", 10);
+  formatedAccount = insert(formatedAccount, " ", 13);
+  formatedAccount = insert(formatedAccount, " ", 18);
+  return formatedAccount;
 };

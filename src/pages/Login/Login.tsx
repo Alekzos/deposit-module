@@ -18,10 +18,10 @@ import Typography from "@mui/material/Typography";
 
 import { IUser, IUserLogin } from "../../data/types";
 import { checkUserLogin, checkUserPassword } from "../../utils/checkUserLogin";
-import { getUsers } from "../../api/api";
+import { getUsers } from "../../api/userAPI";
 import { pageURLs } from "../../data/consts";
 import { userRoles } from "./consts";
-
+import { setUsertoSessionStorage } from "./utils";
 import { useAppDispatch } from "../../redux/hooks";
 import { selectUserSlice } from "../../redux/userReducer";
 
@@ -54,9 +54,7 @@ export const LoginPage = () => {
     //вывести ошибку в пароле если есть, если нет, тогда перенаправить на страницу калькулятора
     if (checkUserPassword(TheUserData, values) === "ok") {
       setPasswordErrMessage("");
-
-      sessionStorage.setItem("login", TheUserData[0].login);
-      sessionStorage.setItem("role", TheUserData[0].role);
+      setUsertoSessionStorage(TheUserData[0].login, TheUserData[0].role);
       dispatch(setUser(TheUserData[0]));
 
       //если админ, то редиректить на страницу заявок

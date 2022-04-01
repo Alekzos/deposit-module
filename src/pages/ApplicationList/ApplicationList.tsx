@@ -14,20 +14,21 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
 import { IApplication, IUser } from "../../data/types";
-import { getApplications, getUsers } from "../../api/api";
+import { getUsers } from "../../api/userAPI";
+import { getApplications } from "../../api/applicationAPI";
 import { filterApplications } from "./utils";
 import { FilterApplicationsComponent } from "./components/FilterApplications";
 import { ApplicationRow } from "./components/ApplicationRow";
 import { applicationStatuses } from "../Application/consts";
 import { userRoles } from "../Login/consts";
-
+import { getUserLogin, isAdmin } from "../Login/utils";
 import Box from "@mui/material/Box";
 import TableSortLabel from "@mui/material/TableSortLabel";
 
 import { visuallyHidden } from "@mui/utils";
 
 import { headCells } from "./consts";
-import { userInitialValue } from "../../data/consts";
+import { userInitialValue } from "../../pages/Login/consts";
 type Order = "asc" | "desc";
 
 export const ApplicationList = () => {
@@ -41,7 +42,7 @@ export const ApplicationList = () => {
     const getUserList = async () => {
       let response = await getUsers();
       const user = (response || []).filter(
-        (user) => user.login === sessionStorage.getItem("login")
+        (user) => user.login === getUserLogin()
       );
       setUser(user[0]);
     };
@@ -60,13 +61,39 @@ export const ApplicationList = () => {
       }
       if (user.role === userRoles.admin) {
         let applications = (response || []).filter(
-          (application) => application.applicationStatus !== 0
+          (application) => application.applicationStatus !== "DRAFT"
         );
         setApplications(applications);
       }
     };
     getApplicationList();
   }, [user]);
+
+  //обновить статусы при изменении
+  const [statusesColumn, setStatusesColumn] = useState<any>();
+  useEffect(() => {
+    // const getUserList = async () => {
+    //   let response = await getUsers();
+    //   const user = (response || []).filter(
+    //     (user) => user.login === getUserLogin()
+    //   );
+    //   setUser(user[0]);
+    // };
+    setStatusesColumn(applications);
+  }, []);
+
+  const onChangeApplicationStatus = (id: number, newStatus: string) => {
+    console.log("newStatus");
+    console.log(newStatus);
+    console.log("oldstatus");
+    console.log("id");
+    console.log(id);
+    console.log(statusesColumn[0].applicationStatus);
+    console.log("newarray");
+    console.log((statusesColumn[1].applicationStatus = newStatus));
+
+    // setApplicationStatuses(!isStatusChanged);
+  };
 
   const [fioSearch, setFioSearch] = useState<string>("");
   const [accountSearch, setAccountSearch] = useState<string>("");
@@ -150,7 +177,7 @@ export const ApplicationList = () => {
       </div>
 
       {/* скрыть форму поиска не для админов */}
-      {sessionStorage.getItem("role") === userRoles.admin ? (
+      {isAdmin() ? (
         <FilterApplicationsComponent
           fioSearch={fioSearch}
           accountSearch={accountSearch}
@@ -200,6 +227,7 @@ export const ApplicationList = () => {
                 key={application.id}
                 user={user}
                 application={application}
+                onChangeApplicationStatus={onChangeApplicationStatus}
               />
             ))}
           </TableBody>

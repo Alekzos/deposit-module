@@ -1,3 +1,5 @@
+import { applicationStatuses } from "../pages/Application/consts";
+
 export interface IProduct {
   id: number;
   title: string;
@@ -44,7 +46,8 @@ export interface IApplication {
   patronymic: string;
   inn: string;
   account: string;
-  applicationStatus: number;
+  applicationStatus: applicationStatuses | string;
+
   id: number;
   applicationDate: string;
   expirationDate: string;

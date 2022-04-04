@@ -32,11 +32,13 @@ import FormControl from "@mui/material/FormControl";
 import ProductList from "./components/ProductList";
 import SliderWithTextField from "./components/SliderWithTextField";
 import { useAppSelector } from "../../redux/hooks";
+import { Spinner } from "../../components/Spinner/Spinner";
 //main
 const ProductSelection = () => {
   const [products, setProducts] = useState<void | IProduct[]>([]);
   const [currency, setCurrency] = useState<string>(Currencies.rub);
   const [depositSum, setDepositSum] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(false);
   const { selectedUser } = useAppSelector((state) => state.userReducer);
   const [messageProductNotFound, setMessageProductNotFound] =
     useState<string>("");
@@ -50,6 +52,7 @@ const ProductSelection = () => {
   });
 
   useEffect(() => {
+    setIsLoading(true);
     getProductsWithDebounce({
       currency,
       depositTerm,
@@ -76,7 +79,9 @@ const ProductSelection = () => {
         } else setMessageProductNotFound("");
       };
       fetchData(jsonDataURLs.products);
+      setIsLoading(false);
     }, 500),
+
     []
   );
 
@@ -115,6 +120,24 @@ const ProductSelection = () => {
   };
   const { earlyTermination, withdrawals, interestCapitalization } =
     depositOptions;
+
+  const renderProductList = (
+    <React.Fragment>
+      {products?.length ? (
+        <ProductList
+          products={products}
+          depositSum={depositSum}
+          depositTerm={depositTerm}
+        />
+      ) : (
+        <Typography variant="h6" component="div">
+          {messageProductNotFound
+            ? messageProductNotFound
+            : messageProductNotFound}
+        </Typography>
+      )}
+    </React.Fragment>
+  );
 
   return (
     <div className="calcPage">
@@ -237,21 +260,7 @@ const ProductSelection = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <Box>
-            {products?.length ? (
-              <ProductList
-                products={products}
-                depositSum={depositSum}
-                depositTerm={depositTerm}
-              />
-            ) : (
-              <Typography variant="h6" component="div">
-                {messageProductNotFound
-                  ? messageProductNotFound
-                  : messageProductNotFound}
-              </Typography>
-            )}
-          </Box>
+          <Box>{isLoading ? <Spinner /> : renderProductList}</Box>
         </Grid>
       </Grid>
     </div>

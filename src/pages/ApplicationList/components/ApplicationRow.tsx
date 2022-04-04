@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { ApplicationStatus } from "./ApplicationStatus";
 import { ChangeApplicationStatusList } from "./ChangeApplicationStatus";
@@ -23,11 +23,11 @@ import { userRoles } from "../../Login/consts";
 export const ApplicationRow = (props: {
   application: IApplication;
   user: IUser;
-  onChangeApplicationStatus: any;
+  changeApplicationStatus: any;
 }) => {
   const [open, setOpen] = useState(false);
 
-  const { application, user, onChangeApplicationStatus } = props;
+  const { application, user, changeApplicationStatus } = props;
 
   return (
     <React.Fragment>
@@ -75,7 +75,7 @@ export const ApplicationRow = (props: {
 
         {user.role === userRoles.admin ? (
           <ChangeApplicationStatusList
-            onChangeApplicationStatus={onChangeApplicationStatus}
+            changeApplicationStatus={changeApplicationStatus}
             application={application}
           />
         ) : null}

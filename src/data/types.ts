@@ -1,4 +1,4 @@
-import { applicationStatuses } from "../pages/Application/consts";
+import { applicationStatusText, DocStatus } from "../pages/Application/consts";
 
 export interface IProduct {
   id: number;
@@ -45,8 +45,8 @@ export interface IApplication {
   surname: string;
   patronymic: string;
   inn: string;
-  account: string;
-  applicationStatus: applicationStatuses | string;
+  account?: string;
+  applicationStatus: DocStatus;
 
   id: number;
   applicationDate: string;

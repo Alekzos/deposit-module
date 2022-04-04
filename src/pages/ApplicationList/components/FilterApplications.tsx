@@ -23,27 +23,30 @@ export const FilterApplicationsComponent = ({
   handleChange,
 }: Props) => {
   return (
-    <Box>
+    <Box sx={{ display: "flex" }}>
       <TextField
+        sx={{ mr: 2 }}
         label="поиск по фио"
         name="fioSearch"
         value={fioSearch}
         onChange={handleChange}
       />
       <TextField
+        sx={{ mr: 2 }}
         label="поиск по № счета"
         name="accountSearch"
         value={accountSearch}
         onChange={handleChange}
       />
       <TextField
+        sx={{ mr: 2 }}
         label="поиск по ИНН"
         name="innSearch"
         value={innSearch}
         onChange={handleChange}
       />
 
-      <FormControl>
+      <FormControl sx={{ mt: 1 }}>
         <RadioGroup
           value={currencySearch}
           onChange={handleChange}

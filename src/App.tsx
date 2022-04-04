@@ -46,11 +46,11 @@ function App() {
                   path={pageURLs.productSelectionPage}
                   element={<ProductSelection />}
                 />
-                <Route
-                  path={`${pageURLs.applicationPage}/:applicationId`}
-                  element={<Application />}
-                />
               </Route>
+              <Route
+                path={`${pageURLs.applicationPage}/:applicationId`}
+                element={<Application />}
+              />
               <Route
                 path={pageURLs.applicationList}
                 element={<ApplicationList />}

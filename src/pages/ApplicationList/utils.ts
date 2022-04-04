@@ -1,6 +1,5 @@
 import { IApplication, IUser } from "../../data/types";
-import { applicationStatuses } from "../Application/consts";
-import { userRoles } from "../Login/consts";
+import { DocStatus, applicationStatusText } from "../Application/consts";
 export const filterApplications = (
   applications: void | IApplication[],
   fioSearch: string,
@@ -16,10 +15,19 @@ export const filterApplications = (
       .includes(fioSearch.toLowerCase())
   );
 
-  // фильтрация по номеру счета
-  filteredApplications = (filteredApplications || []).filter((application) =>
-    application.account.toLowerCase().includes(accountSearch.toLowerCase())
-  );
+  //фильтрация по номеру счета
+  //столько ифов, чтобы убрать ошибку undefined и белый экран
+  if (accountSearch) {
+    filteredApplications = (filteredApplications || []).filter(
+      (application) => {
+        if (application.account) {
+          application.account
+            .toLowerCase()
+            .includes(accountSearch.toLowerCase());
+        }
+      }
+    );
+  }
 
   // фильтрация по ИНН
   filteredApplications = (filteredApplications || []).filter((application) =>
@@ -34,7 +42,6 @@ export const filterApplications = (
   return filteredApplications;
 };
 
-export const switchApplicationStatus = (applicationStatus: any) => {
-  let statusName: keyof typeof applicationStatuses = applicationStatus;
-  return applicationStatuses[statusName];
+export const getApplicationStatusText = (applicationStatus: DocStatus) => {
+  return applicationStatusText[applicationStatus];
 };

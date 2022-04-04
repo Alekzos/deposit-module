@@ -9,14 +9,14 @@ import Box from "@mui/material/Box";
 
 import { useNavigate } from "react-router-dom";
 import { pageURLs } from "../data/consts";
-import { getUserLogin, isAdmin, logout } from "../pages/Login/utils";
+import { getUserLogin, isAdmin, onLogout } from "../pages/Login/utils";
 import logo from "../styles/logoipsum-logo.svg";
 import { Link as RouterLink } from "react-router-dom";
+import { LogoutButton } from "./LogoutButton";
 
 export const Header = () => {
-  useNavigate(); //без этого почему-то кнопка "выйти не работает"
+  let navigate = useNavigate();
 
-  // onLeavePage();
   return (
     <React.Fragment>
       <GlobalStyles
@@ -55,7 +55,6 @@ export const Header = () => {
                 Подобрать депозит
               </Link>
             ) : null}
-
             {getUserLogin() &&
             window.location.pathname !== pageURLs.applicationList ? (
               <Link
@@ -70,19 +69,8 @@ export const Header = () => {
             ) : (
               ""
             )}
+            <LogoutButton />
           </nav>
-
-          {getUserLogin() ? (
-            <Button
-              onClick={() => logout()}
-              to={pageURLs.homePage}
-              variant="outlined"
-              sx={{ my: 1, mx: 1.5 }}
-              component={RouterLink}
-            >
-              Выйти
-            </Button>
-          ) : null}
         </Toolbar>
       </AppBar>
     </React.Fragment>

@@ -1,30 +1,25 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
 import TableCell from "@mui/material/TableCell";
 import { IApplication } from "../../../data/types";
-import { patchApplication } from "../../../api/applicationAPI";
 
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export const ChangeApplicationStatusList = (props: {
   application: IApplication;
-  onChangeApplicationStatus: any;
-  // isStatusChanged: any;
+  changeApplicationStatus: any;
 }) => {
-  const { application, onChangeApplicationStatus } = props;
-
-  const changeApplicationStatus = (status: string) => {
-    console.log("1");
-    // patchApplication(
-    //   Number(application.id),
-    //   (application.applicationStatus = status)
-    // );
-  };
+  const { application, changeApplicationStatus } = props;
 
   return (
-    <TableCell scope="row" onClick={(e) => e.stopPropagation()}>
+    <TableCell
+      scope="row"
+      onClick={(e) => e.stopPropagation()}
+      sx={{
+        "&:hover": {
+          cursor: "auto",
+        },
+      }}
+    >
       {application.applicationStatus === "UNDER_CONSIDERATION" ? (
         <CheckCircleIcon
           color="success"
@@ -34,9 +29,7 @@ export const ChangeApplicationStatusList = (props: {
               cursor: "pointer",
             },
           }}
-          onClick={() => onChangeApplicationStatus(application.id, "APPROVED")}
-
-          //onClick={() => changeApplicationStatus("APPROVED")}
+          onClick={() => changeApplicationStatus(application.id, "APPROVED")}
         />
       ) : null}
 
@@ -49,8 +42,7 @@ export const ChangeApplicationStatusList = (props: {
               cursor: "pointer",
             },
           }}
-          onClick={() => onChangeApplicationStatus(application.id, "REJECTED")}
-          // onClick={() => changeApplicationStatus("REJECTED")}
+          onClick={() => changeApplicationStatus(application.id, "REJECTED")}
         />
       ) : null}
     </TableCell>

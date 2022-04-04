@@ -1,8 +1,5 @@
 import React from "react";
-
 import { useEffect, useState } from "react";
-
-import orderBy from "lodash/orderBy";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -12,26 +9,33 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-
-import { IApplication, IUser } from "../../data/types";
-import { getUsers } from "../../api/userAPI";
-import { getApplications } from "../../api/applicationAPI";
-import { filterApplications } from "./utils";
-import { FilterApplicationsComponent } from "./components/FilterApplications";
-import { ApplicationRow } from "./components/ApplicationRow";
-import { applicationStatuses } from "../Application/consts";
-import { userRoles } from "../Login/consts";
-import { getUserLogin, isAdmin } from "../Login/utils";
 import Box from "@mui/material/Box";
 import TableSortLabel from "@mui/material/TableSortLabel";
-
 import { visuallyHidden } from "@mui/utils";
 
+import { getUsers } from "../../api/userAPI";
+import { getApplications, patchApplication } from "../../api/applicationAPI";
+
+import orderBy from "lodash/orderBy";
+
+import { filterApplications } from "./utils";
+import { getUserLogin, isAdmin } from "../Login/utils";
+
+import { IApplication, IUser, IProduct } from "../../data/types";
+
+import { DocStatus } from "../Application/consts";
 import { headCells } from "./consts";
+import { userRoles } from "../Login/consts";
 import { userInitialValue } from "../../pages/Login/consts";
+
+import { FilterApplicationsComponent } from "./components/FilterApplications";
+import { ApplicationRow } from "./components/ApplicationRow";
+import { Spinner } from "../../components/Spinner/Spinner";
+
 type Order = "asc" | "desc";
 
 export const ApplicationList = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [applications, setApplications] = useState<void | IApplication[]>([]);
   const [order, setOrder] = useState<Order>("asc");
   const [orderByColumn, setOrderByColumn] = useState<string>("id");
@@ -46,7 +50,9 @@ export const ApplicationList = () => {
       );
       setUser(user[0]);
     };
+    setIsLoading(true);
     getUserList();
+    setIsLoading(false);
   }, []);
 
   //получить заявки и отфильтровать в зависимости от пользователя
@@ -57,42 +63,37 @@ export const ApplicationList = () => {
         let applications = (response || []).filter(
           (application) => application.inn === user.inn
         );
+        console.log("до сета");
+        console.log(applications);
         setApplications(applications);
+        console.log("после сета");
+        console.log(applications);
       }
       if (user.role === userRoles.admin) {
         let applications = (response || []).filter(
-          (application) => application.applicationStatus !== "DRAFT"
+          (application) => application.applicationStatus !== DocStatus.DRAFT
         );
         setApplications(applications);
       }
     };
+    setIsLoading(true);
     getApplicationList();
+    setIsLoading(false);
   }, [user]);
 
-  //обновить статусы при изменении
-  const [statusesColumn, setStatusesColumn] = useState<any>();
-  useEffect(() => {
-    // const getUserList = async () => {
-    //   let response = await getUsers();
-    //   const user = (response || []).filter(
-    //     (user) => user.login === getUserLogin()
-    //   );
-    //   setUser(user[0]);
-    // };
-    setStatusesColumn(applications);
-  }, []);
+  //изменить статус заявки
+  const changeApplicationStatus = (id: number, newStatus: DocStatus) => {
+    patchApplication(Number(id), newStatus);
 
-  const onChangeApplicationStatus = (id: number, newStatus: string) => {
-    console.log("newStatus");
-    console.log(newStatus);
-    console.log("oldstatus");
-    console.log("id");
-    console.log(id);
-    console.log(statusesColumn[0].applicationStatus);
-    console.log("newarray");
-    console.log((statusesColumn[1].applicationStatus = newStatus));
-
-    // setApplicationStatuses(!isStatusChanged);
+    const ChangedApplication = (applications || []).map(
+      (application: IApplication) => {
+        if (application.id === id) {
+          application.applicationStatus = newStatus;
+        }
+        return application;
+      }
+    );
+    setApplications(ChangedApplication);
   };
 
   const [fioSearch, setFioSearch] = useState<string>("");
@@ -133,15 +134,10 @@ export const ApplicationList = () => {
   };
 
   const sort = (headCellNa: string) => {
-    //надо будет поправить, сделать проверку, что тайтл вложенный элемент,
-    //но почему-то работает через раз, а тайспскрипт всегда выдает ошибку
-    // if (filteredApplications[0].product[headCellNa]) {
-    //   filteredApplications = orderBy(
-    //     filteredApplications,
-    //     (item) => item.product[headCellNa],
-    //     order
-    //   );
-
+    //что-то не так с типами
+    // if (filteredApplications && headCellNa) {
+    //   console.log(filteredApplications[0].product[headCellNa]);
+    // }
     if (
       headCellNa === "title" ||
       headCellNa === "selectedDepositSum" ||
@@ -163,19 +159,9 @@ export const ApplicationList = () => {
 
   sort(headCellName);
 
-  return (
-    <div className="applicationList">
+  const renderApplicationList = (
+    <React.Fragment>
       <Typography variant="h1">Список депозитных заявок</Typography>
-      <div>
-        клиент и сотрудник банка сотрудник - получает список и видит от всех
-        клиентов и 2 кнопочки справа подтвердить и отклонить, статус открыт,
-        либо отклонен Таблица с поиском, сортировкой и фильтрацией Сверху табы
-        для отображения заявок в нужном статусе Столбцы Дата создания Название
-        продукта Сумма и валюта Срок действия (до какого числа) Статус По клику
-        на строку отображается детальная информация для строки - ставка - опции
-        - ссылка для перехода на страницу депозитной заявки
-      </div>
-
       {/* скрыть форму поиска не для админов */}
       {isAdmin() ? (
         <FilterApplicationsComponent
@@ -185,9 +171,7 @@ export const ApplicationList = () => {
           innSearch={innSearch}
           handleChange={handleChange}
         />
-      ) : (
-        ""
-      )}
+      ) : null}
 
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -227,12 +211,18 @@ export const ApplicationList = () => {
                 key={application.id}
                 user={user}
                 application={application}
-                onChangeApplicationStatus={onChangeApplicationStatus}
+                changeApplicationStatus={changeApplicationStatus}
               />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+    </React.Fragment>
+  );
+
+  return (
+    <div className="applicationList">
+      {isLoading ? <Spinner /> : renderApplicationList}
     </div>
   );
 };

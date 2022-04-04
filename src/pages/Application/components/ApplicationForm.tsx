@@ -1,21 +1,18 @@
 import React from "react";
-import { useState, useEffect } from "react";
 
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 
-import { IApplication } from "../../../data/types";
-import { addApplication, getApplications } from "../../../api/applicationAPI";
 import {
   numberWithSpaces,
   declOfNum,
   formatAccount,
 } from "../../../utils/utils";
 
-import { Currencies, declensionsDays, pageURLs } from "../../../data/consts";
+import { Currencies, declensionsDays } from "../../../data/consts";
 
 export const ApplicationForm = ({
   product,
@@ -56,7 +53,7 @@ export const ApplicationForm = ({
               {product.selectedDepositTerm}{" "}
               {product.selectedDepositTerm
                 ? declOfNum(product.selectedDepositTerm, declensionsDays)
-                : ""}
+                : null}
             </strong>
             <br />
           </>

@@ -1,6 +1,4 @@
 import { userRoles } from "./consts";
-import { useNavigate } from "react-router-dom";
-
 export const getUserLogin = () => {
   return sessionStorage.getItem("login");
 };
@@ -9,7 +7,7 @@ export const isAdmin = () => {
   return sessionStorage.getItem("role") === userRoles.admin;
 };
 
-export const logout = () => {
+export const onLogout = () => {
   sessionStorage.removeItem("login");
   sessionStorage.removeItem("role");
 };

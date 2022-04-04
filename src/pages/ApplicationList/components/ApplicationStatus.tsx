@@ -1,33 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
+
 import { Link as RouterLink } from "react-router-dom";
-import TableCell from "@mui/material/TableCell";
-import { IApplication } from "../../../data/types";
-import EditIcon from "@mui/icons-material/Edit";
-import { applicationStatuses } from "../../Application/consts";
-import { switchApplicationStatus } from "../utils";
+
 import Link from "@mui/material/Link";
+import TableCell from "@mui/material/TableCell";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
 import { pageURLs } from "../../../data/consts";
-import { getUsers } from "../../../api/userAPI";
-import { getApplications } from "../../../api/applicationAPI";
+import { DocStatus } from "../../Application/consts";
+import { getApplicationStatusText } from "../utils";
+import { IApplication } from "../../../data/types";
 
 export const ApplicationStatus = (props: { application: IApplication }) => {
   const { application } = props;
-
-  // const [applicationStatus, setApplicationStatus] = useState<
-  //   void | IApplication[]
-  // >([]);
-
-  // useEffect(() => {
-  //   const getApplicationList = async () => {
-  //     let response = await getApplications();
-  //     let applications = (response || []).filter(
-  //       (application) => application.applicationStatus !== 0
-  //     );
-  //     setApplicationStatus(applications);
-  //   };
-  //   getApplicationList();
-  // }, [application.applicationStatus]);
 
   return (
     <TableCell
@@ -39,17 +25,41 @@ export const ApplicationStatus = (props: { application: IApplication }) => {
         },
       }}
     >
-      {/* если не черновик - вывести в таблицу, иначе добавить еще кнопку редактирования */}
-
-      {application.applicationStatus !== "DRAFT" ? (
-        switchApplicationStatus(application.applicationStatus)
-      ) : (
+      {application.applicationStatus !== DocStatus.DRAFT ? (
         <React.Fragment>
           <Link
+            sx={{
+              color: "black",
+              textDecoration: "none",
+              "&:hover": {
+                opacity: 0.6,
+              },
+            }}
             component={RouterLink}
             to={`${pageURLs.applicationPage}/${application.id}`}
           >
-            {switchApplicationStatus(application.applicationStatus)}
+            {getApplicationStatusText(application.applicationStatus)}
+            <VisibilityIcon
+              sx={{
+                ml: 1,
+                position: "relative",
+              }}
+            />
+          </Link>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Link
+            sx={{
+              textDecoration: "none",
+              "&:hover": {
+                opacity: 0.6,
+              },
+            }}
+            component={RouterLink}
+            to={`${pageURLs.applicationPage}/${application.id}?q=edit`}
+          >
+            {getApplicationStatusText(application.applicationStatus)}
             <EditIcon
               sx={{
                 ml: 1,

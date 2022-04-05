@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -44,7 +44,7 @@ export const ApplicationList = () => {
   //получить данные пользователя
   useEffect(() => {
     const getUserList = async () => {
-      let response = await getUsers();
+      const response = await getUsers();
       const user = (response || []).filter(
         (user) => user.login === getUserLogin()
       );
@@ -58,20 +58,17 @@ export const ApplicationList = () => {
   //получить заявки и отфильтровать в зависимости от пользователя
   useEffect(() => {
     const getApplicationList = async () => {
-      let response = await getApplications();
+      const response = await getApplications();
       if (user.role === userRoles.user) {
-        let applications = (response || []).filter(
+        const applications = (response || []).filter(
           (application) => application.inn === user.inn
         );
-        console.log("до сета");
-        console.log(applications);
         setApplications(applications);
-        console.log("после сета");
-        console.log(applications);
       }
       if (user.role === userRoles.admin) {
-        let applications = (response || []).filter(
-          (application) => application.applicationStatus !== DocStatus.DRAFT
+        const applications = (response || []).filter(
+          (application) =>
+            application.applicationStatus === DocStatus.UNDER_CONSIDERATION
         );
         setApplications(applications);
       }
@@ -127,25 +124,35 @@ export const ApplicationList = () => {
     }
   };
 
-  const sortApplications = (headCellName: string) => {
-    setOrderByColumn(headCellName);
+  const sortApplications = (headerCellName: string) => {
+    setOrderByColumn(headerCellName);
     order === "asc" ? setOrder("desc") : setOrder("asc");
-    setHeadCellName(headCellName);
+    setHeadCellName(headerCellName);
   };
 
-  const sort = (headCellNa: string) => {
-    //что-то не так с типами
-    // if (filteredApplications && headCellNa) {
-    //   console.log(filteredApplications[0].product[headCellNa]);
+  const sort = (headerCellName: string | keyof IProduct) => {
+    // if (filteredApplications && headerCellName) {
+    //   console.log(filteredApplications[0].product[headerCellName]);
     // }
+    // let name = "title";
+    // console.log(filteredApplications[0].product["title"]);
+
+    // if (filteredApplications && headerCellName) {
+    //   let headCell: keyof IProduct = "title";
+    //   console.log(filteredApplications[0].product[headCell]);
+    // }
+    console.log("сортируем");
+    //вместо того, что ниже, хочу сделать проверку типа:
+    //if(filteredApplications[0].product[headCell])
+    //но ТС не дает
     if (
-      headCellNa === "title" ||
-      headCellNa === "selectedDepositSum" ||
-      headCellNa === "interestRate"
+      headerCellName === "title" ||
+      headerCellName === "selectedDepositSum" ||
+      headerCellName === "interestRate"
     ) {
       filteredApplications = orderBy(
         filteredApplications,
-        (item) => item.product[headCellNa],
+        (item) => item.product[headerCellName],
         order
       );
     } else {
@@ -157,7 +164,9 @@ export const ApplicationList = () => {
     }
   };
 
-  sort(headCellName);
+  useMemo(() => {
+    sort(headCellName);
+  }, [orderByColumn, order]);
 
   const renderApplicationList = (
     <React.Fragment>

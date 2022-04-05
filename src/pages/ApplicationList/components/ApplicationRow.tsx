@@ -4,19 +4,19 @@ import { useState } from "react";
 
 import { ApplicationStatus } from "./ApplicationStatus";
 import { ChangeApplicationStatusList } from "./ChangeApplicationStatus";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Collapse from "@mui/material/Collapse";
-import { IApplication, IUser } from "../../../data/types";
 
-import { numberWithSpaces, formatAccount } from "../../../utils/utils";
+import { IApplication, IUser } from "../../../data/types";
+import { numberWithSpaces } from "../../../utils/utils";
 import { Currencies } from "../../../data/consts";
 import { userRoles } from "../../Login/consts";
 

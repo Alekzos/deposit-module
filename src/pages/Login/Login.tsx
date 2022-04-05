@@ -38,13 +38,13 @@ export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const { setUser } = selectUserSlice.actions;
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   //получение пользователей и фильтрация по выбранному
   const auth = async () => {
-    let users = await getUsers();
+    const users = await getUsers();
 
-    let TheUserData: IUser[] = (users || []).filter(
+    const TheUserData: IUser[] = (users || []).filter(
       (user) => user.login === values.login
     );
 

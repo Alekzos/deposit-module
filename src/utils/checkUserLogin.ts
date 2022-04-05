@@ -28,7 +28,6 @@ export const checkUserPassword = (user: Array<IUser>, values: any) => {
       if (values.password !== user[0].password) {
         return loginErrMessages.PasswordNotFound;
       } else {
-        //все подошло
         return "ok";
       }
     } else {

@@ -24,23 +24,3 @@ export const userInitialValue = {
   inn: "",
   role: "",
 };
-
-// export const userInitialValue = {
-//   id: 0,
-//   login: "",
-//   password: "",
-//   usd: [],
-//   rub: [],
-//   name: "",
-//   surname: "",
-//   patronymic: "",
-//   inn: "",
-//   role: "",
-//   accounts: [
-//     {
-//       account: "",
-//       balance: 0,
-//       currency: "",
-//     },
-//   ],
-// };

@@ -10,7 +10,7 @@ export const getProducts = async (
   value: number
 ) => {
   //получение
-  let products = await axios
+  const products = await axios
     .get<IProduct[]>(jsonDataURLs.products)
     .then(async function (response) {
       return response.data;
@@ -20,7 +20,7 @@ export const getProducts = async (
     });
 
   //фильтрация
-  let filteredProducts = (products || []).filter(
+  const filteredProducts = (products || []).filter(
     (product) =>
       product.currency === currency &&
       (depositTerm <= product.maxTerm || product.maxTerm === 0) &&

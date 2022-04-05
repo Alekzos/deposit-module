@@ -21,9 +21,9 @@ export const addApplication = async (
 ) => {
   const { name, surname, patronymic, inn } = selectedUser;
 
-  let applicationDate = new Date();
-  let date = new Date();
-  let expirationDate = new Date(
+  const applicationDate = new Date();
+  const date = new Date();
+  const expirationDate = new Date(
     date.setDate(date.getDate() + (selectedProduct.selectedDepositTerm || 0))
   );
 
@@ -41,7 +41,7 @@ export const addApplication = async (
 };
 
 export const getApplication = (id: number) => {
-  let response = getApplications();
+  const response = getApplications();
   return response;
 };
 

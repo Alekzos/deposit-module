@@ -15,7 +15,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { LogoutButton } from "./LogoutButton";
 
 export const Header = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <React.Fragment>

@@ -31,7 +31,7 @@ import { DocStatus } from "./consts";
 import { convertCompilerOptionsFromJson } from "typescript";
 
 export const Application = () => {
-  let { selectedProduct } = useAppSelector((state) => state.productReducer);
+  const { selectedProduct } = useAppSelector((state) => state.productReducer);
   const { selectedUser } = useAppSelector((state) => state.userReducer);
   const [product, setProduct] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +47,7 @@ export const Application = () => {
     setAccount(event.target.value as string);
   };
 
-  let { applicationId } = useParams();
+  const { applicationId } = useParams();
   const [application, setApplication] = useState<void | IApplication>();
 
   //так как запрос асинхронный, то форма при дестуктуризации выдает ошибку undefined,
@@ -71,7 +71,7 @@ export const Application = () => {
     } else {
       //выгрузка продукта и аккаунта из заявки
       const getApplicationList = async () => {
-        let response = await getApplications();
+        const response = await getApplications();
         const application = (response || []).filter(
           (application) => application.id === Number(applicationId)
         );
@@ -80,7 +80,7 @@ export const Application = () => {
         setAccount(application[0].account);
         //выгрузка данных о юзере из заявки
         const getUserList = async () => {
-          let response = await getUsers();
+          const response = await getUsers();
           const user = (response || []).filter(
             (user) => user.inn === application[0].inn
           );
@@ -108,11 +108,6 @@ export const Application = () => {
     }
   };
 
-  //  новая заявка и нет счета - скрыть тру
-  //  редактирование и нет счета - скрыть тру
-  //  редактирвоание и есть счет-  показать фолс
-  //  просмотр - скрыть тру
-
   const isDisabled = () => {
     let disabled = true;
 
@@ -126,10 +121,6 @@ export const Application = () => {
     if (!isNew() && !isEdit()) {
       disabled = true;
     }
-
-    // if (account && isNew()) {
-    //   disabled = true;
-    // }
 
     return disabled;
   };

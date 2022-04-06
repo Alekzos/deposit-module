@@ -15,6 +15,7 @@ import { IProduct } from "../../data/types";
 import { numberWithoutSpaces } from "../../utils/utils";
 import { debounce } from "lodash";
 import { getProducts } from "../../api/productAPI";
+import { getUser } from "../../api/userAPI";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -50,6 +51,10 @@ const ProductSelection = () => {
     withdrawals: false,
     interestCapitalization: false,
   });
+
+  //pending вместо юзера
+  const user = getUser();
+  console.log(user);
 
   useEffect(() => {
     setIsLoading(true);

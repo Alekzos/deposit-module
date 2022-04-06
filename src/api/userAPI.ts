@@ -13,11 +13,12 @@ export const getUsers = () => {
     });
 };
 
-// export const getUser = async () => {
-//   let response = await getUsers();
-
-//   const user = (response || []).filter(
-//     (user) => user.login === sessionStorage.getItem("login")
-//   );
-//   return user;
-// };
+export const getUser = async () => {
+  // return
+  const response = await getUsers();
+  const user = (response || []).filter(
+    (user) => user.login === sessionStorage.getItem("login")
+  );
+  //console.log(user);
+  return user;
+};

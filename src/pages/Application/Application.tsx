@@ -1,11 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {
-  useNavigate,
-  useParams,
-  useSearchParams,
-  useLocation,
-} from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import { SelectChangeEvent } from "@mui/material/Select";
@@ -14,7 +9,7 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
 import { IApplication, IUser } from "../../data/types";
-import { getUsers } from "../../api/userAPI";
+import { getUserByInn } from "../../api/userAPI";
 import {
   addApplication,
   getApplications,
@@ -28,14 +23,13 @@ import { ApplicationForm } from "./components/ApplicationForm";
 import { pageURLs } from "../../data/consts";
 import { userInitialValue } from "../Login/consts";
 import { DocStatus } from "./consts";
-import { convertCompilerOptionsFromJson } from "typescript";
 
 export const Application = () => {
   const { selectedProduct } = useAppSelector((state) => state.productReducer);
   const { selectedUser } = useAppSelector((state) => state.userReducer);
   const [product, setProduct] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const isEdit = () => (searchParams.get("q") === "edit" ? true : false);
   const isNew = () => (applicationId === "new" ? true : false);
 
@@ -78,15 +72,7 @@ export const Application = () => {
         setApplication(application[0]);
         setProduct(application[0].product);
         setAccount(application[0].account);
-        //выгрузка данных о юзере из заявки
-        const getUserList = async () => {
-          const response = await getUsers();
-          const user = (response || []).filter(
-            (user) => user.inn === application[0].inn
-          );
-          setUser(user[0]);
-        };
-        getUserList();
+        getUserByInn(application[0].inn).then((res) => setUser(res[0]));
       };
       setIsLoading(true);
       getApplicationList();

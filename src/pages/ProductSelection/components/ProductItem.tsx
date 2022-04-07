@@ -3,7 +3,7 @@ import React from "react";
 import { IProduct, IUser } from "../../../data/types";
 import { numberWithSpaces } from "../../../utils/utils";
 import { Currencies, pageURLs } from "../../../data/consts";
-import { getUsers } from "../../../api/userAPI";
+import { getUser } from "../../../api/userAPI";
 import { getUserLogin } from "../../Login/utils";
 
 import Card from "@mui/material/Card";
@@ -88,15 +88,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
                 dispatch(setProduct(selectedProduct));
 
                 //если стор пуст (например, нажали F5, то получить данные юзера на основе логина)
-                const getUserList = async () => {
-                  let response = await getUsers();
-                  const user = (response || []).filter(
-                    (user) => user.login === getUserLogin()
-                  );
-
-                  dispatch(setUser(user[0]));
-                };
-                getUserList();
+                getUser().then((res) => dispatch(setUser(res[0])));
               }}
               size="small"
             >

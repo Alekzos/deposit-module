@@ -13,13 +13,13 @@ import Box from "@mui/material/Box";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 
-import { getUsers } from "../../api/userAPI";
+import { getUser } from "../../api/userAPI";
 import { getApplications, patchApplication } from "../../api/applicationAPI";
 
 import orderBy from "lodash/orderBy";
 
 import { filterApplications } from "./utils";
-import { getUserLogin, isAdmin } from "../Login/utils";
+import { isAdmin } from "../Login/utils";
 
 import { IApplication, IUser, IProduct } from "../../data/types";
 
@@ -43,15 +43,8 @@ export const ApplicationList = () => {
 
   //получить данные пользователя
   useEffect(() => {
-    const getUserList = async () => {
-      const response = await getUsers();
-      const user = (response || []).filter(
-        (user) => user.login === getUserLogin()
-      );
-      setUser(user[0]);
-    };
     setIsLoading(true);
-    getUserList();
+    getUser().then((res) => setUser(res[0]));
     setIsLoading(false);
   }, []);
 

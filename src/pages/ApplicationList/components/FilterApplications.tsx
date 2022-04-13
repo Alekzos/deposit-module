@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -6,6 +6,8 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
+
+import { searchFields, searchFieldsLabel } from "../consts";
 
 type Props = {
   fioSearch: string;
@@ -26,22 +28,22 @@ export const FilterApplicationsComponent = ({
     <Box sx={{ display: "flex" }}>
       <TextField
         sx={{ mr: 2 }}
-        label="поиск по фио"
-        name="fioSearch"
+        label={searchFieldsLabel.fioSearch}
+        name={searchFields.fioSearch}
         value={fioSearch}
         onChange={handleChange}
       />
       <TextField
         sx={{ mr: 2 }}
-        label="поиск по № счета"
-        name="accountSearch"
+        label={searchFieldsLabel.accountSearch}
+        name={searchFields.accountSearch}
         value={accountSearch}
         onChange={handleChange}
       />
       <TextField
         sx={{ mr: 2 }}
-        label="поиск по ИНН"
-        name="innSearch"
+        label={searchFieldsLabel.innSearch}
+        name={searchFields.innSearch}
         value={innSearch}
         onChange={handleChange}
       />
@@ -51,8 +53,8 @@ export const FilterApplicationsComponent = ({
           value={currencySearch}
           onChange={handleChange}
           row
-          aria-labelledby="фильтр валюты"
-          name="currencySearch"
+          aria-labelledby={searchFieldsLabel.currencySearch}
+          name={searchFields.currencySearch}
         >
           <FormControlLabel value="" control={<Radio />} label="Все" />
           <FormControlLabel value="rub" control={<Radio />} label="₽" />

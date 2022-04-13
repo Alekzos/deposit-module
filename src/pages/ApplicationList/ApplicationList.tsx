@@ -21,10 +21,12 @@ import orderBy from "lodash/orderBy";
 import { filterApplications } from "./utils";
 import { isAdmin } from "../Login/utils";
 
-import { IApplication, IUser, IProduct } from "../../data/types";
+import { IApplication } from "../../pages/Application/types";
+import { IProduct } from "../../pages/ProductSelection/types";
+import { IUser } from "../../pages/Login/types";
 
 import { DocStatus } from "../Application/consts";
-import { headCells } from "./consts";
+import { headCells, searchFields, productFields } from "./consts";
 import { userRoles } from "../Login/consts";
 import { userInitialValue } from "../../pages/Login/consts";
 
@@ -72,19 +74,22 @@ export const ApplicationList = () => {
   }, [user]);
 
   //изменить статус заявки
-  const changeApplicationStatus = (id: number, newStatus: DocStatus) => {
-    patchApplication(Number(id), newStatus);
+  const changeApplicationStatus = useCallback(
+    (id: number, newStatus: DocStatus) => {
+      patchApplication(Number(id), newStatus);
 
-    const ChangedApplication = (applications || []).map(
-      (application: IApplication) => {
-        if (application.id === id) {
-          application.applicationStatus = newStatus;
+      const ChangedApplication = (applications || []).map(
+        (application: IApplication) => {
+          if (application.id === id) {
+            application.applicationStatus = newStatus;
+          }
+          return application;
         }
-        return application;
-      }
-    );
-    setApplications(ChangedApplication);
-  };
+      );
+      setApplications(ChangedApplication);
+    },
+    []
+  );
 
   const [fioSearch, setFioSearch] = useState<string>("");
   const [accountSearch, setAccountSearch] = useState<string>("");
@@ -103,16 +108,16 @@ export const ApplicationList = () => {
 
   //для поиска
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === "fioSearch") {
+    if (e.target.name === searchFields.fioSearch) {
       setFioSearch(e.target.value);
     }
-    if (e.target.name === "accountSearch") {
+    if (e.target.name === searchFields.accountSearch) {
       setAccountSearch(e.target.value);
     }
-    if (e.target.name === "currencySearch") {
+    if (e.target.name === searchFields.currencySearch) {
       setCurrencySearch(e.target.value);
     }
-    if (e.target.name === "innSearch") {
+    if (e.target.name === searchFields.innSearch) {
       setInnSearch(e.target.value);
     }
   };
@@ -131,13 +136,25 @@ export const ApplicationList = () => {
     // console.log(filteredApplications[0].product["title"]);
 
     // if (filteredApplications && headerCellName) {
-    //   let headCell: keyof IProduct = "title";
+    //   let headCell: keyof IProduct = headerCellName;
     //   console.log(filteredApplications[0].product[headCell]);
     // }
-    console.log("сортируем");
+    // console.log("сортируем");
     //вместо того, что ниже, хочу сделать проверку типа:
-    //if(filteredApplications[0].product[headCell])
-    //но ТС не дает
+    // if(filteredApplications[0].product[headCell])
+    // но ТС не дает
+
+    // //еще вариант, но таже ошибка
+    // if (productFields.includes(headerCellName)) {
+    //   console.log(headerCellName);
+    //   let headCell: keyof IProduct = headerCellName;
+    //   filteredApplications = orderBy(
+    //     filteredApplications,
+    //     (item) => item.product[headerCellName],
+    //     order
+    //   );
+    // }
+
     if (
       headerCellName === "title" ||
       headerCellName === "selectedDepositSum" ||
@@ -149,6 +166,8 @@ export const ApplicationList = () => {
         order
       );
     } else {
+      console.log(2);
+      console.log(headerCellName);
       filteredApplications = orderBy(
         filteredApplications,
         [headCellName],
@@ -165,7 +184,7 @@ export const ApplicationList = () => {
     <React.Fragment>
       <Typography variant="h1">Список депозитных заявок</Typography>
       {/* скрыть форму поиска не для админов */}
-      {isAdmin() ? (
+      {isAdmin() && (
         <FilterApplicationsComponent
           fioSearch={fioSearch}
           accountSearch={accountSearch}
@@ -173,7 +192,7 @@ export const ApplicationList = () => {
           innSearch={innSearch}
           handleChange={handleChange}
         />
-      ) : null}
+      )}
 
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -195,13 +214,13 @@ export const ApplicationList = () => {
                     }}
                   >
                     {headCell.label}
-                    {orderByColumn === headCell.name ? (
+                    {orderByColumn === headCell.name && (
                       <Box component="span" sx={visuallyHidden}>
                         {order === "desc"
                           ? "отсортировано по убыванию"
                           : "отсортировано по возрастанию"}
                       </Box>
-                    ) : null}
+                    )}
                   </TableSortLabel>
                 </TableCell>
               ))}

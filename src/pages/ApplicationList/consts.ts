@@ -34,3 +34,19 @@ export const headCells: readonly IHeadCell[] = [
     label: "Статус",
   },
 ];
+
+export const productFields = ["title", "selectedDepositSum", "interestRate"];
+
+export enum searchFields {
+  fioSearch = "fioSearch",
+  accountSearch = "accountSearch",
+  currencySearch = "currencySearch",
+  innSearch = "innSearch",
+}
+
+export const searchFieldsLabel = {
+  [searchFields.fioSearch]: "поиск по ФИО",
+  [searchFields.accountSearch]: "поиск по № счета",
+  [searchFields.currencySearch]: "фильтр валюты",
+  [searchFields.innSearch]: "поиск по ИНН",
+};

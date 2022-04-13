@@ -1,5 +1,5 @@
 import TableCell from "@mui/material/TableCell";
-import { IApplication } from "../../../data/types";
+import { IApplication } from "../../Application/types";
 
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -20,7 +20,7 @@ export const ChangeApplicationStatusList = (props: {
         },
       }}
     >
-      {application.applicationStatus === "UNDER_CONSIDERATION" ? (
+      {application.applicationStatus === "UNDER_CONSIDERATION" && (
         <CheckCircleIcon
           color="success"
           sx={{
@@ -31,9 +31,9 @@ export const ChangeApplicationStatusList = (props: {
           }}
           onClick={() => changeApplicationStatus(application.id, "APPROVED")}
         />
-      ) : null}
+      )}
 
-      {application.applicationStatus === "UNDER_CONSIDERATION" ? (
+      {application.applicationStatus === "UNDER_CONSIDERATION" && (
         <CancelIcon
           color="error"
           sx={{
@@ -44,7 +44,7 @@ export const ChangeApplicationStatusList = (props: {
           }}
           onClick={() => changeApplicationStatus(application.id, "REJECTED")}
         />
-      ) : null}
+      )}
     </TableCell>
   );
 };

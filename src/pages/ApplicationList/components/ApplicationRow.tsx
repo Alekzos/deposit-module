@@ -15,10 +15,18 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Collapse from "@mui/material/Collapse";
 
-import { IApplication, IUser } from "../../../data/types";
+import { IApplication } from "../../Application/types";
+import { IUser } from "../../Login/types";
+
 import { numberWithSpaces } from "../../../utils/utils";
 import { Currencies } from "../../../data/consts";
 import { userRoles } from "../../Login/consts";
+import { DocStatus } from "../../Application/consts";
+
+type changeApplicationStatus = {
+  id: number;
+  newStatus: DocStatus;
+};
 
 export const ApplicationRow = (props: {
   application: IApplication;
@@ -73,12 +81,12 @@ export const ApplicationRow = (props: {
         </TableCell>
         <ApplicationStatus application={application} />
 
-        {user.role === userRoles.admin ? (
+        {user.role === userRoles.admin && (
           <ChangeApplicationStatusList
             changeApplicationStatus={changeApplicationStatus}
             application={application}
           />
-        ) : null}
+        )}
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>

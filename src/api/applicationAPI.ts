@@ -1,5 +1,8 @@
 import axios from "axios";
-import { IUser, IProduct, IApplication } from "../data/types";
+import { IApplication } from "../pages/Application/types";
+import { IProduct } from "../pages/ProductSelection/types";
+import { IUser } from "../pages/Login/types";
+
 import { jsonDataURLs } from "../data/consts";
 
 export const getApplications = () => {

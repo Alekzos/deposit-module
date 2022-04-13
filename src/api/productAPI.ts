@@ -1,12 +1,12 @@
 import axios from "axios";
-import { IProduct } from "../data/types";
-import { doCalc } from "../pages/ProductSelection/doCalc";
+import { IProduct } from "../pages/ProductSelection/types";
+import { doCalc } from "../pages/ProductSelection/utils";
 import { jsonDataURLs } from "../data/consts";
 
 export const getProducts = async (
   currency: string,
   depositTerm: number,
-  depositOptions: any,
+  depositOptions: IProduct,
   value: number
 ) => {
   //получение

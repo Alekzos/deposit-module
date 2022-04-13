@@ -29,3 +29,15 @@ export const marksSliderDepositTerm = [
     label: "3 г.",
   },
 ];
+
+export const maxInputSum = 1000000000;
+export const stepInputSum = maxInputSum / 200;
+export const maxInputTerm = 1095;
+
+//ключевые ставки ЦБ / ФРС
+export const KeyRateRub = 9.5;
+export const KeyRateUsd = 0.5;
+
+//штраф за активацию опций досрочного вывода / частичного снятия
+export const depositEarlyTerminationRatio = 0.9;
+export const withdrawalsRatio = 0.8;

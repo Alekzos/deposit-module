@@ -42,33 +42,31 @@ export const Header = () => {
 
           <nav>
             {!isAdmin() &&
-            window.location.pathname !== pageURLs.productSelectionPage &&
-            window.location.pathname !== pageURLs.applicationPage &&
-            window.location.pathname !== pageURLs.homePage ? (
-              <Link
-                component={RouterLink}
-                variant="button"
-                color="text.primary"
-                to={pageURLs.productSelectionPage}
-                sx={{ my: 1, mx: 1.5 }}
-              >
-                Подобрать депозит
-              </Link>
-            ) : null}
+              window.location.pathname !== pageURLs.productSelectionPage &&
+              window.location.pathname !== pageURLs.applicationPage &&
+              window.location.pathname !== pageURLs.homePage && (
+                <Link
+                  component={RouterLink}
+                  variant="button"
+                  color="text.primary"
+                  to={pageURLs.productSelectionPage}
+                  sx={{ my: 1, mx: 1.5 }}
+                >
+                  Подобрать депозит
+                </Link>
+              )}
             {getUserLogin() &&
-            window.location.pathname !== pageURLs.applicationList ? (
-              <Link
-                component={RouterLink}
-                variant="button"
-                color="text.primary"
-                to={pageURLs.applicationList}
-                sx={{ my: 1, mx: 1.5 }}
-              >
-                Список заявок
-              </Link>
-            ) : (
-              ""
-            )}
+              window.location.pathname !== pageURLs.applicationList && (
+                <Link
+                  component={RouterLink}
+                  variant="button"
+                  color="text.primary"
+                  to={pageURLs.applicationList}
+                  sx={{ my: 1, mx: 1.5 }}
+                >
+                  Список заявок
+                </Link>
+              )}
             <LogoutButton />
           </nav>
         </Toolbar>

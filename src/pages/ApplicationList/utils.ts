@@ -1,4 +1,6 @@
-import { IApplication, IUser } from "../../data/types";
+import { IApplication } from "../../pages/Application/types";
+import { IUser } from "../../pages/Login/types";
+
 import { DocStatus, applicationStatusText } from "../Application/consts";
 export const filterApplications = (
   applications: void | IApplication[],

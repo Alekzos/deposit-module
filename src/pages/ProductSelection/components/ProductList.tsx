@@ -1,7 +1,6 @@
 import React from "react";
 import ProductItem from "./ProductItem";
-import { IProduct } from "../../../data/types";
-
+import { IProduct } from "../types";
 import Stack from "@mui/material/Stack";
 interface ProductListProps {
   products: void | IProduct[];

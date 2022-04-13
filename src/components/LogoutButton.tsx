@@ -14,7 +14,7 @@ export const LogoutButton = () => {
 
   return (
     <React.Fragment>
-      {getUserLogin() ? (
+      {getUserLogin() && (
         <Button
           onClick={() => logout()}
           variant="outlined"
@@ -22,7 +22,7 @@ export const LogoutButton = () => {
         >
           Выйти
         </Button>
-      ) : null}
+      )}
     </React.Fragment>
   );
 };

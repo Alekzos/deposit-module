@@ -2,15 +2,10 @@ import React from "react";
 
 import { useState, useEffect, useCallback } from "react";
 
-import {
-  Currencies,
-  maxInputSum,
-  maxInputTerm,
-  stepInputSum,
-  jsonDataURLs,
-} from "../../data/consts";
+import { jsonDataURLs, Currencies } from "../../data/consts";
+import { maxInputSum, maxInputTerm, stepInputSum } from "./const";
 
-import { IProduct } from "../../data/types";
+import { IProduct } from "./types";
 
 import { numberWithoutSpaces } from "../../utils/utils";
 import { debounce } from "lodash";
@@ -81,7 +76,6 @@ const ProductSelection = () => {
       fetchData(jsonDataURLs.products);
       setIsLoading(false);
     }, 500),
-
     []
   );
 

@@ -8,7 +8,9 @@ import Button from "@mui/material/Button";
 
 import { Link } from "react-router-dom";
 
-import { IApplication, IUser } from "../../data/types";
+import { IApplication } from "../../pages/Application/types";
+import { IUser } from "../../pages/Login/types";
+
 import { getUserByInn } from "../../api/userAPI";
 import {
   addApplication,
@@ -22,7 +24,7 @@ import { ApplicationForm } from "./components/ApplicationForm";
 
 import { pageURLs } from "../../data/consts";
 import { userInitialValue } from "../Login/consts";
-import { DocStatus } from "./consts";
+import { DocStatus, sendApplicationAction } from "./consts";
 
 export const Application = () => {
   const { selectedProduct } = useAppSelector((state) => state.productReducer);
@@ -83,7 +85,7 @@ export const Application = () => {
   const postApllication = (action?: string) => {
     //по умолчанию отпраляет на рассмотрение
     let applicationStatus = DocStatus.UNDER_CONSIDERATION;
-    if (action === "toDraft") {
+    if (action === sendApplicationAction.toDraft) {
       applicationStatus = DocStatus.DRAFT;
     }
 
@@ -118,35 +120,37 @@ export const Application = () => {
         user={user}
         account={account}
         handleChange={handleChange}
+        status={application?.applicationStatus}
       />
-      {isNew() || isEdit() ? (
-        <Box>
-          <Button
-            variant="contained"
-            component={Link}
-            sx={{ mr: 2 }}
-            onClick={(event: React.MouseEvent<HTMLElement>) => {
-              postApllication();
-            }}
-            disabled={isDisabled()}
-            to={pageURLs.applicationList}
-          >
-            Отправить
-          </Button>
+      {isNew() ||
+        (isEdit() && (
+          <Box>
+            <Button
+              variant="contained"
+              component={Link}
+              sx={{ mr: 2 }}
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                postApllication();
+              }}
+              disabled={isDisabled()}
+              to={pageURLs.applicationList}
+            >
+              {sendApplicationAction.toPost}
+            </Button>
 
-          <Button
-            disabled={isDisabled()}
-            variant="outlined"
-            component={Link}
-            onClick={(event: React.MouseEvent<HTMLElement>) => {
-              postApllication("toDraft");
-            }}
-            to={pageURLs.applicationList}
-          >
-            в черновик
-          </Button>
-        </Box>
-      ) : null}
+            <Button
+              disabled={isDisabled()}
+              variant="outlined"
+              component={Link}
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                postApllication(sendApplicationAction.toDraft);
+              }}
+              to={pageURLs.applicationList}
+            >
+              {sendApplicationAction.toDraft}
+            </Button>
+          </Box>
+        ))}
     </React.Fragment>
   );
   return (

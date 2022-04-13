@@ -11,3 +11,8 @@ export const applicationStatusText = {
   [DocStatus.APPROVED]: "утверждено",
   [DocStatus.REJECTED]: "отклонено",
 };
+
+export const sendApplicationAction = {
+  toDraft: "в черновик",
+  toPost: "отправить",
+};

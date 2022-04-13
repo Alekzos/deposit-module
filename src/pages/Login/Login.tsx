@@ -16,8 +16,9 @@ import Button from "@mui/material/Button";
 import FormHelperText from "@mui/material/FormHelperText";
 import Typography from "@mui/material/Typography";
 
-import { IUser, IUserLogin } from "../../data/types";
-import { checkUserLogin, checkUserPassword } from "../../utils/checkUserLogin";
+import { IUser, IUserLogin } from "./types";
+
+import { checkUserLogin, checkUserPassword } from "./utils";
 import { getUsers } from "../../api/userAPI";
 import { pageURLs } from "../../data/consts";
 import { userRoles } from "./consts";
@@ -31,7 +32,6 @@ export const LoginPage = () => {
     password: "",
     showPassword: false,
   });
-
   const [loginErrMessage, setLoginErrMessage] = useState<string>("");
   const [passwordErrMessage, setPasswordErrMessage] = useState<string>("");
 
@@ -43,14 +43,12 @@ export const LoginPage = () => {
   //получение пользователей и фильтрация по выбранному
   const auth = async () => {
     const users = await getUsers();
-
     const TheUserData: IUser[] = (users || []).filter(
       (user) => user.login === values.login
     );
 
     //вывести ошибку в логине если есть
     setLoginErrMessage(checkUserLogin(TheUserData, values));
-
     //вывести ошибку в пароле если есть, если нет, тогда перенаправить на страницу калькулятора
     if (checkUserPassword(TheUserData, values) === "ok") {
       setPasswordErrMessage("");

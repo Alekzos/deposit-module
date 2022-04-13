@@ -6,26 +6,45 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 
-import {
-  numberWithSpaces,
-  declOfNum,
-  formatAccount,
-} from "../../../utils/utils";
+import { IProduct } from "../../ProductSelection/types";
+import { IUser } from "../../Login/types";
+
+import { SelectChangeEvent } from "@mui/material/Select";
+
+import { numberWithSpaces, declOfNum } from "../../../utils/utils";
+import { formatAccount } from "../utils";
 
 import { Currencies, declensionsDays } from "../../../data/consts";
+import { DocStatus } from "../consts";
+
+type Props = {
+  product: IProduct;
+  user: IUser;
+  account: any;
+  status: any;
+  handleChange: (event: SelectChangeEvent) => void;
+};
 
 export const ApplicationForm = ({
   product,
   user,
   account,
   handleChange,
-}: any) => {
+  status,
+}: Props) => {
   const { name, surname, patronymic, inn, accounts } = user;
 
   //ограничение выбора счета в зависимости от валюты выбранного продукта
   const filteredAccounts = accounts.filter(
     (account: any) => account.currency === product.currency
   );
+
+  //добавил, чтобы избежать ошибку зависимостей,
+  //просто formatAccount(account) не работает в рендере
+  let formatedAccount = null;
+  if (account) {
+    formatedAccount = formatAccount(account);
+  }
 
   return (
     <React.Fragment>
@@ -51,9 +70,8 @@ export const ApplicationForm = ({
             Cрок:{" "}
             <strong>
               {product.selectedDepositTerm}{" "}
-              {product.selectedDepositTerm
-                ? declOfNum(product.selectedDepositTerm, declensionsDays)
-                : null}
+              {product.selectedDepositTerm &&
+                declOfNum(product.selectedDepositTerm, declensionsDays)}
             </strong>
             <br />
           </>
@@ -97,34 +115,38 @@ export const ApplicationForm = ({
         </Typography>
       </Box>
       <Box>
-        <FormControl required>
-          <Typography variant="h6">Cчёт для пополнения депозита </Typography>
-          <Select
-            required
-            sx={{ maxWidth: "500px" }}
-            labelId="account-select-label"
-            id="account"
-            value={String(account)}
-            onChange={handleChange}
-          >
-            {(filteredAccounts || []).map((filteredAccount: any) => {
-              return (
-                <MenuItem
-                  className="selectAccountItem"
-                  key={filteredAccount.account}
-                  value={String(filteredAccount.account)}
-                >
-                  {formatAccount(filteredAccount.account)}
-                  <span className="accountBalanceItem">
-                    {numberWithSpaces(filteredAccount.balance)}
+        <Typography variant="h6">Cчёт для пополнения депозита </Typography>
+        {status === DocStatus.DRAFT || status === undefined ? (
+          <FormControl required>
+            <Select
+              required
+              sx={{ maxWidth: "500px" }}
+              labelId="account-select-label"
+              id="account"
+              value={String(account)}
+              onChange={handleChange}
+            >
+              {(filteredAccounts || []).map((filteredAccount: any) => {
+                return (
+                  <MenuItem
+                    className="selectAccountItem"
+                    key={filteredAccount.account}
+                    value={String(filteredAccount.account)}
+                  >
+                    {formatAccount(filteredAccount.account)}
+                    <span className="accountBalanceItem">
+                      {numberWithSpaces(filteredAccount.balance)}
 
-                    {filteredAccount.currency === Currencies.rub ? "₽" : "$"}
-                  </span>
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+                      {filteredAccount.currency === Currencies.rub ? "₽" : "$"}
+                    </span>
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        ) : (
+          <strong>{formatedAccount}</strong>
+        )}
       </Box>
     </React.Fragment>
   );

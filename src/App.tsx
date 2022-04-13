@@ -7,7 +7,6 @@ import { ApplicationList } from "./pages/ApplicationList/ApplicationList";
 import { NotFound } from "./pages/NotFound/NotFound";
 
 import { pageURLs } from "./data/consts";
-import { userRoles } from "./pages/Login/consts";
 import { getUserLogin, isAdmin } from "./pages/Login/utils";
 
 import "./styles/style.css";
@@ -24,13 +23,8 @@ import {
 
 //если пользователь не залогинился, тогда редиректить на главную
 function PrivateOutlet() {
-  return getUserLogin() ? <Outlet /> : <Navigate to="/" />;
+  return getUserLogin() || !isAdmin() ? <Outlet /> : <Navigate to="/" />;
 }
-
-function PrivateOutletforUsers() {
-  return !isAdmin() ? <Outlet /> : <Navigate to="/" />;
-}
-
 function App() {
   return (
     <div className="App">
@@ -39,14 +33,11 @@ function App() {
           <Header />
           <Routes>
             <Route path={pageURLs.homePage} element={<LoginPage />} />
-
             <Route element={<PrivateOutlet />}>
-              <Route element={<PrivateOutletforUsers />}>
-                <Route
-                  path={pageURLs.productSelectionPage}
-                  element={<ProductSelection />}
-                />
-              </Route>
+              <Route
+                path={pageURLs.productSelectionPage}
+                element={<ProductSelection />}
+              />
               <Route
                 path={`${pageURLs.applicationPage}/:applicationId`}
                 element={<Application />}
@@ -56,7 +47,6 @@ function App() {
                 element={<ApplicationList />}
               />
             </Route>
-
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

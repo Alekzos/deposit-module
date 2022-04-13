@@ -10,7 +10,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { pageURLs } from "../../../data/consts";
 import { DocStatus } from "../../Application/consts";
 import { getApplicationStatusText } from "../utils";
-import { IApplication } from "../../../data/types";
+import { IApplication } from "../../Application/types";
 
 export const ApplicationStatus = (props: { application: IApplication }) => {
   const { application } = props;

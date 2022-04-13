@@ -1,10 +1,10 @@
 import React from "react";
 
-import { IProduct, IUser } from "../../../data/types";
+import { IProduct } from "../types";
+
 import { numberWithSpaces } from "../../../utils/utils";
 import { Currencies, pageURLs } from "../../../data/consts";
 import { getUser } from "../../../api/userAPI";
-import { getUserLogin } from "../../Login/utils";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";

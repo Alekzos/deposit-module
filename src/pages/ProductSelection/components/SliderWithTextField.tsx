@@ -11,7 +11,7 @@ import HelpOutline from "@mui/icons-material/HelpOutline";
 import { numberWithSpaces, declOfNum } from "../../../utils/utils";
 import { Currencies, declensionsDays } from "../../../data/consts";
 import { marksSliderDepositTerm } from "../const";
-import { ISliderWithTextFieldProps } from "../../../data/types";
+import { ISliderWithTextFieldProps } from "../types";
 
 const SliderWithTextField: React.FC<ISliderWithTextFieldProps> = ({
   caption,

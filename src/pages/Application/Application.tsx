@@ -122,35 +122,34 @@ export const Application = () => {
         handleChange={handleChange}
         status={application?.applicationStatus}
       />
-      {isNew() ||
-        (isEdit() && (
-          <Box>
-            <Button
-              variant="contained"
-              component={Link}
-              sx={{ mr: 2 }}
-              onClick={(event: React.MouseEvent<HTMLElement>) => {
-                postApllication();
-              }}
-              disabled={isDisabled()}
-              to={pageURLs.applicationList}
-            >
-              {sendApplicationAction.toPost}
-            </Button>
+      {(isNew() || isEdit()) && (
+        <Box>
+          <Button
+            variant="contained"
+            component={Link}
+            sx={{ mr: 2 }}
+            onClick={(event: React.MouseEvent<HTMLElement>) => {
+              postApllication();
+            }}
+            disabled={isDisabled()}
+            to={pageURLs.applicationList}
+          >
+            {sendApplicationAction.toPost}
+          </Button>
 
-            <Button
-              disabled={isDisabled()}
-              variant="outlined"
-              component={Link}
-              onClick={(event: React.MouseEvent<HTMLElement>) => {
-                postApllication(sendApplicationAction.toDraft);
-              }}
-              to={pageURLs.applicationList}
-            >
-              {sendApplicationAction.toDraft}
-            </Button>
-          </Box>
-        ))}
+          <Button
+            disabled={isDisabled()}
+            variant="outlined"
+            component={Link}
+            onClick={(event: React.MouseEvent<HTMLElement>) => {
+              postApllication(sendApplicationAction.toDraft);
+            }}
+            to={pageURLs.applicationList}
+          >
+            {sendApplicationAction.toDraft}
+          </Button>
+        </Box>
+      )}
     </React.Fragment>
   );
   return (

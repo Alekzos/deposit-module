@@ -21,13 +21,9 @@ export const filterApplications = (
   //столько ифов, чтобы убрать ошибку undefined и белый экран
   if (accountSearch) {
     filteredApplications = (filteredApplications || []).filter(
-      (application) => {
-        if (application.account) {
-          application.account
-            .toLowerCase()
-            .includes(accountSearch.toLowerCase());
-        }
-      }
+      (application) =>
+        application.account &&
+        application.account.toLowerCase().includes(accountSearch.toLowerCase())
     );
   }
 

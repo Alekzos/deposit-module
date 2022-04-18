@@ -329,7 +329,7 @@
       "patronymic": "Анатольевич",
       "inn": "571693430051",
       "account": "40817810573000574963",
-      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationStatus": "APPROVED",
       "applicationDate": "2022-03-25T12:23:10.947Z",
       "expirationDate": "2023-05-08T12:23:10.947Z",
       "id": 1
@@ -361,7 +361,7 @@
       "patronymic": "Ефимович",
       "inn": "846086898656",
       "account": "40813840475367854371",
-      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationStatus": "REJECTED",
       "applicationDate": "2022-03-25T12:23:10.947Z",
       "expirationDate": "2022-07-03T12:23:10.947Z",
       "id": 2
@@ -1997,6 +1997,38 @@
       "applicationDate": "2022-04-18T10:29:06.522Z",
       "expirationDate": "2023-02-28T10:29:06.522Z",
       "id": 54
+    },
+    {
+      "product": {
+        "id": 2,
+        "title": "Универсальный",
+        "description": "Со сроком привлечения до года / свыше года",
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": 0,
+        "maxSum": 0,
+        "minTerm": 2,
+        "maxTerm": 1095,
+        "sumDescription": "без ограничений",
+        "termDescription": "От 2 - 1095 дней",
+        "currency": "rub",
+        "paymentPeriods": "monthly",
+        "withdrawals": 0,
+        "earlyTermination": 1,
+        "interestRate": "8.81",
+        "futureValue": "26102792.88",
+        "effectiveInterestRate": "9.10",
+        "selectedDepositSum": 350000000,
+        "selectedDepositTerm": 295
+      },
+      "name": "Вячеслав",
+      "surname": "Анисимов",
+      "patronymic": "Анатольевич",
+      "inn": "571693430051",
+      "account": "40817810573000574963",
+      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationDate": "2022-04-18T10:39:29.378Z",
+      "expirationDate": "2023-02-07T10:39:29.378Z",
+      "id": 55
     }
   ]
 }

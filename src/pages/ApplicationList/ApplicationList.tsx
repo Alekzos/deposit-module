@@ -166,8 +166,6 @@ export const ApplicationList = () => {
         order
       );
     } else {
-      console.log(2);
-      console.log(headerCellName);
       filteredApplications = orderBy(
         filteredApplications,
         [headCellName],

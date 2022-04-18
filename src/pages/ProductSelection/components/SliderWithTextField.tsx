@@ -21,7 +21,6 @@ const SliderWithTextField: React.FC<ISliderWithTextFieldProps> = ({
   min,
   max,
   value,
-  // handleInputChange,
   handleSliderChange,
 }) => {
   //метки для бегунка с валютой

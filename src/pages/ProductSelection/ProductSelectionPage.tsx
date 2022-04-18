@@ -171,14 +171,12 @@ const ProductSelection = () => {
             min={0}
             max={maxInputSum}
             value={depositSum}
-            // handleInputChange={handleInputChange}
             handleSliderChange={handleSliderChange}
           />
 
           <SliderWithTextField
             caption={"Срок"}
             days
-            Currencies={Currencies}
             step={1}
             min={1}
             max={maxInputTerm}

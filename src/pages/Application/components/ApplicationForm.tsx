@@ -20,8 +20,8 @@ import { DocStatus } from "../consts";
 type Props = {
   product: IProduct;
   user: IUser;
-  account: any;
-  status: any;
+  account: string | undefined;
+  status: DocStatus | undefined;
   handleChange: (event: SelectChangeEvent) => void;
 };
 

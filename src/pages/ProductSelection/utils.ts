@@ -14,7 +14,7 @@ export const calcWithinterestCapitalization = (
   depositTerm: number,
   interestRate: string,
   interestCapitalization: number
-): any => {
+): (string | number)[] => {
   if (interestCapitalization) {
     let futureValue = (
       Number(
@@ -47,7 +47,7 @@ export const doCalc = (
   currency: string,
   value: number,
   depositTerm: number
-) => {
+): any => {
   let valueKf = calcValueKf(value, currency);
 
   switch (currency) {

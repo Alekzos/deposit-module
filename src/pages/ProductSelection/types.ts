@@ -1,3 +1,4 @@
+import { Currencies } from "../../data/consts";
 export interface IProduct {
   id: number;
   title: string;
@@ -23,7 +24,7 @@ export interface IProduct {
 }
 
 export interface ISliderWithTextFieldProps {
-  Currencies?: any;
+  Currencies?: Currencies;
   currency?: string;
   days?: boolean;
   step: number;

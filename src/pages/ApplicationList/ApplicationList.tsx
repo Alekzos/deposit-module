@@ -88,7 +88,7 @@ export const ApplicationList = () => {
       );
       setApplications(ChangedApplication);
     },
-    []
+    [applications]
   );
 
   const [fioSearch, setFioSearch] = useState<string>("");

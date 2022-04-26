@@ -425,7 +425,7 @@
       "patronymic": "Анатольевич",
       "inn": "571693430051",
       "account": "40817810573000596037",
-      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationStatus": "APPROVED",
       "applicationDate": "2022-03-25T12:23:10.947Z",
       "expirationDate": "2023-08-21T12:23:10.947Z",
       "id": 4
@@ -553,7 +553,7 @@
       "patronymic": "Анатольевич",
       "inn": "571693430051",
       "account": "40817810573000574963",
-      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationStatus": "REJECTED",
       "applicationDate": "2022-03-25T12:23:10.947Z",
       "expirationDate": "2023-03-03T12:23:10.947Z",
       "id": 8
@@ -617,7 +617,7 @@
       "patronymic": "Анатольевич",
       "inn": "571693430051",
       "account": "40817810573000596037",
-      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationStatus": "APPROVED",
       "applicationDate": "2022-03-25T12:23:10.947Z",
       "expirationDate": "2022-03-26T12:23:10.947Z",
       "id": 10
@@ -649,7 +649,7 @@
       "patronymic": "Анатольевич",
       "inn": "571693430051",
       "account": "40817810573000574963",
-      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationStatus": "APPROVED",
       "applicationDate": "2022-03-25T12:23:10.947Z",
       "expirationDate": "2022-03-26T12:23:10.947Z",
       "id": 11
@@ -681,7 +681,7 @@
       "patronymic": "Кимович",
       "inn": "067702636101",
       "account": "40817810574000590782",
-      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationStatus": "REJECTED",
       "applicationDate": "2022-03-28T12:23:10.947Z",
       "expirationDate": "2023-01-17T12:23:10.947Z",
       "id": 12
@@ -809,7 +809,7 @@
       "patronymic": "Кимович",
       "inn": "067702636101",
       "account": "40813840475367868906",
-      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationStatus": "APPROVED",
       "applicationDate": "2022-03-29T12:23:10.947Z",
       "expirationDate": "2023-03-16T12:23:10.947Z",
       "id": 16
@@ -841,7 +841,7 @@
       "patronymic": "Кимович",
       "inn": "067702636101",
       "account": "40817810574000508842",
-      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationStatus": "APPROVED",
       "applicationDate": "2022-03-29T12:23:10.947Z",
       "expirationDate": "2023-05-21T12:23:10.947Z",
       "id": 17
@@ -2029,6 +2029,70 @@
       "applicationDate": "2022-04-18T10:39:29.378Z",
       "expirationDate": "2023-02-07T10:39:29.378Z",
       "id": 55
+    },
+    {
+      "product": {
+        "id": 2,
+        "title": "Универсальный",
+        "description": "Со сроком привлечения до года / свыше года",
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": 0,
+        "maxSum": 0,
+        "minTerm": 2,
+        "maxTerm": 1095,
+        "sumDescription": "без ограничений",
+        "termDescription": "От 2 - 1095 дней",
+        "currency": "rub",
+        "paymentPeriods": "monthly",
+        "withdrawals": 0,
+        "earlyTermination": 1,
+        "interestRate": "8.81",
+        "futureValue": "26361715.57",
+        "effectiveInterestRate": "9.09",
+        "selectedDepositSum": 365000000,
+        "selectedDepositTerm": 286
+      },
+      "name": "Вячеслав",
+      "surname": "Анисимов",
+      "patronymic": "Анатольевич",
+      "inn": "571693430051",
+      "account": "40817810573000574963",
+      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationDate": "2022-04-18T10:58:50.072Z",
+      "expirationDate": "2023-01-29T10:58:50.072Z",
+      "id": 56
+    },
+    {
+      "product": {
+        "id": 2,
+        "title": "Универсальный",
+        "description": "Со сроком привлечения до года / свыше года",
+        "interest": "Устанавливаются в зависимости от суммы и срока размещения",
+        "minSum": 0,
+        "maxSum": 0,
+        "minTerm": 2,
+        "maxTerm": 1095,
+        "sumDescription": "без ограничений",
+        "termDescription": "От 2 - 1095 дней",
+        "currency": "rub",
+        "paymentPeriods": "monthly",
+        "withdrawals": 0,
+        "earlyTermination": 1,
+        "interestRate": "8.72",
+        "futureValue": "20266337.90",
+        "effectiveInterestRate": "9.02",
+        "selectedDepositSum": 260000000,
+        "selectedDepositTerm": 311
+      },
+      "name": "Вячеслав",
+      "surname": "Анисимов",
+      "patronymic": "Анатольевич",
+      "inn": "571693430051",
+      "account": "40817810573000596037",
+      "applicationStatus": "UNDER_CONSIDERATION",
+      "applicationDate": "2022-04-18T11:02:49.642Z",
+      "expirationDate": "2023-02-23T11:02:49.642Z",
+      "id": 57
     }
   ]
 }

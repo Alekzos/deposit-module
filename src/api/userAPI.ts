@@ -25,9 +25,3 @@ export const getUserByInn = async (appinn: string) => {
   const user = (response || []).filter((user) => user.inn === appinn);
   return user;
 };
-
-// export const getUserByInput = async (login: string) => {
-//   const response = await getUsers();
-//   const user = (response || []).filter((user) => user.login === login);
-//   return user;
-// };

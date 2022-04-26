@@ -129,32 +129,6 @@ export const ApplicationList = () => {
   };
 
   const sort = (headerCellName: string | keyof IProduct) => {
-    // if (filteredApplications && headerCellName) {
-    //   console.log(filteredApplications[0].product[headerCellName]);
-    // }
-    // let name = "title";
-    // console.log(filteredApplications[0].product["title"]);
-
-    // if (filteredApplications && headerCellName) {
-    //   let headCell: keyof IProduct = headerCellName;
-    //   console.log(filteredApplications[0].product[headCell]);
-    // }
-    // console.log("сортируем");
-    //вместо того, что ниже, хочу сделать проверку типа:
-    // if(filteredApplications[0].product[headCell])
-    // но ТС не дает
-
-    // //еще вариант, но таже ошибка
-    // if (productFields.includes(headerCellName)) {
-    //   console.log(headerCellName);
-    //   let headCell: keyof IProduct = headerCellName;
-    //   filteredApplications = orderBy(
-    //     filteredApplications,
-    //     (item) => item.product[headerCellName],
-    //     order
-    //   );
-    // }
-
     if (
       headerCellName === "title" ||
       headerCellName === "selectedDepositSum" ||
